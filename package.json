@@ -1,8 +1,9 @@
 {
-  "name": "dbguifall2020",
-  "version": "1.0.0",
+  "name": "app",
+  "version": "1.1.0",
   "description": "restful sql api",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "nodemon server.js --exec babel-node --presets env",
     "release": "npm run clean && npm run build && npm run serve",
@@ -19,6 +20,8 @@
   "author": "dylan furner",
   "license": "ISC",
   "dependencies": {
+    "@rama41222/node-logger": "^1.0.1",
+    "@types/node": "^14.10.1",
     "express": "^4.17.1",
     "mongoose": "^5.10.2"
   },

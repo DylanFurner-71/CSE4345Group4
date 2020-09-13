@@ -59,5 +59,3 @@ exports.deleteNote = (req, res) => {
         });
     });
 };
-
-//we can extract some of those titles into contants
