@@ -54,16 +54,17 @@ ROUTES:
         app.post('/notes') would post a new note. not exactly sure on how we call it with parameters wiht mongo db but we will learn
 
 Backend File Layout with explanations
-notes-app/
-├── controllers/
-│ └── notebookController.js //this is the file that contains anything to do with notebooks. REST operations that pertain to notebooks are called here
-├── models/ 
-|  └── notebookModel.js //models store example schema. There will be many of these files
-├── routes/
-│ └── index.js
-├── app.js
-├── server.js
-└── package.json
+notes-app/<br/>
+
+├── controllers/<br/>
+│ └── notebookController.js //this is the file that contains anything to do with notebooks. REST operations that pertain to notebooks are called here<br/>
+├── models/ <br/>
+|  └── notebookModel.js //models store example schema. There will be many of these files<br/>
+├── routes/ <br/>
+│ └── index.js <br/>
+├── app.js <br/>
+├── server.js <br/>
+└── package.json <br/>
 
 Running the Backend:
 Npm install app
