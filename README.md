@@ -53,12 +53,24 @@ ROUTES:
         app.get('/notes') gets notebook.getAllNotes
         app.post('/notes') would post a new note. not exactly sure on how we call it with parameters wiht mongo db but we will learn
 
+Backend File Layout with explanations
+notes-app/
+├── controllers/
+│ └── notebookController.js //this is the file that contains anything to do with notebooks. REST operations that pertain to notebooks are called here
+├── models/ 
+|  └── notebookModel.js //models store example schema. There will be many of these files
+├── routes/
+│ └── index.js
+├── app.js
+├── server.js
+└── package.json
+
 Running the Backend:
 Npm install app
 Npm run start 
 
 Running the Front End:
-
+This will likely be in a separate repository
 Colors.css
 https://clrs.cc/
 
