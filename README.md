@@ -62,7 +62,7 @@ notes-app/<br/>
 |  └── notebookModel.js //models store example schema. There will be many of these files<br/>
 ├── routes/ <br/>
 │ └── index.js <br/>
-├── app.js <br/>
+├── app.js <br/> //app.js is actually not currently included. Could change in future but unlikely. 
 ├── server.js <br/>
 └── package.json <br/>
 
