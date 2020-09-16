@@ -1,7 +1,7 @@
 import notebook from '../controllers/notebookController';
 
 export default (app) => {
-    app.route('/notes')
+    app.route('/notes') 
         .get(notebook.getAllNotes)
         .post(notebook.createNote);
 
@@ -10,3 +10,4 @@ export default (app) => {
         .put(notebook.updateNote)
         .delete(notebook.deleteNote);
 };
+
