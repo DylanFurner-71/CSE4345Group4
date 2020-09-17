@@ -17,8 +17,6 @@ exports.getUsers = async (req, res) =>{
 
 exports.createUser = async (req, res) => {
     const user = new User(req.body);
-
-
     try {
         const newUser = await user.save();
         res.json(newUser);
