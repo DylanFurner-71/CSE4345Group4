@@ -22,6 +22,7 @@ const UserSchema = mongoose.Schema({
     },
     lastLogin:{
         type: Date,
+        default: Date.now
     }
 });
 
