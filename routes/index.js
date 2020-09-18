@@ -1,21 +1,21 @@
 // import home from './home.js';
 // import notes from './notes.js';
-import homeController from '/Users/dylanfurner/Desktop/haircutUber/controllers/homeController.js';
-import notebook from '../controllers/notebookController';
+import * as homeController from '../controllers/homeController.js';
+import * as notebook from '../controllers/notebookController.js';
 
 export default (app) => {
     console.log('we made it to here');
-    //GET request
-    app.route('/home') 
-        .get(homeController.getHome);
-   app.route('/notes') 
-   .get(notebook.getAllNotes)
-   .post(notebook.createNote);
+    //HOME
+    app.route('/home').get(homeController.getHome);
+    
 
-app.route('/notes/:noteId')
-   .get(notebook.getNote)
-   .put(notebook.updateNote)
-   .delete(notebook.deleteNote);
+    //NOTES
+    app.route('/notes').get(notebook.getAllNotes);
+    app.route('/notes').post(notebook.createNote);
+    
+    app.route('/notes/:noteId').get(notebook.getNote);
+    app.route('/notes/:noteId').put(notebook.updateNote);
+    app.route('/notes/:noteId').delete(notebook.deleteNote);
 };
 
 
