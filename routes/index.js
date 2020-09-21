@@ -17,6 +17,3 @@ app.route('/notes/:noteId')
    .put(notebook.updateNote)
    .delete(notebook.deleteNote);
 };
-
-
-// module.export 

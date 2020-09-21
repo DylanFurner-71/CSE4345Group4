@@ -6,7 +6,6 @@ exports.getNote = (req, res) => {
         if (err) {
             res.send(err);
         }
-
         res.json(note);
     });
 };
