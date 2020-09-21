@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const UserSchema = mongoose.Schema(
+/**
+ * Create database scheme for notes
+ */
+const StylistSchema = new Schema(
   {
     firstName: {
       type: String,
@@ -25,6 +28,7 @@ const UserSchema = mongoose.Schema(
       default: Date.now,
     },
   },
-  { collection: "users" }
+  { collection: "stylists" }
 );
-export default mongoose.model("User", UserSchema);
+
+export default mongoose.model("Stylist", StylistSchema);
