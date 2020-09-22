@@ -3,8 +3,8 @@ import user from '../controllers/userController';
 export default function user (app) {
     
     // We must create routes for user
-    app.route('/notes') 
-        .get(notebook.getAllNotes)
+    app.route('/userlogin') 
+        .get(user.userLogin)
         .post(notebook.createNote);
 
     app.route('/notes/:noteId')

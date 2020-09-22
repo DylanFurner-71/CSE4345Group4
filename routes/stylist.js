@@ -3,8 +3,8 @@ import stylist from '../controllers/stylistController';
 export default function stylist (app) {
     
     // We must create routes for stylist
-    app.route('/notes') 
-        .get(notebook.getAllNotes)
+    app.route('/stylistlogin') 
+        .get(stylist.stylistLogin)
         .post(notebook.createNote);
 
     app.route('/notes/:noteId')
