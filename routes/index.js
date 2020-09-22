@@ -1,7 +1,7 @@
 // import home from './home.js';
 // import notes from './notes.js';
-import * as homeController from "/Users/dylanfurner/Desktop/haircutUber/controllers/homeController.js";
-import * as notebook from "../controllers/notebookController";
+import * as homeController from "../controllers/homeController.js";
+import * as notebook from "../controllers/notebookController.js";
 import * as user from "../controllers/userController.js";
 import * as stylist from "../controllers/stylistController.js";
 
@@ -25,7 +25,7 @@ export default (app) => {
   app.route("/stylists").get(stylist.getStylists);
   app.route("/stylist/stylistId").post(stylist.changePassword);
   app.route("/stylists/register").post(stylist.createStylist);
-  app.route("/stylist/login/:email/:password").get(stylist.stylistLogin);
+  app.route("/stylists/login/:email/:password").get(stylist.stylistLogin);
 };
 
 // module.export

@@ -12,18 +12,19 @@ export const getStylists = async (req, res) => {
 
 // Same as userlogin and finds the user with
 // the corresponding email and password pair
-export const stylistLogin = async(req, res) => {
-
-    const stylistEmail = req.params.stylistEmail;
-    const stylistPassword = req.params.stylistPassword;
-    try {
-    const currStylist = await Stylist.find({"email": stylistEmail, "password": stylistPassword});
-    res.status(200).send("Logged In");
+export const stylistLogin = async (req, res) => {
+  const stylistEmail = req.params.email;
+  const stylistPassword = req.params.password;
+  try {
+    const currStylist = await Stylist.findOne({
+      email: stylistEmail,
+      password: stylistPassword,
+    });
     res.json(currStylist);
-    } catch (err) {
-    res.status(400).json({ msg: err });
-    }
-}
+  } catch (err) {
+    res.json({ msg: err });
+  }
+};
 
 export const createStylist = async (req, res) => {
   const stylist = new Stylist(req.body);
