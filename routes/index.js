@@ -26,6 +26,9 @@ export default (app) => {
   app.route("/stylists/change/:stylistId").post(stylist.changePassword);
   app.route("/stylists/register").post(stylist.createStylist);
   app.route("/stylists/login/:email/:password").get(stylist.stylistLogin);
+
+  //this one right here, kirk (go to the stylistController for the logic if
+  //you want to see)
   app.route("/stylists/search").get(stylist.searchStylist);
 };
 
