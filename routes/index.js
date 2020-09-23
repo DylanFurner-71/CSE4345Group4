@@ -18,14 +18,15 @@ export default (app) => {
     .delete(notebook.deleteNote);
 
   app.route("/users").get(user.getUsers);
-  app.route("/users/:userId").post(user.changePassword);
+  app.route("/users/change/:userId").post(user.changePassword);
   app.route("/users/register").post(user.createUser);
   app.route("/users/login/:email/:password").get(user.userLogin);
 
   app.route("/stylists").get(stylist.getStylists);
-  app.route("/stylist/stylistId").post(stylist.changePassword);
+  app.route("/stylists/change/:stylistId").post(stylist.changePassword);
   app.route("/stylists/register").post(stylist.createStylist);
   app.route("/stylists/login/:email/:password").get(stylist.stylistLogin);
+  app.route("/stylists/search").get(stylist.searchStylist);
 };
 
 // module.export
