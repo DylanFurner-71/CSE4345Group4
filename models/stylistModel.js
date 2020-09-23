@@ -8,20 +8,50 @@ const StylistSchema = new Schema(
   {
     firstName: {
       type: String,
-      required: true,
+      required: [true, "Please Enter a First Name"],
     },
     lastName: {
       type: String,
-      required: true,
+      required: [true, "Please Enter a Last Name"],
     },
     email: {
       type: String,
       required: true,
-      unique: true,
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        "Please add a valid email",
+      ],
+      unique: [true, "Email already in use"],
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Please provide a password"],
+    },
+    photo: {
+      type: String,
+      default: "no-photo.jpg",
+    },
+    address: {
+      type: String,
+      default: "",
+    },
+    location: {
+      // GeoJSON Point
+      // Will take in address and generate a location
+      type: {
+        type: String,
+        enum: ["Point"],
+      },
+      coordinates: {
+        type: [Number],
+        index: "2dsphere",
+      },
+      formattedAddress: String,
+      street: String,
+      city: String,
+      state: String,
+      zipcode: String,
+      country: String,
     },
     lastLogin: {
       type: Date,
