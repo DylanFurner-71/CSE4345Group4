@@ -1,8 +1,10 @@
+/*eslint-disable*/
 import mongoose from "mongoose";
 import User from "../models/userModel.js";
 
 export const getUsers = async (req, res) => {
   // this is temporary, Corey is
+  console.log("Here are the Users");
   try {
     // working on this
     const users = await User.find();
@@ -16,11 +18,14 @@ export const getUsers = async (req, res) => {
 // the corresponding email and password pair
 export const userLogin = async(req, res) => {
 
-    const userEmail = req.params.userEmail;
-    const userPassword = req.params.userPassword;
+    const userEmail = req.body.email;
+    const userPassword = req.body.password;
     try {
-    const currUser = await User.find({"email": userEmail, "password": userPassword});
-    res.status(200).send("Logged In");
+    const currUser = await User.find(
+      {
+        "email": userEmail,
+        "password": userPassword
+      });
     res.json(currUser);
     } catch (err) {
     res.status(400).json({ msg: err });

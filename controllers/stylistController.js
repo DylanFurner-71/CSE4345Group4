@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import mongoose from "mongoose";
 import Stylist from "../models/stylistModel.js";
 
@@ -14,11 +15,15 @@ export const getStylists = async (req, res) => {
 // the corresponding email and password pair
 export const stylistLogin = async(req, res) => {
 
-    const stylistEmail = req.params.stylistEmail;
-    const stylistPassword = req.params.stylistPassword;
+    const stylistEmail = req.body.email;
+    const stylistPassword = req.body.password;
     try {
-    const currStylist = await Stylist.find({"email": stylistEmail, "password": stylistPassword});
-    res.status(200).send("Logged In");
+    const currStylist = await Stylist.findOne(
+      {
+        "email": stylistEmail, 
+        "password": stylistPassword
+      });
+    //res.status(200).send("Logged In");
     res.json(currStylist);
     } catch (err) {
     res.status(400).json({ msg: err });

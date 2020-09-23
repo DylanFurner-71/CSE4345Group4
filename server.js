@@ -1,12 +1,14 @@
-const mongoose = require('mongoose');
-const express = require('express');
-const router = require('express').Router();
-const cors = require('cors');
-const { log } = require('console');
-const https = require('https')
+/*eslint-disable*/
+import mongoose from 'mongoose';
+import express from 'express';
+const router = express.Router();
+import cors from 'cors';
+import { log } from 'console';
+import https from 'https';
 import routes from './routes/index.js';
-require('dotenv').config();
-import {ATLAS_URL} from '/Users/dylanfurner/Desktop/haircutUber/atlasConnect.js';
+import dotenv from 'dotenv';
+dotenv.config();
+import {ATLAS_URL} from './atlasConnect.js';
 const app = express();
 app.use(cors()); //configure the app
 app.use(express.json()); //configure the app
@@ -17,10 +19,9 @@ const url = ATLAS_URL; //this might be only temporary
 /**
     * Middleware
     */
-   const fs = require('fs');
+   import fs from 'fs';
    const key = fs.readFileSync('./key.pem');
    const cert = fs.readFileSync('./cert.pem');
-
 // const connection = mongoose.connection;
 // connection.set({useNewUrlParser: true, useCreateIndex: true});
 // connection.once('open', () => { //i think this is where you do calls to the database. Probably going to make it asynchronous

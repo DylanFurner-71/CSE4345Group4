@@ -1,6 +1,6 @@
-import mongoose, {
-    Schema
-} from 'mongoose';
+/*eslint-disable*/
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
 /**
  * Create database scheme for notes

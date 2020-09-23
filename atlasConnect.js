@@ -1,6 +1,13 @@
-import { MongoClient } from 'mongodb';
-const dbName = "testHaircutBE"; //the name of our database
-export const ATLAS_URL = `mongodb+srv://dfurner:<smu2020>@cluster0.tkm1w.azure.mongodb.net/<${dbName}>?retryWrites=true&w=majority`; //We are configuring urls here
+/*eslint-disable*/
+import { default as mongodb } from "mongodb";
+const MongoClient = mongodb.MongoClient;
+
+//const dbName = "testHaircutBE"; //the name of our database
+//our db
+//export const ATLAS_URL = `mongodb+srv://dfurner:<smu2020>@cluster0.tkm1w.azure.mongodb.net/<${dbName}>?retryWrites=true&w=majority`;
+//my db
+const dbName = "Testing";
+export const ATLAS_URL = `mongodb+srv://Corey:dyell1414@cluster0.i9dup.mongodb.net/test?authSource=admin&replicaSet=atlas-dbq9by-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true`; //We are configuring urls here
 const client = new MongoClient(ATLAS_URL);
 export default class atlassConnect {
 

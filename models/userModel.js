@@ -1,7 +1,8 @@
+/*eslint-disable*/
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const UserSchema = mongoose.Schema(
+const UserSchema = Schema(
   {
     firstName: {
       type: String,
@@ -25,6 +26,6 @@ const UserSchema = mongoose.Schema(
       default: Date.now,
     },
   },
-  { collection: "users" }
+  { collection: "User" }
 );
 export default mongoose.model("User", UserSchema);

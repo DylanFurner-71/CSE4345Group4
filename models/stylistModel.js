@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
@@ -28,7 +29,7 @@ const StylistSchema = new Schema(
       default: Date.now,
     },
   },
-  { collection: "stylists" }
+  { collection: "Stylist" }
 );
 
 export default mongoose.model("Stylist", StylistSchema);
