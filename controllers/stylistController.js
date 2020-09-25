@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 import Stylist from "../models/stylistModel.js";
 import querystring from "querystring";
 
+//@desc          Get all stylists from DB
+//@route         GET /stylists
+//@access        Private?
 export const getStylists = async (req, res) => {
   console.log("hello from getStylists");
   try {
@@ -12,8 +15,9 @@ export const getStylists = async (req, res) => {
   }
 };
 
-// Same as userlogin and finds the user with
-// the corresponding email and password pair
+//@desc          Login in stylist
+//@route         POST /stylists/login
+//@access        Public
 export const stylistLogin = async (req, res) => {
   const stylistEmail = req.body.email;
   const stylistPassword = req.body.password;
@@ -26,18 +30,19 @@ export const stylistLogin = async (req, res) => {
     if (currStylist) {
       res.status(200).json({ success: true, stylist: currStylist });
     } else {
-      res
-        .status(400)
-        .json({
-          success: false,
-          msg: "No stylist with that password/email combination",
-        });
+      res.status(400).json({
+        success: false,
+        msg: "No stylist with that password/email combination",
+      });
     }
   } catch (err) {
     res.status(400).json({ success: false, msg: err });
   }
 };
 
+//@desc          Register a new stylist account
+//@route         POST /stylists/register
+//@access        Public
 export const createStylist = async (req, res) => {
   const stylist = new Stylist(req.body);
   try {
@@ -48,8 +53,9 @@ export const createStylist = async (req, res) => {
   }
 };
 
-// don't know if this is proper, but it's how I'm doing it
-// for the moment
+//@desc          Change Stylist Password
+//@route         POST /stylists/change/:stylistID
+//@access        Private
 export const changePassword = async (req, res) => {
   const stylistId = req.params.stylistId;
   try {
@@ -62,6 +68,9 @@ export const changePassword = async (req, res) => {
   }
 };
 
+//@desc          Search STylist by name
+//@route         GET /stylists/search?name=xxxlastname=xxx
+//@access        Private?
 export const searchStylist = async (req, res) => {
   try {
     let queries = req.query.search.split(" ");

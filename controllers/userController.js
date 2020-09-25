@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 import User from "../models/userModel.js";
 
+//@desc          Allow User to create an account
+//@route         POST /users/register
+//@access        Public
 export const createUser = async (req, res) => {
   console.log("this is creatUser");
   const user = new User(req.body);
@@ -12,6 +15,10 @@ export const createUser = async (req, res) => {
     res.json({ msg: err });
   }
 };
+
+//@desc          Get all users and their information
+//@route         GET /users/
+//@access        Private?
 export const getUsers = async (req, res) => {
   console.log("hello there");
   try {
@@ -22,8 +29,9 @@ export const getUsers = async (req, res) => {
   }
 };
 
-// Same as stylist login and finds the user with
-// the corresponding email and password pair
+//@desc          Allow user to login by matching email and password
+//@route         POST /users/login
+//@access        Public
 export const userLogin = async (req, res) => {
   const userEmail = req.body.email;
   const userPassword = req.body.password;
@@ -46,8 +54,9 @@ export const userLogin = async (req, res) => {
   }
 };
 
-// don't know if this is proper, but it's how I'm doing it
-// for the moment
+//@desc          Allow User to change password
+//@route         POST users/change/:userId"
+//@access        Public
 export const changePassword = async (req, res) => {
   const userId = req.params.userId;
   try {
