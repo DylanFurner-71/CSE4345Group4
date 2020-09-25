@@ -20,12 +20,12 @@ export default (app) => {
   app.route("/users").get(user.getUsers);
   app.route("/users/change/:userId").post(user.changePassword);
   app.route("/users/register").post(user.createUser);
-  app.route("/users/login/:email/:password").get(user.userLogin);
+  app.route("/users/login/").post(user.userLogin);
 
   app.route("/stylists").get(stylist.getStylists);
   app.route("/stylists/change/:stylistId").post(stylist.changePassword);
   app.route("/stylists/register").post(stylist.createStylist);
-  app.route("/stylists/login/:email/:password").get(stylist.stylistLogin);
+  app.route("/stylists/login/").post(stylist.stylistLogin);
 
   //this one right here, kirk (go to the stylistController for the logic if
   //you want to see)

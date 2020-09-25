@@ -21,7 +21,7 @@ const StylistSchema = new Schema(
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
         "Please add a valid email",
       ],
-      unique: [true, "Email already in use"],
+      unique: true,
     },
     password: {
       type: String,

@@ -1,7 +1,7 @@
 import { default as mongodb } from "mongodb";
 const MongoClient = mongodb.MongoClient;
 
-const dbName = "testHaircutBE"; //the name of our database
+export const dbName = "testHaircutBE"; //the name of our database
 /* this is the db we will work with */
 //export const ATLAS_URL = `mongodb+srv://dfurner:<smu2020>@cluster0.tkm1w.azure.mongodb.net/<${dbName}>?retryWrites=true&w=majority`; //We are configuring urls here
 

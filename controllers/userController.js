@@ -25,17 +25,24 @@ export const getUsers = async (req, res) => {
 // Same as stylist login and finds the user with
 // the corresponding email and password pair
 export const userLogin = async (req, res) => {
-  const userEmail = req.params.userEmail;
-  const userPassword = req.params.userPassword;
+  const userEmail = req.body.email;
+  const userPassword = req.body.password;
   try {
-    const currUser = await User.find({
+    const currUser = await User.findOne({
       email: userEmail,
       password: userPassword,
     });
-    res.status(200).send("Logged In");
-    res.json(currUser);
+    console.log(currUser);
+    if (currUser) {
+      res.status(200).json({ success: true, user: currUser });
+    } else {
+      res.status(400).json({
+        success: false,
+        msg: "No user with that password/email combination",
+      });
+    }
   } catch (err) {
-    res.status(400).json({ msg: err });
+    res.status(400).json({ success: false, msg: err });
   }
 };
 

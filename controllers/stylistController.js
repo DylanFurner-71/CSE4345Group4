@@ -15,16 +15,26 @@ export const getStylists = async (req, res) => {
 // Same as userlogin and finds the user with
 // the corresponding email and password pair
 export const stylistLogin = async (req, res) => {
-  const stylistEmail = req.params.email;
-  const stylistPassword = req.params.password;
+  const stylistEmail = req.body.email;
+  const stylistPassword = req.body.password;
   try {
     const currStylist = await Stylist.findOne({
       email: stylistEmail,
       password: stylistPassword,
     });
-    res.json(currStylist);
+    console.log(currStylist);
+    if (currStylist) {
+      res.status(200).json({ success: true, stylist: currStylist });
+    } else {
+      res
+        .status(400)
+        .json({
+          success: false,
+          msg: "No stylist with that password/email combination",
+        });
+    }
   } catch (err) {
-    res.json({ msg: err });
+    res.status(400).json({ success: false, msg: err });
   }
 };
 
