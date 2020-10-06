@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'; 
 import note from '../models/notebookModel.js';
 
-exports.getNote = (req, res) => {
+export const getNote = (req, res) => {
     note.findById(req.params.noteId, (err, note) => {
         if (err) {
             res.send(err);
@@ -11,7 +11,7 @@ exports.getNote = (req, res) => {
     });
 };
 
-exports.getAllNotes = (req, res) => {
+export const getAllNotes = (req, res) => {
     note.find({}, (err, notes) => {
         if (err) {
             res.send(err);
@@ -21,7 +21,7 @@ exports.getAllNotes = (req, res) => {
     });
 };
 
-exports.createNote = (req, res) => {
+export const createNote = (req, res) => {
     const newNote = new note(req.body);
 
     newNote.save((err, note) => {
@@ -33,7 +33,7 @@ exports.createNote = (req, res) => {
     });
 };
 
-exports.updateNote = (req, res) => {
+export const updateNote = (req, res) => {
     note.findOneAndUpdate({
         _id: req.params.noteId
     }, req.body,
@@ -46,7 +46,7 @@ exports.updateNote = (req, res) => {
         });
 };
 
-exports.deleteNote = (req, res) => {
+export const deleteNote = (req, res) => {
     note.remove({
         _id: req.params.noteId
     }, (err) => {
