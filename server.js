@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const express = require('express');
 const router = require('express').Router();
 const cors = require('cors');
@@ -6,14 +5,13 @@ const { log } = require('console');
 const https = require('https')
 import routes from './routes/index.js';
 require('dotenv').config();
-import {ATLAS_URL} from '/Users/dylanfurner/Desktop/haircutUber/atlasConnect.js';
+const connectMongoose = require('./atlasConnect');
 const app = express();
 app.use(cors()); //configure the app
 app.use(express.json()); //configure the app
 app.use(router);
 //create the express.js object
 const port = 3000;
-const url = ATLAS_URL; //this might be only temporary
 /**
     * Middleware
     */
@@ -64,16 +62,10 @@ app.get('/', (req, res) => {
 
 const server = https.createServer({key: key, cert: cert }, app);
 //connecting the express object to listen on a particular port as defined in the config object.
- function connectMongoose(){
-  console.log("connecting mongoose");
-mongoose.connect(url, {
- useNewUrlParser: true,
- useUnifiedTopology: true
-})
-.then(() => {
- console.log('MongoDB Connected…');
-})
-}
+
+
+
+
 app.listen(config.port, config.host, (e) => {
   if (e) {
     throw new Error('Internal Server Error');

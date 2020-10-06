@@ -4,7 +4,6 @@ import homeController from '/Users/dylanfurner/Desktop/haircutUber/controllers/h
 import notebook from '../controllers/notebookController';
 
 export default (app) => {
-    console.log('we made it to here');
     //GET request
     app.route('/home') 
         .get(homeController.getHome);
