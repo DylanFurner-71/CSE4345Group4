@@ -1,5 +1,5 @@
 # haircutUber
-https://cheesecakelabs.com/blog/efficient-way-structure-react-native-projects/
+
 Source
 https://cloud.mongodb.com/v2/5f5ea857e59d5c55a72e081b#clusters
 
