@@ -5,7 +5,7 @@ import { ROUTES } from './routes'
 import {Provider} from "react-redux";
 import {setCurrentUser, logoutUser} from "./actions/authActions";
 import jwt_decode from "jwt-decode";
-import PrivateRoute from "./components/privateRoute"
+import PrivateRoute from "./components/PrivateRoute"
 import Navigation from "./components/navigation"
 import Landing from './components/landing'
 import Login from './components/login'
