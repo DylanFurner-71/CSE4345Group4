@@ -1,24 +1,23 @@
 import mongoose from "mongoose";
 import Stylist from "../models/stylistModel.js";
-import querystring from "querystring";
 
 //@desc          Get all stylists from DB
 //@route         GET /stylists
 //@access        Private?
-export const getStylists = async (req, res) => {
+export const getStylists = async (req, res, next) => {
   console.log("hello from getStylists");
   try {
     const stylist = await Stylist.find();
     res.json(stylist);
   } catch (err) {
-    res.json({ msg: err });
+    next(err);
   }
 };
 
 //@desc          Login in stylist
 //@route         POST /stylists/login
 //@access        Public
-export const stylistLogin = async (req, res) => {
+export const stylistLogin = async (req, res, next) => {
   const stylistEmail = req.body.email;
   const stylistPassword = req.body.password;
   try {
@@ -36,27 +35,27 @@ export const stylistLogin = async (req, res) => {
       });
     }
   } catch (err) {
-    res.status(400).json({ success: false, msg: err });
+    next(err);
   }
 };
 
 //@desc          Register a new stylist account
 //@route         POST /stylists/register
 //@access        Public
-export const createStylist = async (req, res) => {
+export const createStylist = async (req, res, next) => {
   const stylist = new Stylist(req.body);
   try {
     const newStylist = await stylist.save();
     res.json(newStylist);
   } catch (err) {
-    res.json({ msg: err });
+    next(err);
   }
 };
 
 //@desc          Change Stylist Password
 //@route         POST /stylists/change/:stylistID
 //@access        Private
-export const changePassword = async (req, res) => {
+export const changePassword = async (req, res, next) => {
   const stylistId = req.params.stylistId;
   try {
     const currStylist = await Stylist.findById(req.params.stylistId);
@@ -64,7 +63,7 @@ export const changePassword = async (req, res) => {
     await currStylist.save();
     res.status(200).send("password updated");
   } catch (err) {
-    res.status(400).json({ msg: err });
+    next(err);
   }
 };
 

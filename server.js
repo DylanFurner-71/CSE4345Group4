@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import routes from "./routes/index.js";
+import { errorHandler } from "./middleware/error.js";
 
 const app = express();
 const port = 3000;
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 });
 
 routes(app);
+app.use(errorHandler);
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
