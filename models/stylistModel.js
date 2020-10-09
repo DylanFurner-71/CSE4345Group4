@@ -61,4 +61,6 @@ const StylistSchema = new Schema(
   { collection: "stylists" }
 );
 
+// Mongoose Hooks
+
 export default mongoose.model("Stylist", StylistSchema);

@@ -24,6 +24,28 @@ const UserSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a password"],
     },
+    address: {
+      type: String,
+      default: "",
+    },
+    location: {
+      // GeoJSON Point
+      // Will take in address and generate a location
+      type: {
+        type: String,
+        enum: ["Point"],
+      },
+      coordinates: {
+        type: [Number],
+        index: "2dsphere",
+      },
+      formattedAddress: String,
+      street: String,
+      city: String,
+      state: String,
+      zipcode: String,
+      country: String,
+    },
     lastLogin: {
       type: Date,
       default: Date.now,

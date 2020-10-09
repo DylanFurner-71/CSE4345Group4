@@ -1,23 +1,22 @@
-import { default as mongodb } from "mongodb";
-const MongoClient = mongodb.MongoClient;
+import mongoose from "mongoose";
 
 export const dbName = "testHaircutBE"; //the name of our database
-/* this is the db we will work with */
-//export const ATLAS_URL = `mongodb+srv://dfurner:<smu2020>@cluster0.tkm1w.azure.mongodb.net/<${dbName}>?retryWrites=true&w=majority`; //We are configuring urls here
 
-export const ATLAS_URL = `mongodb+srv://elisego45:120060@segoviacluster0.zz1fg.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+const amTesting = true; // this is a bool to test on my mongo database
+// Can get rid of when ready to move into actual DB
 
-const client = new MongoClient(ATLAS_URL);
-export default class atlassConnect {}
+const testName = // again this is just a testing environment for me atm.
+  "mongodb+srv://elisego45:120060@segoviacluster0.zz1fg.mongodb.net/testHaircutBE?retryWrites=true&w=majority";
 
-export async function connect() {
-  console.log("we are here234234234234");
-  try {
-    await client.connect();
-    console.log("Connected correctly to server");
-  } catch (err) {
-    console.log(err.stack);
-  } finally {
-    await client.close();
-  }
-}
+// this is the DB we are actually going to use.
+const finalName = `mongodb+srv://dfurner:smu2020@cluster0.tkm1w.azure.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+
+export const ATLAS_URL = amTesting ? testName : finalName; // setting the uri to appropriate.
+
+export const mongooseConnect = async () => {
+  await mongoose
+    .connect(ATLAS_URL, { useUnifiedTopology: true, useCreateIndex: true })
+    .then(() => {
+      console.log("MongoDB database connection established successfully");
+    });
+};
