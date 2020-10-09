@@ -1,11 +1,11 @@
 import NodeGeocoder from "node-geocoder";
 import dotenv from "dotenv";
-dotenv.config({ path: "./../config/config.env" });
+dotenv.config({ path: "./config/config.env" });
 
 const options = {
-  provider: "locationiq",
+  provider: process.env.GEOCODER_PROVIDER,
   httpAdapter: "https",
-  apiKey: "2a2e2bc443e1a6",
+  apiKey: process.env.GEOCODER_API_KEY,
   formatter: null,
 };
 

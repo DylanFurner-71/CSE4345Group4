@@ -19,7 +19,5 @@ app.get("/", (req, res) => {
 routes(app);
 
 app.listen(process.env.PORT, () => {
-  console.log(process.env.GEOCODER_API_KEY);
-  console.log(process.env.GEOCODER_PROVIDER);
   console.log(`Server is running on port: ${process.env.PORT}`);
 });
