@@ -1,10 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "./config/config.env" });
 import express from "express";
 import cors from "cors";
 import routes from "./routes/index.js";
 import { mongooseConnect } from "./atlasConnect.js";
 
 const app = express();
-const port = 8000;
 
 app.use(cors());
 app.use(express.json());
@@ -17,6 +18,8 @@ app.get("/", (req, res) => {
 
 routes(app);
 
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(process.env.GEOCODER_API_KEY);
+  console.log(process.env.GEOCODER_PROVIDER);
+  console.log(`Server is running on port: ${process.env.PORT}`);
 });

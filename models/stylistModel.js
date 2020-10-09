@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
+import { geocoder } from "../utils/geocoder.js";
 
 /**
  * Create database scheme for notes
@@ -33,7 +34,6 @@ const StylistSchema = new Schema(
     },
     address: {
       type: String,
-      default: "",
     },
     location: {
       // GeoJSON Point
@@ -61,6 +61,23 @@ const StylistSchema = new Schema(
   { collection: "stylists" }
 );
 
-// Mongoose Hooks
+// --------- Mongoose Hooks ----------------
+StylistSchema.pre("save", async function (next) {
+  console.log("here is johnny");
+  const loc = await geocoder.geocode(this.address);
+
+  this.location = {
+    type: "Point",
+    coordinates: [loc[0].longitude, loc[0].latitude],
+    formattedAddress: loc[0].formattedAddress,
+    street: loc[0].streetName,
+    city: loc[0].city,
+    state: loc[0].stateCode,
+    zipcode: loc[0].zipcode,
+    country: loc[0].countryCode,
+  };
+  this.address = undefined;
+  next();
+});
 
 export default mongoose.model("Stylist", StylistSchema);

@@ -4,6 +4,7 @@ import * as homeController from "../controllers/homeController.js";
 import * as notebook from "../controllers/notebookController.js";
 import * as user from "../controllers/userController.js";
 import * as stylist from "../controllers/stylistController.js";
+import { errorHandler } from "../middleware/error.js";
 
 export default (app) => {
   console.log("we made it to here");
@@ -30,6 +31,8 @@ export default (app) => {
   //this one right here, kirk (go to the stylistController for the logic if
   //you want to see)
   app.route("/stylists/search").get(stylist.searchStylist);
+
+  app.use(errorHandler);
 };
 
 // module.export
