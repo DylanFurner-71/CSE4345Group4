@@ -29,13 +29,15 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.2",
+<<<<<<< HEAD
     "node-geocoder": "^3.27.0"
+=======
+    "redux-thunk": "^2.3.0"
+>>>>>>> 6477959719d243c526def3ec0c07d550b4bb806c
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "eslint": "^7.9.0",
-    "eslint-config-google": "^0.14.0",
     "nodemon": "^2.0.4"
   }
 }
