@@ -23,9 +23,9 @@ C/O https://placeholder.com/" alt="Logo" />
                                     width: "140px",
                                     borderRadius: "3px",
                                     letterSpacing: "1.5px",
-                                    padding: "12px"
+                                  
                                 }}
-                                className="btn btn-large btn-flat waves-effect blue black-text"
+                                className="btn btn-large btn-flat waves-effect blue black-text m-2"
                             >Log In</Link>
                             <Link
                                 to="/register"
@@ -33,9 +33,9 @@ C/O https://placeholder.com/" alt="Logo" />
                                     width: "140px",
                                     borderRadius: "3px",
                                     letterSpacing: "1.5px",
-                                    padding: "12px"
+                                    
                                 }}
-                                className="btn btn-large btn-flat waves-effect blue black-text"
+                                className="btn btn-large btn-flat waves-effect blue black-text m-2"
                             >Register</Link>
                         </div>
                     </div>

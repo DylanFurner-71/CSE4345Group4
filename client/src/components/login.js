@@ -18,13 +18,13 @@ class Login extends Component {
     componentDidMount() {
         // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/home");
+            this.props.history.push("/");
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/home"); // push user to dashboard when they login
+            this.props.history.push("/"); // push user to dashboard when they login
         }
         if (nextProps.error) {
             this.setState({
@@ -52,15 +52,14 @@ class Login extends Component {
                 <div style={{marginTop: "4rem"}} className="row">
                     <div className="col offset-s2">
                         <Link to="/" className="btn-flat waves-effect">
-                            <i className="material-icons left">keyboard_backspace</i> Back to
-                            home
+                            Back to home
                         </Link>
                         <div className="col s12" style={{paddingLeft: "11.250px"}}>
                             <h4>
                                 <b>Login</b> below
                             </h4>
                             <p className="grey-text text-darken-1">
-                                Don't have an account yet? Please get an account from the administrator!
+                                Don't have an account yet? <Link to="/register">Register</Link> Now!
                             </p>
                         </div>
                         <form onSubmit={this.onSubmit}>

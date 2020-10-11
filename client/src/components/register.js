@@ -46,7 +46,7 @@ class Register extends Component {
                     <div className="col s8 offset-s2">
                         <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                             <h4>
-                                <b>Register</b> a user below
+                                <b>Register</b>
                             </h4>
                         </div>
                         <form noValidate onSubmit={this.onSubmit}>

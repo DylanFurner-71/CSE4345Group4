@@ -9,7 +9,7 @@ import {
 // Register User
 export const registerUser = (userData, history) => dispatch => {
     axios
-        .post("/api/users/register", userData)
+        .post("/users/register", userData)
         .then(() => history.push("/login")) // re-direct to login on successful register
         .catch(err =>
             dispatch({
@@ -22,7 +22,7 @@ export const registerUser = (userData, history) => dispatch => {
 // Change Password
 export const changePassword = (userData, history) => dispatch => {
     axios
-        .post("/api/users/changePassword", userData)
+        .post("/users/changePassword", userData)
         .then(() => history.push("/home")) // re-direct to home after changing password
         .catch(err =>
             dispatch({
@@ -35,7 +35,7 @@ export const changePassword = (userData, history) => dispatch => {
 // Login - get user token
 export const loginUser = userData => dispatch => {
     axios
-        .post("/api/users/login", userData)
+        .post("/users/login", userData)
         .then(res => {
             // Save to localStorage
 // Set token to localStorage
