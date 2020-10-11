@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 import { geocoder } from "../utils/geocoder.js";
+import bcrypt from 'bcryptjs';
+import jwt from "jsonwebtoken";
 
 const UserSchema = mongoose.Schema(
   {
@@ -24,6 +26,7 @@ const UserSchema = mongoose.Schema(
     password: {
       type: String,
       required: [true, "Please add a password"],
+      select: false
     },
     address: {
       type: String,
@@ -63,7 +66,15 @@ const UserSchema = mongoose.Schema(
   },
   { collection: "users" }
 );
+
+//Mongoose Hooks
+
+// Using Locationiq to get long/lat from user address.
 UserSchema.pre("save", async function (next) {
+
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+
   if (this.address) {
     const loc = await geocoder.geocode(this.address);
 
@@ -81,5 +92,15 @@ UserSchema.pre("save", async function (next) {
   }
   next();
 });
+
+
+// Sign JWT and return
+
+UserSchema.methods.getSignedJwtToken = function(){
+  return jwt.sign({id: this._id}, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE
+  })
+}
+
 
 export default mongoose.model("User", UserSchema);

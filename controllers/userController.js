@@ -10,7 +10,12 @@ export const createUser = async (req, res, next) => {
   try {
     const newUser = await user.save();
     console.log(newUser);
-    res.json(newUser);
+    //create token
+    const token = user.getSignedJwtToken();
+    console.log(token);
+
+
+    res.json({sucess:true, token, newUser});
   } catch (err) {
     next(err);
   }

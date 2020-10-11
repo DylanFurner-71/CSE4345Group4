@@ -27,6 +27,7 @@ const StylistSchema = new Schema(
     password: {
       type: String,
       required: [true, "Please provide a password"],
+      select: false
     },
     photo: {
       type: String,
@@ -57,6 +58,10 @@ const StylistSchema = new Schema(
     lastLogin: {
       type: Date,
       default: Date.now,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now
     },
     role: {
       type: String,

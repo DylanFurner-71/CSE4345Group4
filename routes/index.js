@@ -28,6 +28,8 @@ export default (app) => {
   app.route("/stylists/register").post(stylist.createStylist);
   app.route("/stylists/login/").post(stylist.stylistLogin);
 
+
+
   //this one right here, kirk (go to the stylistController for the logic if
   //you want to see)
   app.route("/stylists/search").get(stylist.searchStylist);
