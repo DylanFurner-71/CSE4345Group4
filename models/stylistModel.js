@@ -34,6 +34,7 @@ const StylistSchema = new Schema(
     },
     address: {
       type: String,
+      required: [true, "Must Provide address of business location"],
     },
     location: {
       // GeoJSON Point
@@ -56,6 +57,11 @@ const StylistSchema = new Schema(
     lastLogin: {
       type: Date,
       default: Date.now,
+    },
+    role: {
+      type: String,
+      enum: ["stylist"],
+      default: "stylist",
     },
   },
   { collection: "stylists" }

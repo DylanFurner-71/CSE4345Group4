@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
+import { geocoder } from "../utils/geocoder.js";
 
 const UserSchema = mongoose.Schema(
   {
@@ -54,7 +55,31 @@ const UserSchema = mongoose.Schema(
       type: String,
       default: "no-photo.jpg",
     },
+    role: {
+      type: String,
+      enum: ["user"],
+      default: "user",
+    },
   },
   { collection: "users" }
 );
+UserSchema.pre("save", async function (next) {
+  if (this.address) {
+    const loc = await geocoder.geocode(this.address);
+
+    this.location = {
+      type: "Point",
+      coordinates: [loc[0].longitude, loc[0].latitude],
+      formattedAddress: loc[0].formattedAddress,
+      street: loc[0].streetName,
+      city: loc[0].city,
+      state: loc[0].stateCode,
+      zipcode: loc[0].zipcode,
+      country: loc[0].countryCode,
+    };
+    this.address = undefined;
+  }
+  next();
+});
+
 export default mongoose.model("User", UserSchema);
