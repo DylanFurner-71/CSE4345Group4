@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 import { geocoder } from "../utils/geocoder.js";
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const UserSchema = mongoose.Schema(
@@ -26,7 +26,7 @@ const UserSchema = mongoose.Schema(
     password: {
       type: String,
       required: [true, "Please add a password"],
-      select: false
+      select: false,
     },
     address: {
       type: String,
@@ -71,7 +71,7 @@ const UserSchema = mongoose.Schema(
 
 // Using Locationiq to get long/lat from user address.
 UserSchema.pre("save", async function (next) {
-
+  console.log("this happened");
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 
@@ -93,14 +93,18 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-
 // Sign JWT and return
 
-UserSchema.methods.getSignedJwtToken = function(){
-  return jwt.sign({id: this._id}, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE
-  })
-}
+UserSchema.methods.getSignedJwtToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+};
 
+// Match plain pwd and hashed pwd
+
+UserSchema.methods.matchPassword = async function (plain) {
+  return await bcrypt.compare(plain, this.password);
+};
 
 export default mongoose.model("User", UserSchema);

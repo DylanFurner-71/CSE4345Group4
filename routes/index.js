@@ -19,6 +19,7 @@ export default (app) => {
     .delete(notebook.deleteNote);
 
   app.route("/users").get(user.getUsers);
+  app.route("/users/:id").put(user.updateUser);
   app.route("/users/change/:userId").post(user.changePassword);
   app.route("/users/register").post(user.createUser);
   app.route("/users/login/").post(user.userLogin);
@@ -27,8 +28,6 @@ export default (app) => {
   app.route("/stylists/change/:stylistId").post(stylist.changePassword);
   app.route("/stylists/register").post(stylist.createStylist);
   app.route("/stylists/login/").post(stylist.stylistLogin);
-
-
 
   //this one right here, kirk (go to the stylistController for the logic if
   //you want to see)
