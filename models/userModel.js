@@ -71,11 +71,17 @@ const UserSchema = mongoose.Schema(
 
 // Using Locationiq to get long/lat from user address.
 UserSchema.pre("save", async function (next) {
-  console.log("this happened");
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  // check if the document is new and see if password has been modified to
+  // rehash and resalt as needed
+  if (this.isNew || this.isModified("password")) {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+  }
 
-  if (this.address) {
+  // check if docuemnt is new and address exists and also checks if address
+  // hass been modified to avoid using api when not necessary
+  if ((this.isNew && this.address) || this.isModified("address")) {
+    console.log("api function executed");
     const loc = await geocoder.geocode(this.address);
 
     this.location = {
@@ -84,11 +90,10 @@ UserSchema.pre("save", async function (next) {
       formattedAddress: loc[0].formattedAddress,
       street: loc[0].streetName,
       city: loc[0].city,
-      state: loc[0].stateCode,
+      state: loc[0].state,
       zipcode: loc[0].zipcode,
       country: loc[0].countryCode,
     };
-    this.address = undefined;
   }
   next();
 });

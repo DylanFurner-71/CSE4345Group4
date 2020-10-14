@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Stylist from "../models/stylistModel.js";
+import ErrorResponse from "../utils/errorResponse.js";
 
 //@desc          Get all stylists from DB
 //@route         GET /stylists
@@ -18,22 +19,25 @@ export const getStylists = async (req, res, next) => {
 //@route         POST /stylists/login
 //@access        Public
 export const stylistLogin = async (req, res, next) => {
-  const stylistEmail = req.body.email;
-  const stylistPassword = req.body.password;
+  const email = req.body.email;
+  const password = req.body.password;
+  if (!email || !password) {
+    return next(new ErrorResponse("Please provide an email and password", 400));
+  }
   try {
-    const currStylist = await Stylist.findOne({
-      email: stylistEmail,
-      password: stylistPassword,
-    });
+    const currStylist = await Stylist.findOne({ email }).select("+password");
     console.log(currStylist);
-    if (currStylist) {
-      res.status(200).json({ success: true, stylist: currStylist });
-    } else {
-      res.status(400).json({
-        success: false,
-        msg: "No stylist with that password/email combination",
-      });
+    if (!currStylist) {
+      return next(new ErrorResponse("Invalid Credentials", 401));
     }
+    const isMatch = await currStylist.matchPassword(password);
+    if (!isMatch) {
+      return next(new ErrorResponse("Invalid Credentials", 401));
+    }
+    const token = currStylist.getSignedJwtToken();
+    currStylist.lastLogin = Date.now();
+    currStylist.save();
+    res.status(200).json({ success: true, token, stylist: currStylist });
   } catch (err) {
     next(err);
   }
@@ -46,9 +50,40 @@ export const createStylist = async (req, res, next) => {
   const stylist = new Stylist(req.body);
   try {
     const newStylist = await stylist.save();
-    res.json(newStylist);
+    console.log(newStylist);
+    //create token
+    const token = stylist.getSignedJwtToken();
+
+    res.json({ sucess: true, token, newStylist });
   } catch (err) {
     next(err);
+  }
+};
+
+export const updateStylist = async (req, res, next) => {
+  try {
+    const stylist = await Stylist.findById(req.params.id);
+
+    if (!stylist) {
+      return next(new ErrorResponse("Cannot Find Resource", 404));
+    }
+    console.log("stylist:");
+    console.log(stylist);
+    ["address", "firstName", "lastName", "photo", "businessName"].forEach(
+      (prop) => {
+        if (req.body[prop] && req.body[prop] !== stylist[prop]) {
+          console.log("only see when changed");
+          stylist[prop] = req.body[prop];
+        }
+      }
+    );
+    await stylist.save();
+    res.status(200).json({
+      sucess: true,
+      stylist,
+    });
+  } catch (err) {
+    return next(new ErrorResponse(err));
   }
 };
 

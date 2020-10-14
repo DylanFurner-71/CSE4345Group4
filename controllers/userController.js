@@ -9,7 +9,6 @@ export const createUser = async (req, res, next) => {
   const user = new User(req.body);
   try {
     const newUser = await user.save();
-    console.log(newUser);
     //create token
     const token = user.getSignedJwtToken();
 
@@ -19,17 +18,28 @@ export const createUser = async (req, res, next) => {
   }
 };
 
+//@desc          Update user based on userId
+//@route         PUT /users/:id
+//@access        Private
 export const updateUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
-    user.set(req.body);
-    const updated = await user.save();
+    if (!user) {
+      return next(new ErrorResponse("Cannot Find Resource", 404));
+    }
+    ["address", "firstName", "lastName", "photo"].forEach((prop) => {
+      if (req.body[prop] && req.body[prop] !== user[prop]) {
+        console.log("only see when changed");
+        user[prop] = req.body[prop];
+      }
+    });
+    await user.save();
     res.status(200).json({
       sucess: true,
       user,
     });
   } catch (err) {
-    return next(new ErrorResponse(err.message, 404));
+    return next(err);
   }
 };
 
@@ -65,6 +75,9 @@ export const userLogin = async (req, res, next) => {
       return next(new ErrorResponse("Invalid Credentials", 401));
     }
     const token = currUser.getSignedJwtToken();
+    currUser.lastLogin = Date.now();
+    currUser.save();
+    console.log(currUser);
     res.status(200).json({ success: true, token, user: currUser });
   } catch (err) {
     next(err);
