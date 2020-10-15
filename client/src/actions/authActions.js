@@ -19,6 +19,18 @@ export const registerUser = (userData, history) => dispatch => {
         );
 };
 
+//registerSylistUserWillBe updated once I figure out how to correctlyCheck the texas ID database
+export const registerUserStylist = (userData, history) => dispatch => {
+    axios
+        .post("/api/users/registerStyleUser", userData)
+        .then(() => history.push("/stylistLanding")) // re-direct to login on successful register
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
+};
 // Change Password
 export const changePassword = (userData, history) => dispatch => {
     axios
