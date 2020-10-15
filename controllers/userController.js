@@ -87,6 +87,7 @@ export const userLogin = async (req, res, next) => {
 //@desc          Allow User to change password
 //@route         POST users/change/:userId"
 //@access        Private
+// Needs to change !!!
 export const changePassword = async (req, res, next) => {
   const userId = req.params.userId;
   try {

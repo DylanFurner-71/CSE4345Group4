@@ -90,6 +90,7 @@ export const updateStylist = async (req, res, next) => {
 //@desc          Change Stylist Password
 //@route         POST /stylists/change/:stylistID
 //@access        Private
+// needs to change!!!
 export const changePassword = async (req, res, next) => {
   const stylistId = req.params.stylistId;
   try {
