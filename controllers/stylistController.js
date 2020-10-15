@@ -1,56 +1,90 @@
 import mongoose from "mongoose";
 import Stylist from "../models/stylistModel.js";
-import querystring from "querystring";
+import ErrorResponse from "../utils/errorResponse.js";
 
 //@desc          Get all stylists from DB
 //@route         GET /stylists
 //@access        Private?
-export const getStylists = async (req, res) => {
+export const getStylists = async (req, res, next) => {
   console.log("hello from getStylists");
   try {
     const stylist = await Stylist.find();
     res.json(stylist);
   } catch (err) {
-    res.json({ msg: err });
+    next(err);
   }
 };
 
 //@desc          Login in stylist
 //@route         POST /stylists/login
 //@access        Public
-export const stylistLogin = async (req, res) => {
-  const stylistEmail = req.body.email;
-  const stylistPassword = req.body.password;
+export const stylistLogin = async (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  if (!email || !password) {
+    return next(new ErrorResponse("Please provide an email and password", 400));
+  }
   try {
-    const currStylist = await Stylist.findOne({
-      email: stylistEmail,
-      password: stylistPassword,
-    });
+    const currStylist = await Stylist.findOne({ email }).select("+password");
     console.log(currStylist);
-    if (currStylist) {
-      res.status(200).json({ success: true, stylist: currStylist });
-    } else {
-      res.status(400).json({
-        success: false,
-        msg: "No stylist with that password/email combination",
-      });
+    if (!currStylist) {
+      return next(new ErrorResponse("Invalid Credentials", 401));
     }
+    const isMatch = await currStylist.matchPassword(password);
+    if (!isMatch) {
+      return next(new ErrorResponse("Invalid Credentials", 401));
+    }
+    const token = currStylist.getSignedJwtToken();
+    currStylist.lastLogin = Date.now();
+    currStylist.save();
+    res.status(200).json({ success: true, token, stylist: currStylist });
   } catch (err) {
-    res.status(400).json({ success: false, msg: err });
+    next(err);
   }
 };
 
 //@desc          Register a new stylist account
 //@route         POST /stylists/register
 //@access        Public
-export const createStylist = async (req, res) => {
+export const createStylist = async (req, res, next) => {
   const stylist = new Stylist(req.body);
   try {
     stylist.save();
     console.log(stylist);
     res.json(newStylist);
+    //create token
+    const token = stylist.getSignedJwtToken();
+
+    res.json({ sucess: true, token, newStylist });
   } catch (err) {
-    res.json({ msg: err });
+    next(err);
+  }
+};
+
+export const updateStylist = async (req, res, next) => {
+  try {
+    const stylist = await Stylist.findById(req.params.id);
+
+    if (!stylist) {
+      return next(new ErrorResponse("Cannot Find Resource", 404));
+    }
+    console.log("stylist:");
+    console.log(stylist);
+    ["address", "firstName", "lastName", "photo", "businessName"].forEach(
+      (prop) => {
+        if (req.body[prop] && req.body[prop] !== stylist[prop]) {
+          console.log("only see when changed");
+          stylist[prop] = req.body[prop];
+        }
+      }
+    );
+    await stylist.save();
+    res.status(200).json({
+      sucess: true,
+      stylist,
+    });
+  } catch (err) {
+    return next(new ErrorResponse(err));
   }
   
 };
@@ -58,7 +92,8 @@ export const createStylist = async (req, res) => {
 //@desc          Change Stylist Password
 //@route         POST /stylists/change/:stylistID
 //@access        Private
-export const changePassword = async (req, res) => {
+// needs to change!!!
+export const changePassword = async (req, res, next) => {
   const stylistId = req.params.stylistId;
   try {
     const currStylist = await Stylist.findById(req.params.stylistId);
@@ -66,7 +101,7 @@ export const changePassword = async (req, res) => {
     await currStylist.save();
     res.status(200).send("password updated");
   } catch (err) {
-    res.status(400).json({ msg: err });
+    next(err);
   }
 };
 
