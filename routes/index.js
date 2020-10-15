@@ -10,13 +10,6 @@ export default (app) => {
   //GET request
   app.route("/home").get(homeController.getHome);
   app.route("/notes").get(notebook.getAllNotes).post(notebook.createNote);
-
-  app
-    .route("/notes/:noteId")
-    .get(notebook.getNote)
-    .put(notebook.updateNote)
-    .delete(notebook.deleteNote);
-
   app.route("/users").get(user.getUsers);
   app.route("/users/change/:userId").post(user.changePassword);
   app.route("/users/register").post(user.createUser);

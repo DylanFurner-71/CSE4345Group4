@@ -23,6 +23,10 @@ const StylistSchema = new Schema(
       ],
       unique: true,
     },
+    texasID: {
+      type: String,
+      required: true,
+    },
     password: {
       type: String,
       required: [true, "Please provide a password"],
@@ -61,4 +65,6 @@ const StylistSchema = new Schema(
   { collection: "stylists" }
 );
 
+
+//would it be posssibel to add the cosmetology license here?
 export default mongoose.model("Stylist", StylistSchema);

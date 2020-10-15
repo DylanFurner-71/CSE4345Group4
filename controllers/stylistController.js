@@ -91,3 +91,6 @@ export const searchStylist = async (req, res) => {
     res.status(400).json({ msg: err });
   }
 };
+
+export const searchStylistCosmetologyID = async (req, res) => { //what do i do here do I do anything here I don't know its late
+};

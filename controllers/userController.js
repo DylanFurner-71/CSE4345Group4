@@ -7,8 +7,9 @@ import User from "../models/userModel.js";
 export const createUser = async (req, res) => {
   console.log("this is creatUser");
   const user = new User(req.body);
+  console.log(req.body);
   try {
-    const newUser = await user.save();
+    user.save();
     console.log(newUser);
     res.json(newUser);
   } catch (err) {

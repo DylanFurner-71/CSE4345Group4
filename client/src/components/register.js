@@ -8,7 +8,8 @@ class Register extends Component {
     constructor() {
         super();
         this.state = {
-            name: "",
+            firstName: "",
+            lastName: "",
             email: "",
             password: "",
             password2: "",
@@ -31,7 +32,8 @@ class Register extends Component {
     onSubmit = e => {
         e.preventDefault();
         const newUser = {
-            name: this.state.name,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
             email: this.state.email,
             password: this.state.password,
             password2: this.state.password2
@@ -53,16 +55,30 @@ class Register extends Component {
                             <div className="input-field col s12">
                                 <input
                                     onChange={this.onChange}
-                                    value={this.state.name}
-                                    error={error.name}
-                                    id="name"
+                                    value={this.state.firstName}
+                                    error={error.firstName}
+                                    id="firstName"
                                     type="text"
                                     className={classnames("", {
                                         invalid: error.name
                                     })}
                                 />
-                                <label htmlFor="name">Name</label>
-                                <span className="red-text">{error.name}</span>
+                                <label htmlFor="firstName"> First Name</label>
+                                <span className="red-text">{error.firstName}</span>
+                            </div>
+                            <div className="input-field col s12">
+                                <input
+                                    onChange={this.onChange}
+                                    value={this.state.lastName}
+                                    error={error.lastName}
+                                    id="lastName"
+                                    type="text"
+                                    className={classnames("", {
+                                        invalid: error.name
+                                    })}
+                                />
+                                <label htmlFor="lastName"> Last Name</label>
+                                <span className="red-text">{error.lastName}</span>
                             </div>
                             <div className="input-field col s12">
                                 <input
@@ -116,6 +132,7 @@ class Register extends Component {
                                     }}
                                     type="submit"
                                     className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                                    onClick = {this.onSubmit}
                                 >
                                     Sign up
                                 </button>
