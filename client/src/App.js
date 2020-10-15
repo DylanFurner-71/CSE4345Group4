@@ -11,8 +11,8 @@ import Login from './components/login'
 import Register from './components/register'
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
-import { registerStylistUser } from './components/stylist/registerStylistUser.js';
-import stylistLanding from './components/stylist/stylistLanding.js';
+import registerStylistUser from './components/stylist/registerStylistUser';
+import stylistLanding from '/Users/dylanfurner/Desktop/haircutUber/client/src/components/stylist/stylistLanding.js';
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
     // Set auth token header auth
@@ -43,7 +43,7 @@ function App() {
 	                <Route exact path="/login" component={Login}/>
 	                <Route exact path="/register" component={Register}/>
                     <Route exact path="/stylists/register" component={registerStylistUser}/>
-                    <Route exact path="/stylists/login/" component = {stylistLanding}/>
+                    <Route exact path="/stylists/stylistLanding" component = {stylistLanding}/>
 	                {/* <Switch>
 	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch> */}

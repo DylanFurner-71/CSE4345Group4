@@ -4,11 +4,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUserStylist } from "/Users/dylanfurner/Desktop/haircutUber/client/src/actions/authActions.js";
 import classnames from "classnames";
-export class registerStylistUser extends Component {
+ class registerStylistUser extends Component {
     constructor() {
         super();
         this.state = {
-            name: "",
+            firstName: "",
+            lastName: "",
+            texasID: "",
             email: "",
             password: "",
             password2: "",
@@ -31,11 +33,12 @@ export class registerStylistUser extends Component {
     onSubmit = e => {
         e.preventDefault();
         const newUserStylist = {
-            name: this.state.name,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
             email: this.state.email,
             password: this.state.password,
             password2: this.state.password2,
-            texasId: this.state.texasID
+            texasID: this.state.texasID,
         };
         this.props.registerUserStylist(newUserStylist, this.props.history);
     };
@@ -54,16 +57,30 @@ export class registerStylistUser extends Component {
                             <div className="input-field col s12">
                                 <input
                                     onChange={this.onChange}
-                                    value={this.state.name}
-                                    error={error.name}
-                                    id="name"
+                                    value={this.state.firstName}
+                                    error={error.firstName}
+                                    id="firstName"
                                     type="text"
                                     className={classnames("", {
-                                        invalid: error.name
+                                        invalid: error.firstName
                                     })}
                                 />
-                                <label htmlFor="name">Name</label>
-                                <span className="red-text">{error.name}</span>
+                                <label htmlFor="firstName">First Name</label>
+                                <span className="red-text">{error.firstName}</span>
+                            </div>
+                            <div className="input-field col s12">
+                                <input
+                                    onChange={this.onChange}
+                                    value={this.state.lastName}
+                                    error={error.lastName}
+                                    id="lastName"
+                                    type="text"
+                                    className={classnames("", {
+                                        invalid: error.lastName
+                                    })}
+                                />
+                                <label htmlFor="lastName">Last Name</label>
+                                <span className="red-text">{error.lastName}</span>
                             </div>
                             <div className="input-field col s12">
                                 <input
@@ -113,7 +130,7 @@ export class registerStylistUser extends Component {
                                     value={this.state.texasID}
                                     error={error.texasID}
                                     id="texasID"
-                                    type="texasID"
+                                    type="text"
                                     className={classnames("", {
                                         invalid: error.texasID
                                     })}
@@ -154,7 +171,7 @@ export class registerStylistUser extends Component {
 registerStylistUser.propTypes = {
     registerUserStylist: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    error: PropTypes.object.isRequired
+    error: PropTypes.object.isRequired,
 };
 const mapStateToProps = state => ({
     auth: state.auth,

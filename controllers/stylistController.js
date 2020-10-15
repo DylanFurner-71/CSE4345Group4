@@ -46,11 +46,13 @@ export const stylistLogin = async (req, res) => {
 export const createStylist = async (req, res) => {
   const stylist = new Stylist(req.body);
   try {
-    const newStylist = await stylist.save();
+    stylist.save();
+    console.log(stylist);
     res.json(newStylist);
   } catch (err) {
     res.json({ msg: err });
   }
+  
 };
 
 //@desc          Change Stylist Password

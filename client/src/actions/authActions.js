@@ -24,8 +24,8 @@ export const registerUser = (userData, history) => dispatch => {
 //registerSylistUserWillBe updated once I figure out how to correctlyCheck the texas ID database
 export const registerUserStylist = (userData, history) => dispatch => {
     axios
-        .post(`/stylists/users`, userData)
-        .then(() => history.push("/stylistLanding")) // re-direct to login on successful register
+        .post(`/stylists/register/create`, userData)
+        .then(() => history.push("/stylists/stylistLanding")) // re-direct to login on successful register
         .catch(err =>
             dispatch({
                 type: GET_ERRORS,
