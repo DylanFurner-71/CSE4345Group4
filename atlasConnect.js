@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const amTesting = true; // this is a bool to test on my mongo database
+const amTesting = false; // this is a bool to test on my mongo database
 // Can get rid of when ready to move into actual DB
 const testName = // again this is just a testing environment for me atm.
   "mongodb+srv://elisego45:120060@segoviacluster0.zz1fg.mongodb.net/testHaircutBE?retryWrites=true&w=majority";
