@@ -11,6 +11,7 @@ import Login from './components/login'
 import Register from './components/register'
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
+import { ROUTES } from './routes'
 import registerStylistUser from './components/stylist/registerStylistUser';
 import stylistLanding from '/Users/dylanfurner/Desktop/haircutUber/client/src/components/stylist/stylistLanding.js';
 // Check for token to keep user logged in
@@ -44,9 +45,9 @@ function App() {
 	                <Route exact path="/register" component={Register}/>
                     <Route exact path="/stylists/register" component={registerStylistUser}/>
                     <Route exact path="/stylists/stylistLanding" component = {stylistLanding}/>
-	                {/* <Switch>
+	                <Switch>
 	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
-	                </Switch> */}
+	                </Switch>
 	            </Router>
 	    	</div>
     	</Provider>
