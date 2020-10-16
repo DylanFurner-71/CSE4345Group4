@@ -8,7 +8,6 @@ import { errorHandler } from "../middleware/error.js";
 import { protectStylist, protectUser } from "../middleware/auth.js";
 
 export default (app) => {
-  console.log("we made it to here");
   //GET request
   app.route("/home").get(homeController.getHome);
   app.route("/notes").get(notebook.getAllNotes).post(notebook.createNote);
