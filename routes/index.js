@@ -28,7 +28,7 @@ export default (app) => {
   //you want to see)
   app.route("/stylists/search").get(stylist.searchStylist);
 
-  // app.use(errorHandler);
+  app.use(errorHandler);
 };
 
 // module.export
