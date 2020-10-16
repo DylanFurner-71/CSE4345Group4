@@ -27,9 +27,11 @@ export const updateUser = async (req, res, next) => {
     if (!user) {
       return next(new ErrorResponse("Cannot Find Resource", 404));
     }
+    if (!req.user || req.user.id !== user.id) {
+      return next(new ErrorResponse("Unauthorized", 401));
+    }
     ["address", "firstName", "lastName", "photo"].forEach((prop) => {
       if (req.body[prop] && req.body[prop] !== user[prop]) {
-        console.log("only see when changed");
         user[prop] = req.body[prop];
       }
     });
@@ -66,7 +68,6 @@ export const userLogin = async (req, res, next) => {
   }
   try {
     const currUser = await User.findOne({ email }).select("+password");
-    console.log(currUser);
     if (!currUser) {
       return next(new ErrorResponse("Invalid Credentials", 401));
     }
@@ -77,7 +78,6 @@ export const userLogin = async (req, res, next) => {
     const token = currUser.getSignedJwtToken();
     currUser.lastLogin = Date.now();
     currUser.save();
-    console.log(currUser);
     res.status(200).json({ success: true, token, user: currUser });
   } catch (err) {
     next(err);

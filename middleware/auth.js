@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import ErrorRespons from "../utils/errorResponse.js";
 import User from "../models/userModel.js";
 import Stylist from "../models/stylistModel.js";
 import ErrorResponse from "../utils/errorResponse.js";
@@ -20,6 +19,7 @@ export const protectStylist = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(decoded);
 
     req.user = await Stylist.findById(decoded.id);
     next();
@@ -44,8 +44,9 @@ export const protectUser = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+    console.log(decoded.id);
     req.user = await User.findById(decoded.id);
+
     next();
   } catch (err) {
     return next(new ErrorResponse("Not authorized to access this route", 401));

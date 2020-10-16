@@ -6,7 +6,6 @@ import ErrorResponse from "../utils/errorResponse.js";
 //@route         GET /stylists
 //@access        Private?
 export const getStylists = async (req, res, next) => {
-  console.log("hello from getStylists");
   try {
     const stylist = await Stylist.find();
     res.json(stylist);
@@ -26,7 +25,6 @@ export const stylistLogin = async (req, res, next) => {
   }
   try {
     const currStylist = await Stylist.findOne({ email }).select("+password");
-    console.log(currStylist);
     if (!currStylist) {
       return next(new ErrorResponse("Invalid Credentials", 401));
     }
@@ -50,7 +48,6 @@ export const createStylist = async (req, res, next) => {
   const stylist = new Stylist(req.body);
   try {
     const newStylist = await stylist.save();
-    console.log(newStylist);
     //create token
     const token = stylist.getSignedJwtToken();
 
@@ -67,12 +64,12 @@ export const updateStylist = async (req, res, next) => {
     if (!stylist) {
       return next(new ErrorResponse("Cannot Find Resource", 404));
     }
-    console.log("stylist:");
-    console.log(stylist);
+    if (!req.user || req.user.id !== user.id) {
+      return next(new ErrorResponse("Unauthorized", 401));
+    }
     ["address", "firstName", "lastName", "photo", "businessName"].forEach(
       (prop) => {
         if (req.body[prop] && req.body[prop] !== stylist[prop]) {
-          console.log("only see when changed");
           stylist[prop] = req.body[prop];
         }
       }
