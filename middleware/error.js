@@ -1,9 +1,7 @@
 import ErrorResponse from "../utils/errorResponse.js";
 
 export const errorHandler = (err, req, res, next) => {
-  // let error = { ...err };
-
-  let error = err.message;
+  var error = err;
 
   // log to console for dev
   //console.log(err);
