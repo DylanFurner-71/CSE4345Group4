@@ -4,11 +4,13 @@ import express from "express";
 import cors from "cors";
 import routes from "./routes/index.js";
 import { mongooseConnect } from "./atlasConnect.js";
+import {ALLELIGIBLE} from "./costmetologyData/fileParsing.js";
 const app = express();
 app.use(cors());
 app.use(express.json());
 mongooseConnect();
-
+const a = ALLELIGIBLE();
+console.log(a)
 //routes to our app
 app.get("/", (req, res) => {
   res.send("/ is running just fine");
