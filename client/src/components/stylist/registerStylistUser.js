@@ -14,7 +14,7 @@ import classnames from "classnames";
             email: "",
             password: "",
             password2: "",
-            error: {}
+            error: ""
         };
     }
     componentDidMount() {
