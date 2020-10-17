@@ -102,10 +102,14 @@ export const changePassword = async (req, res, next) => {
 
 //@desc          Search STylist by name
 //@route         GET /stylists/search?name=xxxlastname=xxx
-//@access        Private?
+//@access        Private
 export const searchStylist = async (req, res) => {
+  const { name, lastname } = req.query;
   try {
-    let queries = req.query.search.split(" ");
+    let queries = [];
+    if (name) queries.push(name);
+    if (lastname) queries.push(lastname);
+    console.log(queries);
 
     //makes the queries into regex to ignore case. Might make better down the
     //road
@@ -120,6 +124,6 @@ export const searchStylist = async (req, res) => {
 
     res.json(stylists);
   } catch (err) {
-    res.status(400).json({ msg: err });
+    res.status(400).json({ msg: "dog" });
   }
 };

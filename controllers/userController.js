@@ -87,12 +87,31 @@ export const userLogin = async (req, res, next) => {
 //@desc          Allow User to change password
 //@route         POST users/change/:userId"
 //@access        Private
-// Needs to change !!!
+/*
+should take in:
+   {
+       password,
+       newPassword,
+       newPasswordConf
+   }
+
+
+
+*/
 export const changePassword = async (req, res, next) => {
-  const userId = req.params.userId;
   try {
-    const currUser = await User.findById(req.params.userId);
-    currUser.password = req.body.password;
+    const currUser = await User.findById(req.params.userId).select("+password");
+    if (!req.user || req.user.id !== currUser.id) {
+      return next(new ErrorResponse("Unauthorized", 401));
+    }
+    const isMatch = await currUser.matchPassword(req.body.password);
+    if (!isMatch) {
+      return next(new ErrorResponse("Invalid password", 400));
+    }
+    if (req.body.newPassword !== req.body.newPasswordConf) {
+      return next(new ErrorResponse("new passwords do not match", 400));
+    }
+    currUser.password = req.body.newPassword;
     await currUser.save();
     res.status(200).json({
       success: true,
