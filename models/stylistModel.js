@@ -5,8 +5,13 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 /**
- * Create database scheme for notes
+ * Services offered subdocument Schema
  */
+
+/**
+ * Stylist Schema
+ */
+
 const StylistSchema = new Schema(
   {
     firstName: {
@@ -35,10 +40,37 @@ const StylistSchema = new Schema(
       required: [true, "Please provide a password"],
       select: false,
     },
+    number: {
+      type: String,
+      match: [/[0-9]{10}/, "Please add valid number"],
+      default: "",
+    },
     photo: {
       type: String,
       default: "no-photo.jpg",
     },
+    services: [
+      {
+        type: String,
+        enum: [
+          "hair treatment",
+          "haircuts",
+          "hair coloring",
+          "hair styling",
+          "extensions",
+          "waxing",
+          "men",
+          "women",
+          "children",
+          "waxing",
+          "shaving",
+          "special occasion",
+          "blow outs",
+          "perms",
+          "other",
+        ],
+      },
+    ],
     address: {
       type: String,
       required: [true, "Must Provide address of business location"],

@@ -64,16 +64,22 @@ export const updateStylist = async (req, res, next) => {
     if (!stylist) {
       return next(new ErrorResponse("Cannot Find Resource", 404));
     }
-    if (!req.user || req.user.id !== user.id) {
+    if (!req.user || req.user.id !== stylist.id) {
       return next(new ErrorResponse("Unauthorized", 401));
     }
-    ["address", "firstName", "lastName", "photo", "businessName"].forEach(
-      (prop) => {
-        if (req.body[prop] && req.body[prop] !== stylist[prop]) {
-          stylist[prop] = req.body[prop];
-        }
+    [
+      "address",
+      "firstName",
+      "lastName",
+      "photo",
+      "businessName",
+      "number",
+      "services",
+    ].forEach((prop) => {
+      if (req.body[prop] && req.body[prop] !== stylist[prop]) {
+        stylist[prop] = req.body[prop];
       }
-    );
+    });
     await stylist.save();
     res.status(200).json({
       sucess: true,

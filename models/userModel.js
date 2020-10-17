@@ -32,6 +32,11 @@ const UserSchema = mongoose.Schema(
       type: String,
       default: "",
     },
+    number: {
+      type: String,
+      match: [/[0-9]{10}/, "Please add valid number"],
+      default: "",
+    },
     location: {
       // GeoJSON Point
       // Will take in address and generate a location

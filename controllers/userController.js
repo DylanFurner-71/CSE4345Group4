@@ -30,7 +30,7 @@ export const updateUser = async (req, res, next) => {
     if (!req.user || req.user.id !== user.id) {
       return next(new ErrorResponse("Unauthorized", 401));
     }
-    ["address", "firstName", "lastName", "photo"].forEach((prop) => {
+    ["address", "firstName", "lastName", "photo", "number"].forEach((prop) => {
       if (req.body[prop] && req.body[prop] !== user[prop]) {
         user[prop] = req.body[prop];
       }
@@ -94,9 +94,6 @@ should take in:
        newPassword,
        newPasswordConf
    }
-
-
-
 */
 export const changePassword = async (req, res, next) => {
   try {
