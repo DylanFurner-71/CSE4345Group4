@@ -91,45 +91,86 @@ export const updateStylist = async (req, res, next) => {
 };
 
 //@desc          Change Stylist Password
-//@route         POST /stylists/change/:stylistID
+//@route         POST /stylists/change/:stylistId
 //@access        Private
 // needs to change!!!
 export const changePassword = async (req, res, next) => {
-  const stylistId = req.params.stylistId;
   try {
-    const currStylist = await Stylist.findById(req.params.stylistId);
-    currStylist.password = req.body.password;
+    const currStylist = await Stylist.findById(req.params.stylistId).select(
+      "+password"
+    );
+    if (!req.user || req.user.id !== currStylist.id) {
+      return next(new ErrorResponse("Unauthorized", 401));
+    }
+    const isMatch = await currStylist.matchPassword(req.body.password);
+    if (!isMatch) {
+      return next(new ErrorResponse("Invalid password", 400));
+    }
+    if (req.body.newPassword !== req.body.newPasswordConf) {
+      return next(new ErrorResponse("new passwords do not match", 400));
+    }
+    currStylist.password = req.body.newPassword;
     await currStylist.save();
-    res.status(200).send("password updated");
+    res.status(200).json({
+      success: true,
+      msg: "Password Updated",
+    });
   } catch (err) {
     next(err);
   }
 };
 
 //@desc          Search STylist by name
-//@route         GET /stylists/search?name=xxxlastname=xxx
+//@route         GET /stylists/search?xxx
 //@access        Private
+/**
+ * types of searches supported:
+ * name=<name of stylist - space seperated list of names user is looking for>
+ * within=<max distance from current user - integer>
+ * min=<minimum rating - integer>
+ * rat=<exact rating desired - integer (floored value of stylist avg rating)>
+ * services=<services desired - space-seperated string list>
+ */
 export const searchStylist = async (req, res) => {
-  const { name, lastname } = req.query;
   try {
-    let queries = [];
-    if (name) queries.push(name);
-    if (lastname) queries.push(lastname);
-    console.log(queries);
+    const { name, within, min, rat, services } = req.query;
+    let returnedStylists;
 
-    //makes the queries into regex to ignore case. Might make better down the
-    //road
-    for (let key in queries) {
-      queries[key] = new RegExp(queries[key], "i");
+    // search by name logic
+    //-------------------------------------------------------
+    if (name) {
+      let names = name.split(" ");
+      for (let key in names) {
+        names[key] = new RegExp(names[key], "i");
+      }
+      //finds the stylists based on search query
+      returnedStylists = await Stylist.find({
+        $or: [{ firstName: { $in: names } }, { lastName: { $in: names } }],
+      });
+    } else {
+      returnedStylists = await Stylist.find();
     }
 
-    //finds the stylists based on search query
-    const stylists = await Stylist.find({
-      $or: [{ firstName: { $in: queries } }, { lastName: { $in: queries } }],
-    });
+    //search by services logic
+    //-------------------------------------------------------
+    if (services) {
+      returnedStylists = returnedStylists.filter((stylist) => {
+        let hasServices = true;
+        for (let service of services.split(" ")) {
+          if (stylist.services.indexOf(service) === -1) {
+            hasServices = false;
+            break;
+          }
+        }
+        return hasServices;
+      });
+    }
 
-    res.json(stylists);
+    res.json({
+      success: true,
+      returnedStylists,
+    });
   } catch (err) {
-    res.status(400).json({ msg: "dog" });
+    res.status(400).json({ msg: err });
   }
 };
