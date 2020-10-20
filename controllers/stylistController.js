@@ -6,7 +6,6 @@ import ErrorResponse from "../utils/errorResponse.js";
 //@route         GET /stylists
 //@access        Private?
 export const getStylists = async (req, res, next) => {
-  console.log("hello from getStylists");
   try {
     const stylist = await Stylist.find();
     res.json(stylist);
@@ -26,7 +25,6 @@ export const stylistLogin = async (req, res, next) => {
   }
   try {
     const currStylist = await Stylist.findOne({ email }).select("+password");
-    console.log(currStylist);
     if (!currStylist) {
       return next(new ErrorResponse("Invalid Credentials", 401));
     }
@@ -49,9 +47,7 @@ export const stylistLogin = async (req, res, next) => {
 export const createStylist = async (req, res, next) => {
   const stylist = new Stylist(req.body);
   try {
-    stylist.save();
-    console.log(stylist);
-    res.json(stylist);
+    const newStylist = await stylist.save();
     //create token
     const token = stylist.getSignedJwtToken();
 
@@ -68,16 +64,22 @@ export const updateStylist = async (req, res, next) => {
     if (!stylist) {
       return next(new ErrorResponse("Cannot Find Resource", 404));
     }
-    console.log("stylist:");
-    console.log(stylist);
-    ["address", "firstName", "lastName", "photo", "businessName"].forEach(
-      (prop) => {
-        if (req.body[prop] && req.body[prop] !== stylist[prop]) {
-          console.log("only see when changed");
-          stylist[prop] = req.body[prop];
-        }
+    if (!req.user || req.user.id !== stylist.id) {
+      return next(new ErrorResponse("Unauthorized", 401));
+    }
+    [
+      "address",
+      "firstName",
+      "lastName",
+      "photo",
+      "businessName",
+      "number",
+      "services",
+    ].forEach((prop) => {
+      if (req.body[prop] && req.body[prop] !== stylist[prop]) {
+        stylist[prop] = req.body[prop];
       }
-    );
+    });
     await stylist.save();
     res.status(200).json({
       sucess: true,
@@ -107,10 +109,14 @@ export const changePassword = async (req, res, next) => {
 
 //@desc          Search STylist by name
 //@route         GET /stylists/search?name=xxxlastname=xxx
-//@access        Private?
+//@access        Private
 export const searchStylist = async (req, res) => {
+  const { name, lastname } = req.query;
   try {
-    let queries = req.query.search.split(" ");
+    let queries = [];
+    if (name) queries.push(name);
+    if (lastname) queries.push(lastname);
+    console.log(queries);
 
     //makes the queries into regex to ignore case. Might make better down the
     //road
@@ -125,7 +131,7 @@ export const searchStylist = async (req, res) => {
 
     res.json(stylists);
   } catch (err) {
-    res.status(400).json({ msg: err });
+    res.status(400).json({ msg: "dog" });
   }
 };
 

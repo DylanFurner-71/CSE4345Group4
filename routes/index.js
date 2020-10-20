@@ -13,14 +13,16 @@ export default (app) => {
   app.route("/notes").get(notebook.getAllNotes).post(notebook.createNote);
   app.route("/users").get(user.getUsers);
   app.route("/users/:id").put(protectUser, user.updateUser);
-  app.route("/users/change/:userId").post(user.changePassword);
+  app.route("/users/change/:userId").post(protectUser, user.changePassword);
   app.route("/users/register").post(user.createUser);
   app.route("/users/login/").post(user.userLogin);
 
   app.route("/stylists").get(stylist.getStylists);
   app.route("/stylists/:id").put(protectStylist, stylist.updateStylist);
-  app.route("/stylists/change/:stylistId").post(stylist.changePassword);
-  app.route("/stylists/register/create").post(stylist.createStylist);
+  app
+    .route("/stylists/change/:stylistId")
+    .post(protectStylist, stylist.changePassword);
+  app.route("/stylists/register").post(stylist.createStylist);
   app.route("/stylists/login/").post(stylist.stylistLogin);
 
   //this one right here, kirk (go to the stylistController for the logic if
