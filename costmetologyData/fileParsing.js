@@ -1,6 +1,14 @@
 const csv = require('csv-parser');
 const fs = require('fs');
 const filePath = "costmetologyData/";
+
+
+/*
+This is going to be called in the logins backend once we figure that out now that we have create user/stylist functionality implemented
+
+
+
+*/ 
 const resultsBarbers =  async () => {
     const results = [];
     var name = filePath + "ltbarber.csv";
@@ -33,5 +41,6 @@ const resultsCosmetologists =  async () => {
     });
 };
  
+
 
 export const ALLELIGIBLE = async () => { return [resultsBarbers() + resultsCosmetologists()]};

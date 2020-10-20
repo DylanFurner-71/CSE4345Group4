@@ -1,21 +1,44 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-
+import StylistNav from './stylistNav';
 class stylistLanding extends Component {
+    constructor() {
+        super();
+        this.state = {
+            stylistName: "",
+            stylistId: "",
+            reviews: [],
+            calendar: [],
+            error: ""
+        };
+    }
+    componentDidMount() {
+
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.error) {
+            this.setState({
+                error: nextProps.error
+            });
+        }
+    }
+    onChange = e => {
+        this.setState({ [e.target.id]: e.target.value });
+    };
+    onSubmit = e => {
+        e.preventDefault();
+    };
     render() {
         return (
-            <div style={{ height: "75vh" }} className="justify-content-center container valign-wrapper">
+
+            <div className="justify-content-center container valign-wrapper">
                 <div className="row">
                     <div className="col center-align">
-                        <img style={{ width: "100px", height: "100px"}} src="https://via.placeholder.com/150
-
-C/O https://placeholder.com/" alt="Logo" />
-                        <h1>
-                            <b>Welcome</b> to the stylist login page
+                        <h1> Hello ${"Someday this will be a stylist name"}
                         </h1>
-                        <p className="flow-text grey-text text-darken-1">
-                            Review and book stylist made easy (change)
-                        </p>
+                        <div className = "stylistNav">
+                        {StylistNav()}
+                        </div>
                         <div>
                             <Link
                                 to="/stylists/register"
