@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {loginUser} from "../actions/authActions";
 import classnames from "classnames";
+import "./register/register.css"
 
 class Login extends Component {
     constructor() {
@@ -48,68 +49,60 @@ class Login extends Component {
     render() {
         const error = this.state.error;
         return (
-            <div className="container justify-content-center">
-                <div style={{marginTop: "4rem"}} className="row">
-                    <div className="col offset-s2">
-                        <Link to="/" className="btn-flat waves-effect">
-                            Back to home
-                        </Link>
-                        <div className="col s12" style={{paddingLeft: "11.250px"}}>
-                            <h4>
-                                <b>Login</b> below
-                            </h4>
-                            <p className="grey-text text-darken-1">
-                                Don't have an account yet? <Link to="/register">Register</Link> Now!
-                            </p>
-                        </div>
-                        <form onSubmit={this.onSubmit}>
-                            <div className="input-field col s12">
-                                <input
-                                    onChange={this.onChange}
-                                    value={this.state.email}
-                                    id="email"
-                                    type="email"
-                                    className={classnames("", {
-                                        invalid: error.email || error.emailnotfound
-                                    })}
-                                />
-                                <label htmlFor="email">Email</label>
-                                <span className="red-text">
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-10 col-xl-9 mx-auto">
+                        <div className="card card-signin flex-row my-5">
+                            <div className="card-img-left d-none d-md-flex">
+                            </div>
+                            <div className="card-body">
+                                <div>
+                                    <p className="grey-text text-darken-1">
+                                        Don't have an account yet? <Link to="/register">Register</Link> Now!
+                                    </p>
+                                </div>
+                                <h5 className="card-title text-center">Login</h5>
+                                <form className="form-signin" onSubmit={this.onSubmit}>
+                                    <div className="form-label-group">
+                                        <input
+                                            onChange={this.onChange}
+                                            value={this.state.email}
+                                            id="email"
+                                            type="email"
+                                            className={classnames("form-control", {
+                                                invalid: error.email || error.emailnotfound
+                                            })}
+                                        />
+                                        <label htmlFor="email">Email</label>
+                                        <span className="red-text">
                                     {error.email}
-                                    {error.emailnotfound}
-                </span>
-                            </div>
-                            <div className="input-field col s12">
-                                <input
-                                    onChange={this.onChange}
-                                    value={this.state.password}
-                                    id="password"
-                                    type="password"
-                                    className={classnames("", {
-                                        invalid: error.password || error.passwordincorrect
-                                    })}
-                                />
-                                <label htmlFor="password">Password</label>
-                                <span className="red-text">
+                                            {error.emailnotfound}</span>
+                                    </div>
+
+                                    <div className="form-label-group">
+                                        <input
+                                            onChange={this.onChange}
+                                            value={this.state.password}
+                                            id="password"
+                                            type="password"
+                                            className={classnames("form-control", {
+                                                invalid: error.password || error.passwordincorrect
+                                            })}
+                                        />
+                                        <label htmlFor="password">Password</label>
+                                        <span className="red-text">
                                     {error.password}
-                                    {error.passwordincorrect}
-                </span>
+                                            {error.passwordincorrect}</span>
+                                    </div>
+
+                                    <hr/>
+
+                                        <button className="btn btn-lg btn-primary btn-block text-uppercase"
+                                                type="submit">Login
+                                        </button>
+                                </form>
                             </div>
-                            <div className="col s12" style={{paddingLeft: "11.250px"}}>
-                                <button
-                                    style={{
-                                        width: "150px",
-                                        borderRadius: "3px",
-                                        letterSpacing: "1.5px",
-                                        marginTop: "1rem"
-                                    }}
-                                    type="submit"
-                                    className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                                >
-                                    Login
-                                </button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

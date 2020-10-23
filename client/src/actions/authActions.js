@@ -19,6 +19,19 @@ export const registerUser = (userData, history) => dispatch => {
         );
 };
 
+// Register Stylist
+export const registerStylist = (userData, history) => dispatch => {
+    axios
+        .post("/stylist/register", userData)
+        .then(() => history.push("/login")) // re-direct to login on successful register
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );
+};
+
 // Change Password
 export const changePassword = (userData, history) => dispatch => {
     axios

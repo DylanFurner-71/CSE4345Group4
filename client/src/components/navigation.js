@@ -15,7 +15,7 @@ const Navigation = () => {
                             <NavDropdown.Item href="#">Women's Haircut</NavDropdown.Item>
                             <NavDropdown.Item href="#">Products</NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link href="/register">Register</Nav.Link>
+                        <Nav.Link href="/profile">My Profile</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

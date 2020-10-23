@@ -1,48 +1,48 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
+import RegisterPopup from "./register/registerPopup";
 
-class Landing extends Component {
-    render() {
-        return (
-            <div style={{ height: "75vh" }} className="justify-content-center container valign-wrapper">
-                <div className="row">
-                    <div className="col center-align">
-                        <img style={{ width: "100px", height: "100px"}} src="https://via.placeholder.com/150
+const Landing = () => {
+    const [modalShow, setModalShow] = useState(false);
 
-C/O https://placeholder.com/" alt="Logo" />
-                        <h1>
-                            <b>Welcome</b> to Haircut Uber (change)
-                        </h1>
-                        <p className="flow-text grey-text text-darken-1">
-                            Review and book stylist made easy (change)
-                        </p>
-                        <div>
-                            <Link
-                                to="/login"
-                                style={{
-                                    width: "140px",
-                                    borderRadius: "3px",
-                                    letterSpacing: "1.5px",
-                                  
-                                }}
-                                className="btn btn-large btn-flat waves-effect blue black-text m-2"
-                            >Log In</Link>
-                            <Link
-                                to="/register"
-                                style={{
-                                    width: "140px",
-                                    borderRadius: "3px",
-                                    letterSpacing: "1.5px",
-                                    
-                                }}
-                                className="btn btn-large btn-flat waves-effect blue black-text m-2"
-                            >Register</Link>
-                        </div>
-                    </div>
+    return (
+        <div style={{ height: "75vh" }} className="container">
+            <div className="d-flex justify-content-center flex-column">
+                <img className="mx-auto" style={{ width: "100px", height: "100px"}} src={require("../UltimateStyle.png" )}/>
+                <h1 className="mx-auto">
+                    <b>Welcome</b> to Ultimate Style
+                </h1>
+                <p className="mx-auto text-secondary">
+                    Review and book stylist made easy
+                </p>
+                <div className="mx-auto d-flex justify-content-center">
+                    <Link
+                        to="/login"
+                        className="btn btn-primary m-2"
+                    >Log In</Link>
+                    {/*<Link*/}
+                    {/*    to="/register"*/}
+                    {/*    style={{*/}
+                    {/*        width: "140px",*/}
+                    {/*        borderRadius: "3px",*/}
+                    {/*        letterSpacing: "1.5px",*/}
+                    {/*        */}
+                    {/*    }}*/}
+                    {/*    className="btn btn-large btn-flat waves-effect blue black-text m-2"*/}
+                    {/*>Register</Link>*/}
+                    <button onClick={() => setModalShow(true)} className="btn btn-primary m-2">
+                        Register
+                    </button>
+                    <RegisterPopup
+                        show={modalShow}
+                        onHide={() => setModalShow(false)}
+                    />
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
+
+
 }
 
 export default Landing;
