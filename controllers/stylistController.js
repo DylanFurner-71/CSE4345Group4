@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import Stylist from "../models/stylistModel.js";
 
 export const getStylists = async (req, res) => {
+  console.log("getting stylists");
   try {
     const stylist = await Stylist.find();
     res.json(stylist);
@@ -24,7 +25,7 @@ export const stylistLogin = async(req, res) => {
         "password": stylistPassword
       });
     //res.status(200).send("Logged In");
-    res.json(currStylist);
+    res.status(200).json(currStylist);
     } catch (err) {
     res.status(400).json({ msg: err });
     }
@@ -36,7 +37,7 @@ export const createStylist = async (req, res) => {
     const newStylist = await stylist.save();
     res.json(newStylist);
   } catch (err) {
-    res.json({ msg: err });
+    res.json({ msg: "No stylist exists" });
   }
 };
 
