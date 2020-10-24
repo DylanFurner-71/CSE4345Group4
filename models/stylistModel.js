@@ -28,6 +28,9 @@ const StylistSchema = new Schema(
       type: Date,
       default: Date.now,
     },
+    reviews: {
+      type: Array,
+    },
   },
   { collection: "Stylist" }
 );

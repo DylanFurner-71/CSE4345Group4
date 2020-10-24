@@ -53,3 +53,33 @@ export const changePassword = async (req, res) => {
     res.status(400).json({ msg: err });
   }
 };
+
+export const getReviews = async (req, res) => {
+  const stylistEmail = req.body.stylistEmail;
+  try {
+    const currStylist = await Stylist.findOne({
+      "email": stylistEmail
+    });
+    
+    res.json(currStylist.reviews);
+  } catch (err) {
+    res.status(400).json({ msg: err });
+  }
+};
+
+export const postReviews = async (req, res) => {
+  const stylistEmail = req.body.stylistEmail;
+  const rev = req.body.rev;
+  try {
+    const currStylist = await Stylist.findOne({
+      "email": stylistEmail
+    });
+    let myrevs = currStylist.reviews;
+    myrevs.push(rev);
+    currStylist.reviews = myrevs;
+    await currStylist.save();
+    res.status(200).send("review posted");
+  } catch (err) {
+    res.status(400).json({ msg: err });
+  }
+};

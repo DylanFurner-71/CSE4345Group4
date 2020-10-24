@@ -32,6 +32,9 @@ export default (app) => {
    app.route("/stylist/stylistId").post(stylist.changePassword);
    app.route("/stylists/register").post(stylist.createStylist);
    app.route("/stylist/login").get(stylist.stylistLogin);
+   app.route("/stylist/review").get(stylist.getReviews);
+   app.route("/stylist/postreview").post(stylist.postReviews);
+
 };
 
 

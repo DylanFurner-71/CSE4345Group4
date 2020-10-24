@@ -7,7 +7,7 @@ const MongoClient = mongodb.MongoClient;
 //export const ATLAS_URL = `mongodb+srv://dfurner:<smu2020>@cluster0.tkm1w.azure.mongodb.net/<${dbName}>?retryWrites=true&w=majority`;
 //my db
 const dbName = "Testing";
-export const ATLAS_URL = `mongodb+srv://Corey:dyell1414@cluster0.i9dup.mongodb.net/test?authSource=admin&replicaSet=atlas-dbq9by-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true`; //We are configuring urls here
+export const ATLAS_URL = `mongodb+srv://Corey:dyell1414@cluster0.i9dup.mongodb.net/${dbName}?retryWrites=true&w=majority`; //We are configuring urls here
 const client = new MongoClient(ATLAS_URL);
 export default class atlassConnect {
 
@@ -26,6 +26,7 @@ export default class atlassConnect {
     }
   };
  
+
 
   
   
