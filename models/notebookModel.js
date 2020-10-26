@@ -1,23 +1,22 @@
-import mongoose, {
-    Schema
-} from 'mongoose';
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
 /**
  * Create database scheme for notes
  */
 const NoteScheme = new Schema({
-    title: {
-        type: String,
-        required: "What is the note's title?"
-    },
-    text: {
-        type: String,
-        required: "What is the note?"
-    },
-    date: {
-        type: Date,
-        default: new Date
-    }
+  title: {
+    type: String,
+    required: "What is the note's title?",
+  },
+  text: {
+    type: String,
+    required: "What is the note?",
+  },
+  date: {
+    type: Date,
+    default: new Date(),
+  },
 });
 
-export default mongoose.model('Note', NoteScheme);
+export default mongoose.model("Note", NoteScheme);
