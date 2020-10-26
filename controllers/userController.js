@@ -7,11 +7,9 @@ import ErrorResponse from "../utils/errorResponse.js";
 //@access        Public
 export const createUser = async (req, res, next) => {
   const user = new User(req.body);
-  console.log(req.body);
   try {
-    user.save();
-    console.log(newUser);
-    res.json(newUser);
+    const newUser = await user.save();
+    //create token
     const token = user.getSignedJwtToken();
 
     res.json({ sucess: true, token, newUser });

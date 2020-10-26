@@ -12,6 +12,13 @@ export default (app) => {
   //GET request
   app.route("/home").get(homeController.getHome);
   app.route("/notes").get(notebook.getAllNotes).post(notebook.createNote);
+
+  app
+    .route("/notes/:noteId")
+    .get(notebook.getNote)
+    .put(notebook.updateNote)
+    .delete(notebook.deleteNote);
+
   app.route("/users").get(user.getUsers);
   app.route("/users/:id").put(protectUser, user.updateUser);
   app.route("/users/change/:userId").post(user.changePassword);
@@ -21,7 +28,7 @@ export default (app) => {
   app.route("/stylists").get(stylist.getStylists);
   app.route("/stylists/:id").put(protectStylist, stylist.updateStylist);
   app.route("/stylists/change/:stylistId").post(stylist.changePassword);
-  app.route("/stylists/register/create").post(stylist.createStylist);
+  app.route("/stylists/register").post(stylist.createStylist);
   app.route("/stylists/login/").post(stylist.stylistLogin);
 
   //this one right here, kirk (go to the stylistController for the logic if
