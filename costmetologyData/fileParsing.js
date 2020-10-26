@@ -17,7 +17,7 @@ const resultsBarbers =  async () => {
     ))
     .on('data', (data) => results.push(data))
     .on('end', () => {
-      console.log(results[0]);
+      console.log(results);
       // [
       //   { NAME: 'Daffy Duck', AGE: '24' },
       //   { NAME: 'Bugs Bunny', AGE: '22' }
@@ -33,7 +33,7 @@ const resultsCosmetologists =  async () => {
     ))
     .on('data', (data) => results.push(data))
     .on('end', () => {
-      console.log(results[0]);
+      console.log(results);
       // [
       //   { NAME: 'Daffy Duck', AGE: '24' },
       //   { NAME: 'Bugs Bunny', AGE: '22' }
