@@ -27,10 +27,11 @@
   <component name="ChangeListManager">
     <list default="true" id="f8e476ec-e25f-4be8-b6da-605887600598" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/navigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navigation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/authActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/profile/stylistProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/stylistProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/register/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/register/register.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/register/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/register/register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/register/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/register/registerUser.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +67,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hhe99\Documents\SMU\SMU Junior\CS 4345\haircutUber\client\src\components\login" />
       <recent name="C:\Users\hhe99\Documents\SMU\SMU Junior\CS 4345\haircutUber\client\src\components\register" />
       <recent name="C:\Users\hhe99\Documents\SMU\SMU Junior\CS 4345\haircutUber\client\src\components\profile" />
     </key>
@@ -80,6 +82,8 @@
       <updated>1603395207918</updated>
       <workItem from="1603395209312" duration="4218000" />
       <workItem from="1603406927782" duration="8879000" />
+      <workItem from="1603652487578" duration="35000" />
+      <workItem from="1603827845495" duration="1236000" />
     </task>
     <servers />
   </component>
@@ -99,6 +103,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1061" y="455" key="FileChooserDialogImpl" timestamp="1603652520300">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1061" y="455" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1603652520300" />
     <state x="1583" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1603413634367">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

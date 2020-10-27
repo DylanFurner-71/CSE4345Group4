@@ -26,7 +26,7 @@ const StylistProfile = () => {
                                 <div className="form-label-group">
                                     <input type="text" onChange={event => setName(event.target.value)}
                                            value={name} className="form-control" id="name" placeholder="Username" required autoFocus />
-                                    <label htmlFor="name">Username</label>
+                                    <label htmlFor="name">Enter New Username</label>
                                 </div>
 
                                 <div className="form-label-group">
@@ -35,7 +35,7 @@ const StylistProfile = () => {
                                            value={email}
                                            id="inputEmail"
                                            placeholder="Email address" required />
-                                    <label htmlFor="inputEmail">Email address</label>
+                                    <label htmlFor="inputEmail">Enter New Email Address</label>
                                 </div>
 
                                 <hr/>

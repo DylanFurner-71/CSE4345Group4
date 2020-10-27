@@ -8,8 +8,8 @@ import jwt_decode from "jwt-decode";
 import PrivateRoute from "./components/PrivateRoute"
 import Navigation from "./components/navigation"
 import Landing from './components/landing'
-import Login from './components/login'
-import Register from './components/register/register'
+import Login from './components/login/login'
+import Register from './components/register/registerUser'
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
 import RegisterStylist from "./components/register/registerStylist";

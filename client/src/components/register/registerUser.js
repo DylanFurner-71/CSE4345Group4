@@ -6,7 +6,7 @@ import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
 import "./register.css"
 
-class Register extends Component {
+class RegisterUser extends Component {
     constructor() {
         super();
         this.state = {
@@ -18,7 +18,7 @@ class Register extends Component {
         };
     }
     componentDidMount() {
-        // If logged in and user navigates to Register page, should redirect them to dashboard
+        // If logged in and user navigates to RegisterUser page, should redirect them to dashboard
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.error) {
@@ -106,7 +106,7 @@ class Register extends Component {
         );
     }
 }
-Register.propTypes = {
+RegisterUser.propTypes = {
     registerUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     error: PropTypes.object.isRequired
@@ -118,4 +118,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     { registerUser }
-)(withRouter(Register));
+)(withRouter(RegisterUser));
