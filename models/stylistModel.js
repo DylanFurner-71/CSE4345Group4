@@ -14,101 +14,6 @@ import crypto from 'crypto';
  */
 
 const StylistSchema = new Schema(
-<<<<<<< HEAD
-  {
-    calendar: [{}],
-    firstName: {
-      type: String,
-      required: [true, "Please Enter a First Name"],
-    },
-    lastName: {
-      type: String,
-      required: [true, "Please Enter a Last Name"],
-    },
-    businessName: {
-      type: String,
-      required: [true, "Please provide Name of business"],
-    },
-    email: {
-      type: String,
-      required: true,
-      match: [
-        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-        "Please add a valid email",
-      ],
-      unique: true,
-    },
-    texasID: {
-      type: String,
-      required: true,
-    },
-    password: {
-      type: String,
-      required: [true, "Please provide a password"],
-      select: false,
-    },
-    number: {
-      type: String,
-      match: [/[0-9]{10}/, "Please add valid number"],
-      default: "",
-    },
-    photo: {
-      type: String,
-      default: "no-photo.jpg",
-    },
-    services: [
-      {
-        type: String,
-        enum: [
-          "hair treatment",
-          "haircuts",
-          "hair coloring",
-          "hair styling",
-          "extensions",
-          "waxing",
-          "men",
-          "women",
-          "children",
-          "waxing",
-          "shaving",
-          "special occasion",
-          "blow outs",
-          "perms",
-          "other",
-        ],
-      },
-    ],
-    address: {
-      type: String,
-      required: false,
-      default: ""
-    },
-    location: {
-      // GeoJSON Point
-      // Will take in address and generate a location
-      type: {
-        type: String,
-        enum: ["Point"],
-      },
-      coordinates: {
-        type: [Number],
-        index: "2dsphere",
-      },
-      formattedAddress: String,
-      street: String,
-      city: String,
-      state: String,
-      zipcode: String,
-      country: String,
-    },
-    lastLogin: {
-      type: Date,
-      default: Date.now,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-=======
     {
         firstName: {
             type: String,
@@ -204,7 +109,6 @@ const StylistSchema = new Schema(
         },
         resetPasswordToken: String,
         resetPasswordExpiration: Date,
->>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
     },
     { collection: 'stylists' }
 );

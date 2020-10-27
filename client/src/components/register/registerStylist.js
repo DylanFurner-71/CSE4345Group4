@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-<<<<<<< HEAD
 import { registerUserStylist } from "../../actions/authActions";
-=======
-import { registerStylist } from "../../actions/authActions";
->>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
 import classnames from "classnames";
 import "./register.css"
 
@@ -116,11 +112,7 @@ class RegisterStylist extends Component {
     }
 }
 RegisterStylist.propTypes = {
-<<<<<<< HEAD
     registerUserStylist: PropTypes.func.isRequired,
-=======
-    registerStylist: PropTypes.func.isRequired,
->>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
     auth: PropTypes.object.isRequired,
     error: PropTypes.object.isRequired
 };
@@ -130,9 +122,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
     mapStateToProps,
-<<<<<<< HEAD
     { registerUserStylist }
-=======
-    { registerStylist }
->>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
 )(withRouter(RegisterStylist));

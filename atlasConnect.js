@@ -3,17 +3,12 @@ import mongoose from 'mongoose';
 const amTesting = false; // this is a bool to test on my mongo database
 // Can get rid of when ready to move into actual DB
 const testName = // again this is just a testing environment for me atm.
-<<<<<<< HEAD
   "mongodb+srv://dfurner:smu2020@cluster0.tkm1w.azure.mongodb.net/testHaircutBE?retryWrites=true&w=majority";
-=======
-    'mongodb+srv://elisego45:120060@segoviacluster0.zz1fg.mongodb.net/testHaircutBE?retryWrites=true&w=majority';
->>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
 
 export const ATLAS_URL = amTesting ? testName : process.env.MONGO_URI; // setting the uri to appropriate.
 // ---- can delete this line and up (except import obviously) when done...----------------
 
 export const mongooseConnect = async () => {
-<<<<<<< HEAD
   await mongoose
     .connect(ATLAS_URL, { useUnifiedTopology: true, useCreateIndex: true })
     .then(() => {
@@ -22,13 +17,3 @@ export const mongooseConnect = async () => {
       );
     });
 };
-=======
-    await mongoose
-        .connect(ATLAS_URL, { useUnifiedTopology: true, useCreateIndex: true })
-        .then(() => {
-            console.log(
-                `${process.env.MONGO_DB} database connection established successfully`
-            );
-        });
-};
->>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8

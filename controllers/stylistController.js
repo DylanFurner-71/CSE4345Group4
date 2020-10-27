@@ -52,18 +52,6 @@ export const stylistLogin = async (req, res, next) => {
 //@route         POST /stylists/register
 //@access        Public
 export const createStylist = async (req, res, next) => {
-<<<<<<< HEAD
-  const stylist = new Stylist(req.body);
-  try {
-    const newStylist = await stylist.save();
-    //create token
-    const token = stylist.getSignedJwtToken();
-
-    res.json({ sucess: true, token, stylist });
-  } catch (err) {
-    next(err);
-  }
-=======
     let stylist = await Stylist.findOne({ email: req.body.email });
     if (!stylist) {
         stylist = new Stylist(req.body);
@@ -79,7 +67,6 @@ export const createStylist = async (req, res, next) => {
     } catch (err) {
         next(err);
     }
->>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
 };
 
 export const updateStylist = async (req, res, next) => {

@@ -7,25 +7,6 @@ import * as stylist from '../controllers/stylistController.js';
 import { errorHandler } from '../middleware/error.js';
 import { protectStylist, protectUser } from '../middleware/auth.js';
 
-<<<<<<< HEAD
-export default (app) => {
-  //GET request
-  app.route("/home").get(homeController.getHome);
-  app.route("/notes").get(notebook.getAllNotes).post(notebook.createNote);
-  app.route("/users").get(user.getUsers);
-  app.route("/users/:id").put(protectUser, user.updateUser);
-  app.route("/users/change/:userId").post(protectUser, user.changePassword);
-  app.route("/users/register").post(user.createUser);
-  app.route("/users/login/").post(user.userLogin);
-
-  app.route("/stylists").get(stylist.getStylists);
-  app.route("/stylists/:id").put(protectStylist, stylist.updateStylist);
-  app
-    .route("/stylists/change/:stylistId")
-    .post(protectStylist, stylist.changePassword);
-  app.route("/stylists/register").post(stylist.createStylist);
-  app.route("/stylists/login/").post(stylist.stylistLogin);
-=======
 export default app => {
     console.log('we made it to here');
     //GET request
@@ -36,7 +17,6 @@ export default app => {
         .get(notebook.getNote)
         .put(notebook.updateNote)
         .delete(notebook.deleteNote);
->>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
 
     app.route('/users').get(user.getUsers);
     app.route('/users/:id').put(protectUser, user.updateUser);

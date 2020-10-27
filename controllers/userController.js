@@ -8,20 +8,6 @@ import crypto from 'crypto';
 //@route         POST /users/register
 //@access        Public
 export const createUser = async (req, res, next) => {
-<<<<<<< HEAD
-  const user = new User(req.body);
-  console.log(req.body);
-  try {
-    user.save();
-    console.log(user);
-    res.json(user);
-    const token = user.getSignedJwtToken();
-
-    res.json({ sucess: true, token, user });
-  } catch (err) {
-    next(err);
-  }
-=======
     let user = await User.findOne({ email: req.body.email });
     if (!user) {
         user = new User(req.body);
@@ -38,7 +24,6 @@ export const createUser = async (req, res, next) => {
     } catch (err) {
         next(err);
     }
->>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
 };
 
 //@desc          Update user based on userId

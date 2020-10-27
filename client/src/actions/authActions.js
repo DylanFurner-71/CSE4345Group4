@@ -11,24 +11,7 @@ const api = "http://localhost:8000";
 axios.defaults.baseURL = api;
 export const registerUser = (userData, history) => dispatch => {
     axios
-<<<<<<< HEAD
-        .post("/users/register", userData)
-        .then(() => history.push("/login")) // re-direct to login on successful register
-        .catch(err =>
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data
-            })
-        );
-};
-
-// Register Stylist
-export const registerStylist = (userData, history) => dispatch => {
-    axios
-        .post("/stylists/register", userData)
-=======
         .post(`/users/register`, userData)
->>>>>>> origin
         .then(() => history.push("/login")) // re-direct to login on successful register
         .catch(err =>
             dispatch({
@@ -53,11 +36,7 @@ export const registerUserStylist = (userData, history) => dispatch => {
 // Change Password
 export const changePassword = (userData, history) => dispatch => {
     axios
-<<<<<<< HEAD
-        .post("/users/changePassword", userData)
-=======
         .post(`/users/changePassword`, userData)
->>>>>>> origin
         .then(() => history.push("/home")) // re-direct to home after changing password
         .catch(err =>
             dispatch({
@@ -70,11 +49,7 @@ export const changePassword = (userData, history) => dispatch => {
 // Login - get user token
 export const loginUser = userData => dispatch => {
     axios
-<<<<<<< HEAD
-        .post("/users/login", userData)
-=======
         .post(`/users/login`, userData)
->>>>>>> origin
         .then(res => {
             // Save to localStorage
 // Set token to localStorage
