@@ -5,7 +5,7 @@ const Navigation = () => {
     return (
         <div>
             <Navbar bg="dark" variant="dark" expand="lg">
-                <Navbar.Brand href="/home">Haircut Uber</Navbar.Brand>
+                <Navbar.Brand href="/">Haircut Uber</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
@@ -15,7 +15,7 @@ const Navigation = () => {
                             <NavDropdown.Item href="#">Women's Haircut</NavDropdown.Item>
                             <NavDropdown.Item href="#">Products</NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link href="/register">Register</Nav.Link>
+                        <Nav.Link href="/stylist/profile">My Profile</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
