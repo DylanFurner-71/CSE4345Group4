@@ -14,10 +14,6 @@
     "jwt-decode": "^3.0.0-beta.2",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-<<<<<<< HEAD
-    "react-big-calendar": "^0.28.1",
-=======
->>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
