@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
+import { userInfo } from 'os';
 import Stylist from '../models/stylistModel.js';
 import ErrorResponse from '../utils/errorResponse.js';
+import sendEmail from '../utils/sendEmail.js';
+import crypto from 'crypto';
 
 //@desc          Get all stylists from DB
 //@route         GET /stylists
@@ -53,7 +56,7 @@ export const createStylist = async (req, res, next) => {
     if (!stylist) {
         stylist = new Stylist(req.body);
     } else {
-        return next(new ErrorResponse('User already exists', 400));
+        return next(new ErrorResponse('Stylist already exists', 400));
     }
     try {
         const newStylist = await stylist.save();
@@ -200,5 +203,75 @@ export const searchStylist = async (req, res) => {
         });
     } catch (err) {
         res.status(400).json({ msg: err });
+    }
+};
+
+export const forgotPassword = async (req, res, next) => {
+    const stylist = await Stylist.findOne({ email: req.body.email });
+
+    if (!stylist) {
+        return next(
+            new ErrorResponse('There is no stylist with that email', 404)
+        );
+    }
+
+    // get rest token
+    const resetToken = stylist.getResetPasswordToken();
+
+    console.log(`${resetToken} worked`);
+
+    await stylist.save({ validateBeforeSave: false });
+
+    // create reset url
+    const resetUrl = `${req.protocol}://${req.get(
+        'host'
+    )}/stylists/resetPassword/${resetToken}`;
+
+    const message = `You are receiving this email because you (or somebody else) has requested the reset of a password. Please follow the link provided OR make a PUT request to \n\n ${resetUrl}`;
+
+    try {
+        await sendEmail({
+            email: stylist.email,
+            subject: 'Password reset',
+            message,
+        });
+        res.status(200).json({ sucess: true, data: 'email sent' });
+    } catch (err) {
+        console.log(err);
+        stylist.resetPasswordToken = undefined;
+        stylist.resetPasswordExpiration = undefined;
+        await stylist.save({ validateBeforeSave: false });
+        return next(new ErrorResponse('email could not be sent', 500));
+    }
+};
+
+export const resetPassword = async (req, res, next) => {
+    try {
+        const resetPasswordToken = crypto
+            .createHash('sha256')
+            .update(req.params.resettoken)
+            .digest('hex');
+
+        const stylist = await Stylist.findOne({
+            resetPasswordToken,
+            resetPasswordExpiration: { $gt: Date.now() },
+        });
+
+        if (!stylist) {
+            return next(new ErrorResponse('invalid token', 400));
+        }
+
+        // set new password
+
+        stylist.password = req.body.password;
+        stylist.resetPasswordToken = undefined;
+        stylist.resetPasswordExpiration = undefined;
+
+        const token = stylist.getSignedJwtToken();
+        stylist.lastLogin = Date.now();
+        await stylist.save();
+        res.status(200).json({ success: true, token, stylist });
+    } catch (err) {
+        next(err);
     }
 };

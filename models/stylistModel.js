@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 import { geocoder } from '../utils/geocoder.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 /**
  * Services offered subdocument Schema
@@ -106,6 +107,8 @@ const StylistSchema = new Schema(
             enum: ['stylist'],
             default: 'stylist',
         },
+        resetPasswordToken: String,
+        resetPasswordExpiration: Date,
     },
     { collection: 'stylists' }
 );
@@ -113,21 +116,21 @@ const StylistSchema = new Schema(
 // --------- Mongoose Hooks ----------------
 StylistSchema.pre('save', async function (next) {
     var self = this;
-    var exists = false;
+    var exists = !this.isNew;
     await mongoose
         .model('StylistModel', StylistSchema)
         .find({ email: self.email }, function (err, docs) {
             if (!docs.length) {
                 exists = false;
             } else {
-                console.log('dude this exists');
+                console.log('document exists');
                 exists = true;
             }
         });
 
     // check if the document is new and see if password has been modified to
     // rehash and resalt as needed
-    if (!exists || this.isModified('password')) {
+    if (this.isModified('password')) {
         const salt = await bcrypt.genSalt(10);
         this.password = await bcrypt.hash(this.password, salt);
     }
@@ -167,6 +170,22 @@ StylistSchema.methods.geocodeAddress = function (address) {};
 
 StylistSchema.methods.matchPassword = async function (plain) {
     return await bcrypt.compare(plain, this.password);
+};
+
+StylistSchema.methods.getResetPasswordToken = function () {
+    //gen token
+
+    const resetToken = crypto.randomBytes(20).toString('hex');
+
+    // hash token and set to resetPasswordToken field
+    this.resetPasswordToken = crypto
+        .createHash('sha256')
+        .update(resetToken)
+        .digest('hex');
+
+    // set expiration date
+    this.resetPasswordExpiration = Date.now() + 10 * 60 * 1000;
+    return resetToken;
 };
 
 export default mongoose.model('Stylist', StylistSchema);

@@ -21,6 +21,8 @@ export default app => {
     app.route('/users').get(user.getUsers);
     app.route('/users/:id').put(protectUser, user.updateUser);
     app.route('/users/change/:userId').post(protectUser, user.changePassword);
+    app.route('/users/forgotPassword').post(user.forgotPassword);
+    app.route('/users/resetPassword/:resettoken').put(user.resetPassword);
     app.route('/users/register').post(user.createUser);
     app.route('/users/login/').post(user.userLogin);
     app.route('/users/me').get(protectUser, user.getMe);
@@ -31,6 +33,8 @@ export default app => {
         protectStylist,
         stylist.changePassword
     );
+    app.route('/stylists/forgotPassword').post(stylist.forgotPassword);
+    app.route('/stylists/resetPassword/:resettoken').put(stylist.resetPassword);
     app.route('/stylists/me').get(protectStylist, stylist.getMe);
     app.route('/stylists/register/create').post(stylist.createStylist);
     app.route('/stylists/login/').post(stylist.stylistLogin);

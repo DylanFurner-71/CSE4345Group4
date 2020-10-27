@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 import { geocoder } from '../utils/geocoder.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
 
 const UserSchema = new Schema(
     {
@@ -68,6 +69,8 @@ const UserSchema = new Schema(
             enum: ['user'],
             default: 'user',
         },
+        resetPasswordToken: String,
+        resetPasswordExpiration: Date,
     },
     { collection: 'users' }
 );
@@ -78,7 +81,7 @@ const UserSchema = new Schema(
 
 UserSchema.pre('save', async function (next) {
     var self = this;
-    var exists = false;
+    var exists = !this.isNew;
 
     mongoose
         .model('UserModel', UserSchema)
@@ -130,6 +133,24 @@ UserSchema.methods.getSignedJwtToken = function () {
 
 UserSchema.methods.matchPassword = async function (plain) {
     return await bcrypt.compare(plain, this.password);
+};
+
+// generate and hash password token
+
+UserSchema.methods.getResetPasswordToken = function () {
+    //gen token
+
+    const resetToken = crypto.randomBytes(20).toString('hex');
+
+    // hash token and set to resetPasswordToken field
+    this.resetPasswordToken = crypto
+        .createHash('sha256')
+        .update(resetToken)
+        .digest('hex');
+
+    // set expiration date
+    this.resetPasswordExpiration = Date.now() + 10 * 60 * 1000;
+    return resetToken;
 };
 
 export default mongoose.model('User', UserSchema);
