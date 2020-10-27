@@ -47,7 +47,13 @@ export const stylistLogin = async (req, res, next) => {
 export const createStylist = async (req, res, next) => {
   const stylist = new Stylist(req.body);
   try {
+<<<<<<< HEAD
     const newStylist = await stylist.save();
+=======
+    stylist.save();
+    console.log(stylist);
+    res.json(newStylist);
+>>>>>>> origin
     //create token
     const token = stylist.getSignedJwtToken();
 
@@ -88,6 +94,7 @@ export const updateStylist = async (req, res, next) => {
   } catch (err) {
     return next(new ErrorResponse(err));
   }
+  
 };
 
 //@desc          Change Stylist Password
@@ -132,4 +139,7 @@ export const searchStylist = async (req, res) => {
   } catch (err) {
     res.status(400).json({ msg: "dog" });
   }
+};
+
+export const searchStylistCosmetologyID = async (req, res) => { //what do i do here do I do anything here I don't know its late
 };

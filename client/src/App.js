@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { ROUTES } from './routes'
 import {Provider} from "react-redux";
 import {setCurrentUser, logoutUser} from "./actions/authActions";
 import jwt_decode from "jwt-decode";
@@ -12,10 +11,16 @@ import Login from './components/login/login'
 import Register from './components/register/registerUser'
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
+<<<<<<< HEAD
 import RegisterStylist from "./components/register/registerStylist";
 import StylistProfile from "./components/profile/stylistProfile";
 
 
+=======
+import { ROUTES } from './routes'
+import registerStylistUser from './components/stylist/registerStylistUser';
+import stylistLanding from '/Users/dylanfurner/Desktop/haircutUber/client/src/components/stylist/stylistLanding.js';
+>>>>>>> origin
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
     // Set auth token header auth
@@ -42,10 +47,17 @@ function App() {
 	            <Navigation/>
 	            <Router>
 	                <Route exact path="/" component={Landing}/>
+                    <Route exact path="/home" component={Landing}/>
 	                <Route exact path="/login" component={Login}/>
+<<<<<<< HEAD
 	                <Route exact path="/user/register" component={Register}/>
                     <Route exact path="/stylist/register" component={RegisterStylist}/>
                     <Route exact path="/stylist/profile" component={StylistProfile}/>
+=======
+	                <Route exact path="/register" component={Register}/>
+                    <Route exact path="/stylists/register" component={registerStylistUser}/>
+                    <Route exact path="/stylists/stylistLanding" component = {stylistLanding}/>
+>>>>>>> origin
 	                <Switch>
 	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>
