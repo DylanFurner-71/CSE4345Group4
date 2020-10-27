@@ -47,13 +47,9 @@ export const stylistLogin = async (req, res, next) => {
 export const createStylist = async (req, res, next) => {
   const stylist = new Stylist(req.body);
   try {
-<<<<<<< HEAD
-    const newStylist = await stylist.save();
-=======
     stylist.save();
     console.log(stylist);
     res.json(newStylist);
->>>>>>> origin
     //create token
     const token = stylist.getSignedJwtToken();
 
