@@ -14,6 +14,7 @@ import bcrypt from "bcryptjs";
 
 const StylistSchema = new Schema(
   {
+    calendar: [{}],
     firstName: {
       type: String,
       required: [true, "Please Enter a First Name"],

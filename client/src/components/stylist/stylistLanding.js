@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import StylistNav from './stylistNav';
+import {stylistCalendar} from './stylistCalendar';
 class stylistLanding extends Component {
     constructor() {
         super();
@@ -32,12 +33,13 @@ class stylistLanding extends Component {
         return (
 
             <div className="justify-content-center container valign-wrapper">
+            {StylistNav()}
                 <div className="row">
                     <div className="col center-align">
                         <h1> Hello ${"Someday this will be a stylist name"}
                         </h1>
                         <div className = "stylistNav">
-                        {StylistNav()}
+                        {new stylistCalendar()}
                         </div>
                         <div>
                             <Link
