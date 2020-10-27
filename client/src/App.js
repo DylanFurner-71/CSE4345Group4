@@ -9,24 +9,14 @@ import jwt_decode from "jwt-decode";
 import PrivateRoute from "./components/PrivateRoute"
 import Navigation from "./components/navigation"
 import Landing from './components/landing'
-import Login from './components/login'
-import Register from './components/register/register'
-import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
-import RegisterStylist from "./components/register/registerStylist";
 import StylistProfile from "./components/profile/stylistProfile";
 import stylistLanding from "./components/stylist/stylistLanding";
-
 import Login from './components/login/login'
 import Register from './components/register/registerUser'
 import setAuthToken from "./utils/setAuthToken";
-import store from "./store";
-import RegisterStylist from "./components/register/registerStylist";
-import StylistProfile from "./components/profile/stylistProfile";
 
-import { ROUTES } from './routes'
 import registerStylistUser from './components/stylist/registerStylistUser';
-import stylistLanding from '/Users/dylanfurner/Desktop/haircutUber/client/src/components/stylist/stylistLanding.js';
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
     // Set auth token header auth
@@ -50,20 +40,16 @@ function App() {
     return (
         <Provider store={store}>
 	        <div className="App">
-	            <Navigation/>
+	            {/* <Navigation/> */}
 	            <Router>
 	                <Route exact path="/" component={Landing}/>
 	                <Route exact path="/login" component={Login}/>
 	                <Route exact path="/user/register" component={Register}/>
-                    <Route exact path="/stylist/register" component={RegisterStylist}/>
                     <Route exact path="/stylist/profile" component={StylistProfile}/>
                     <Route exact path="/stylist/landing/" component={stylistLanding}/>
 	                <Route exact path="/user/register" component={Register}/>
-                    <Route exact path="/stylist/register" component={RegisterStylist}/>
-                    <Route exact path="/stylist/profile" component={StylistProfile}/>
+                    <Route exact path="/stylist/register" component={registerStylistUser}/>
 	                <Route exact path="/register" component={Register}/>
-                    <Route exact path="/stylists/register" component={registerStylistUser}/>
-                    <Route exact path="/stylists/stylistLanding" component = {stylistLanding}/>
 	                <Switch>
 	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>

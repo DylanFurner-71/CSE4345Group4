@@ -146,6 +146,7 @@ import classnames from "classnames";
                                         letterSpacing: "1.5px",
                                         marginTop: "1rem"
                                     }}
+                                    placeholder={"Type any Texas Cosmetology License or ID Number Here"}
                                     type="submit"
                                     className="btn btn-large waves-effect waves-light hoverable blue accent-3"
                                 >

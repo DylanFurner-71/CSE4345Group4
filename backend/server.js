@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 mongooseConnect();
-const a = ALLELIGIBLE(); //This is going to be called in the logins backend once we figure that out now that we have create user/stylist functionality implemented
+// const a = ALLELIGIBLE(); //This is going to be called in the logins backend once we figure that out now that we have create user/stylist functionality implemented
 // console.log(a);
 //routes to our app
 app.get("/", (req, res) => {

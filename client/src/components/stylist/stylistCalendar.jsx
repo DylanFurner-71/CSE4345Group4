@@ -54,3 +54,4 @@ export class stylistCalendar extends React.Component {
   }
 }
 
+export default stylistCalendar;

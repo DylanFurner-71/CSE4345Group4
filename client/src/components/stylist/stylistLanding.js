@@ -6,10 +6,10 @@ class stylistLanding extends Component {
     constructor() {
         super();
         this.state = {
-            stylistName: "",
-            stylistId: "",
-            reviews: [],
-            calendar: [],
+            stylistName: "Dylan Furner",
+            stylistId: "12345678",
+            reviews: [], //going to use gui homeowrk three to model this
+            calendar: [], //i guess its empty
             error: ""
         };
     }
@@ -39,7 +39,7 @@ class stylistLanding extends Component {
                         <h1> Hello ${"Someday this will be a stylist name"}
                         </h1>
                         <div className = "stylistNav">
-                        {new stylistCalendar()}
+                        <stylistCalendar/>
                         </div>
                         <div>
                             <Link

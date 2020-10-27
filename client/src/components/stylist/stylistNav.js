@@ -1,6 +1,6 @@
 import React from 'react';
 import {Navbar, Nav, NavDropdown} from "react-bootstrap"
-
+import {StylistCalendar} from "./stylistCalendar";
 const StylistNav = () => {
     return (
         <div>
@@ -12,7 +12,7 @@ const StylistNav = () => {
                         <Nav.Link href="/register">Upcoming Appointments</Nav.Link>
                         <Nav.Link href="/register">Past Appointments</Nav.Link>
                         <Nav.Link href="/register">Services Offered</Nav.Link>
-                        <Nav.Link href="/register">Calendar </Nav.Link>
+                        <Nav.Link href="/stylist/Calendar">Calendar </Nav.Link>
                         <Nav.Link href="/register">TBD</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
