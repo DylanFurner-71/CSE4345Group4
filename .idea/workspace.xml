@@ -26,11 +26,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8e476ec-e25f-4be8-b6da-605887600598" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/navigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navigation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/profile/stylistProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/stylistProfile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/register/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/register/register.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/register/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/register/register.js" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/client/debug.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/authActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/stylistProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/stylistProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/register/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/register/registerUser.js" afterDir="false" />
+>>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +57,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
+>>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
   <component name="ProjectId" id="1jFM67lDNBRh8U5W55Rkj5IeDiQ" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -56,6 +72,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+<<<<<<< HEAD
+=======
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+>>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -66,6 +86,10 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+<<<<<<< HEAD
+=======
+      <recent name="C:\Users\hhe99\Documents\SMU\SMU Junior\CS 4345\haircutUber\client\src\components\login" />
+>>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
       <recent name="C:\Users\hhe99\Documents\SMU\SMU Junior\CS 4345\haircutUber\client\src\components\register" />
       <recent name="C:\Users\hhe99\Documents\SMU\SMU Junior\CS 4345\haircutUber\client\src\components\profile" />
     </key>
@@ -80,6 +104,11 @@
       <updated>1603395207918</updated>
       <workItem from="1603395209312" duration="4218000" />
       <workItem from="1603406927782" duration="8879000" />
+<<<<<<< HEAD
+=======
+      <workItem from="1603652487578" duration="35000" />
+      <workItem from="1603827845495" duration="1520000" />
+>>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
     </task>
     <servers />
   </component>
@@ -98,7 +127,18 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="WindowStateProjectService">
+=======
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1061" y="455" key="FileChooserDialogImpl" timestamp="1603652520300">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1061" y="455" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1603652520300" />
+>>>>>>> 530e9268a5ff16542eea1a662f9ce32853e3dda8
     <state x="1583" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1603413634367">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

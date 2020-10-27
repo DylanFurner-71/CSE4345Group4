@@ -10,7 +10,8 @@
     "clean": "rm -rf dist && mkdir dist",
     "build": "babel . -s -D -d dist --presets env --ignore node_modules",
     "serve": "node dist/server.js",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.2",
     "node-geocoder": "^3.27.0",
+    "nodemailer": "^6.4.14",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
