@@ -1,4 +1,3 @@
-
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -37,15 +36,15 @@ function App() {
     return (
         <Provider store={store}>
 	        <div className="App">
-	            {/* <Navigation/> */}
+	            <Navigation/>
 	            <Router>
 	                <Route exact path="/" component={Landing}/>
+                    <Route exact path="/home" component={Landing}/>
 	                <Route exact path="/login" component={Login}/>
 	                <Route exact path="/user/register" component={RegisterUser}/>
                     <Route exact path="/stylist/register" component={RegisterStylist}/>
 	                <Switch>
-                    <PrivateRoute exact path="/stylist/profile" component={StylistProfile} />
-                    <PrivateRoute exact path="/stylists/stylistLanding" component={stylistLanding} />
+	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>
 	            </Router>
 	    	</div>
