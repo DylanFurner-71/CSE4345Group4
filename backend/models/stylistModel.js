@@ -138,7 +138,7 @@ StylistSchema.pre('save', async function (next) {
     // check if docuemnt is new and address exists and also checks if address
     // hass been modified to avoid using api when not necessary
     if ((!exists && this.address) || this.isModified('address')) {
-        console.log('api function executed');
+        console.log('api function execcuted');
         console.log(this.isModified('address'));
         const loc = await geocoder.geocode(this.address);
 

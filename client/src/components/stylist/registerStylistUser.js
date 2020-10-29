@@ -14,7 +14,10 @@ import classnames from "classnames";
             email: "",
             password: "",
             password2: "",
-            error: ""
+            error: "",
+            businessName: "",
+            photo: "",
+            address: "",
         };
     }
     componentDidMount() {
@@ -39,6 +42,9 @@ import classnames from "classnames";
             password: this.state.password,
             password2: this.state.password2,
             texasID: this.state.texasID,
+            businessName: this.state.businessName,
+            photo: this.state.photo,
+            address: this.state.address,
         };
         this.props.registerUserStylist(newUserStylist, this.props.history);
     };
@@ -61,6 +67,7 @@ import classnames from "classnames";
                                     error={error.firstName}
                                     id="firstName"
                                     type="text"
+                                    placeholder="First Name"
                                     className={classnames("", {
                                         invalid: error.firstName
                                     })}
@@ -75,6 +82,7 @@ import classnames from "classnames";
                                     error={error.lastName}
                                     id="lastName"
                                     type="text"
+                                    placeholder="Last Name"
                                     className={classnames("", {
                                         invalid: error.lastName
                                     })}
@@ -89,6 +97,7 @@ import classnames from "classnames";
                                     error={error.email}
                                     id="email"
                                     type="email"
+                                    placeholder="something something @email.com"
                                     className={classnames("", {
                                         invalid: error.email
                                     })}
@@ -131,12 +140,58 @@ import classnames from "classnames";
                                     error={error.texasID}
                                     id="texasID"
                                     type="text"
+                                    placeholder="Enter any texas barber's licence or cosmetology license, we'll check to make sure its valid soon"
                                     className={classnames("", {
                                         invalid: error.texasID
                                     })}
                                 />
-                                <label htmlFor="texasID">Texas CosmetologyLicense</label>
+                                <label htmlFor="texasID">Texas Cosmetology License ID Number</label>
                                 <span className="red-text">{error.texasID}</span>
+                            </div>
+                            <div className="input-field col s12">
+                                <input
+                                    onChange={this.onChange}
+                                    value={this.state.businessName}
+                                    error={error.businessName}
+                                    id="businessName"
+                                    type="text"
+                                    placeholder="Enter the business name on your license"
+                                    className={classnames("", {
+                                        invalid: error.businessName
+                                    })}
+                                />
+                                <label htmlFor="businessName">Business Name</label>
+                                <span className="red-text">{error.businessName}</span>
+                            </div>
+                            <div className="input-field col s12">
+                                <input
+                                    onChange={this.onChange}
+                                    value={this.state.photo}
+                                    error={error.photo}
+                                    id="photo"
+                                    type="text"
+                                    placeholder="Enter the url of your photo :/"
+                                    className={classnames("", {
+                                        invalid: error.photo
+                                    })}
+                                />
+                                <label htmlFor="photo">Photo</label>
+                                <span className="red-text">{error.photo}</span>
+                            </div>
+                            <div className="input-field col s12">
+                                <input
+                                    onChange={this.onChange}
+                                    value={this.state.address}
+                                    error={error.address}
+                                    id="address"
+                                    type="text"
+                                    placeholder="Enter your address or business address"
+                                    className={classnames("", {
+                                        invalid: error.address
+                                    })}
+                                />
+                                <label htmlFor="address">Adress</label>
+                                <span className="red-text">{error.address}</span>
                             </div>
                             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                                 <button
@@ -146,23 +201,14 @@ import classnames from "classnames";
                                         letterSpacing: "1.5px",
                                         marginTop: "1rem"
                                     }}
-                                    placeholder={"Type any Texas Cosmetology License or ID Number Here"}
-                                    type="submit"
+                                    type="button"
                                     className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                                    onClick={this.onSubmit}
                                 >
                                     Sign up
                                 </button>
                             </div>
                         </form>
-                        <Link
-                                to="/stylists/login/"
-                                style={{
-                                    borderRadius: "3px",
-                                    letterSpacing: "1.5px",
-                                    padding: "12px"
-                                }}
-                                className="btn btn-large btn-flat waves-effect blue black-text"
-                            >Stylist landing test jump</Link>
                     </div>
                 </div>
             </div>

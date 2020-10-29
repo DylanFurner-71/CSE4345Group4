@@ -2,11 +2,10 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {loginUser} from "../../actions/authActions";
+import {loginStylist} from "../../actions/authActions";
 import classnames from "classnames";
-import "../register/register.css"
-
-class Login extends Component {
+import "../register/register.css";
+export class StylistLogin extends Component {
     constructor() {
         super();
         this.state = {
@@ -17,15 +16,15 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        // If logged in and user navigates to Login page, should redirect them to dashboard
+        // // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
-            // this.props.history.push("/");
+            this.props.history.push("/stylists/stylistLanding");
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/"); // push user to dashboard when they login
+            this.props.history.push("/stylists/StylistLanding"); // push user to dashboard when they login
         }
         if (nextProps.error) {
             this.setState({
@@ -43,7 +42,7 @@ class Login extends Component {
             email: this.state.email,
             password: this.state.password
         };
-        this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+        this.props.loginStylist(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     };
 
     render() {
@@ -110,8 +109,8 @@ class Login extends Component {
     }
 }
 
-Login.propTypes = {
-    loginUser: PropTypes.func.isRequired,
+StylistLogin.propTypes = {
+    loginStylist: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
@@ -120,5 +119,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
     mapStateToProps,
-    {loginUser}
-)(Login);
+    {loginStylist}
+)(StylistLogin);

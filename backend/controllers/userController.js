@@ -3,29 +3,45 @@ import User from '../models/userModel.js';
 import ErrorResponse from '../utils/errorResponse.js';
 import sendEmail from '../utils/sendEmail.js';
 import crypto from 'crypto';
+const bcrypt = require("bcryptjs");
+// Load input validation
+const validateRegisterInput = require("../validation/register");
+const validateLoginInput = require("../validation/login");
+const jwt = require("jsonwebtoken");
+const keys = require("../config/keys");
 
 //@desc          Allow User to create an account
 //@route         POST /users/register
 //@access        Public
 export const createUser = async (req, res, next) => {
-    let user = await User.findOne({ email: req.body.email });
-    if (!user) {
-        user = new User(req.body);
-    } else {
-        console.log(user);
-        return next(new ErrorResponse('User already exists', 400));
-    }
-    try {
-        const newUser = await user.save();
-        //create token
-        const token = user.getSignedJwtToken();
-
-        res.json({ sucess: true, token, newUser });
-    } catch (err) {
-        next(err);
-    }
-};
-
+    const { errors, isValid } = validateRegisterInput(req.body);
+    // Check validation
+      if (!isValid) {
+        return res.status(400).json(errors);
+      }
+    User.findOne({ email: req.body.email }).then(user => {
+        if (user) {
+          return res.status(400).json({ email: "Email already exists" });
+        } else {
+          const newUser = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password
+          });
+    // Hash password before saving in database
+          bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+              if (err) throw err;
+              newUser.password = hash;
+              newUser
+                .save()
+                .then(user => res.json(user))
+                .catch(err => console.log(err));
+            });
+          });
+        }
+      });
+    };
 //@desc          Update user based on userId
 //@route         PUT /users/:id
 //@access        Private
@@ -71,29 +87,77 @@ export const getUsers = async (req, res, next) => {
 //@route         POST /users/login
 //@access        Public
 export const userLogin = async (req, res, next) => {
-    const email = req.body.email;
-    const password = req.body.password;
-    if (!email || !password) {
-        return next(
-            new ErrorResponse('Please provide an email and password', 400)
+    // console.log("DID WSE FIND IT?");
+    // console.log(req.body);
+    // const email = req.body.email;
+    // const password = req.body.password;
+    // if (!email || !password) {
+    //     return next(
+    //         new ErrorResponse('Please provide an email and password', 400)
+    //     );
+    // }
+    // try {
+    //     const currUser = await User.findOne({ email }).select('+password');
+    //     if (!currUser) {
+    //         return next(new ErrorResponse('Invalid Credentials', 401));
+    //     }
+    //     const isMatch = await currUser.matchPassword(password);
+    //     if (!isMatch) {
+    //         return next(new ErrorResponse('Invalid Credentials', 401));
+    //     }
+    //     const token = currUser.getSignedJwtToken();
+    //     currUser.lastLogin = Date.now();
+    //     currUser.save();
+    //     res.status(200).json({ success: true, token, user: currUser });
+    // } catch (err) {
+    //     next(err);
+    // }
+    
+      // Form validation
+// Check validation
+const { errors, isValid } = validateLoginInput(req.body);
+// Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+const email = req.body.email;
+  const password = req.body.password;
+// Find user by email
+  User.findOne({ email }).then(user => {
+    // Check if user exists
+    if (!user) {
+      return res.status(404).json({ emailnotfound: "Email not found" });
+    }
+// Check password
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        // User matched
+        // Create JWT Payload
+        const payload = {
+          id: user.id,
+          name: user.name
+        };
+// Sign token
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          {
+            expiresIn: 31556926 // 1 year in seconds
+          },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token
+            });
+          }
         );
-    }
-    try {
-        const currUser = await User.findOne({ email }).select('+password');
-        if (!currUser) {
-            return next(new ErrorResponse('Invalid Credentials', 401));
-        }
-        const isMatch = await currUser.matchPassword(password);
-        if (!isMatch) {
-            return next(new ErrorResponse('Invalid Credentials', 401));
-        }
-        const token = currUser.getSignedJwtToken();
-        currUser.lastLogin = Date.now();
-        currUser.save();
-        res.status(200).json({ success: true, token, user: currUser });
-    } catch (err) {
-        next(err);
-    }
+      } else {
+        return res
+          .status(400)
+          .json({ passwordincorrect: "Password incorrect" });
+      }
+    });
+  });
 };
 
 //@desc          Allow User to change password

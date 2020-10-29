@@ -2,12 +2,17 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import StylistNav from './stylistNav';
 import {stylistCalendar} from './stylistCalendar';
+import { getCurrentUser } from "../../actions/authActions";
+import {connect} from "react-redux";
+
 class stylistLanding extends Component {
     constructor() {
         super();
         this.state = {
-            stylistName: "Dylan Furner",
-            stylistId: "12345678",
+            stylistName: "",
+            stylistId: "",
+            firstName: "",
+            lastName: "",
             reviews: [], //going to use gui homeowrk three to model this
             calendar: [], //i guess its empty
             error: ""
@@ -36,7 +41,7 @@ class stylistLanding extends Component {
             {StylistNav()}
                 <div className="row">
                     <div className="col center-align">
-                        <h1> Hello ${"Someday this will be a stylist name"}
+                        <h1> Hello {`${this.state.stylistName}`}
                         </h1>
                         <div className = "stylistNav">
                         <stylistCalendar/>
@@ -70,4 +75,13 @@ class stylistLanding extends Component {
     }
 }
 
-export default stylistLanding;
+const mapDispatchToProps = dispatch => {
+    return {
+        stylistCurr: () => dispatch(getCurrentUser())
+    }
+  }
+
+
+export default connect(
+    mapDispatchToProps,
+)(stylistLanding);

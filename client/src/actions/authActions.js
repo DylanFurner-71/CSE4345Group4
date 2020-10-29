@@ -4,7 +4,8 @@ import jwt_decode from "jwt-decode";
 import {
     GET_ERRORS,
     SET_CURRENT_USER,
-    USER_LOADING
+    USER_LOADING,
+    CURRENT_USER,
 } from "./types";
 // Register User
 const api = "http://localhost:8000";
@@ -16,7 +17,7 @@ export const registerUser = (userData, history) => dispatch => {
         .catch(err =>
             dispatch({
                 type: GET_ERRORS,
-                payload: err.response.data
+                payload: err.response
             })
         );
 };
@@ -25,13 +26,40 @@ export const registerUser = (userData, history) => dispatch => {
 export const registerUserStylist = (userData, history) => dispatch => {
     axios
         .post(`/stylists/register/create`, userData)
-        .then(() => history.push("/stylists/stylistLanding")) // re-direct to login on successful register
+        .then(() => {
+                history.push("/stylists/login")
+            })// re-direct to login on successful register
         .catch(err =>
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data
             })
         );
+};
+
+export const loginStylist = userData => dispatch =>  {
+    axios
+    .post(`/stylists/login/`, userData)
+    .then(res => {
+        // Save to localStorage
+// Set token to localStorage
+        const {token} = res.data;
+        localStorage.setItem("jwtToken", token);
+        // Set token to Auth header
+        setAuthToken(token);
+        // Decode token to get user data
+        const decoded = jwt_decode(token);
+        // Set current user
+        dispatch(setCurrentUser(decoded));
+        console.log("decoded", decoded);
+    })
+    .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        }
+    );
 };
 // Change Password
 export const changePassword = (userData, history) => dispatch => {
@@ -77,6 +105,13 @@ export const setCurrentUser = decoded => {
         payload: decoded
     };
 };
+
+export const getCurrentUser = () => {
+    return {
+        type: CURRENT_USER,
+        payload: SET_CURRENT_USER.payload
+    }
+}
 // User loading
 export const setUserLoading = () => {
     return {

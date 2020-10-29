@@ -6,9 +6,13 @@ import * as user from '../controllers/userController.js';
 import * as stylist from '../controllers/stylistController.js';
 import { errorHandler } from '../middleware/error.js';
 import { protectStylist, protectUser } from '../middleware/auth.js';
+const passport = require("passport");
 
 export default app => {
     console.log('we made it to here');
+    app.use(passport.initialize());
+// Passport config
+require("../config/passport")(passport);
     //GET request
     app.route('/home').get(homeController.getHome);
     app.route('/notes').get(notebook.getAllNotes).post(notebook.createNote);

@@ -4,6 +4,9 @@ import Stylist from '../models/stylistModel.js';
 import ErrorResponse from '../utils/errorResponse.js';
 import sendEmail from '../utils/sendEmail.js';
 import crypto from 'crypto';
+const bcrypt = require("bcryptjs");
+
+const validateRegisterInput = require("../validation/register");
 
 //@desc          Get all stylists from DB
 //@route         GET /stylists
@@ -29,20 +32,18 @@ export const stylistLogin = async (req, res, next) => {
         );
     }
     try {
-        const currStylist = await Stylist.findOne({ email }).select(
-            '+password'
-        );
-        if (!currStylist) {
+        const currUser = await Stylist.findOne({ email }).select('+password');
+        if (!currUser) {
             return next(new ErrorResponse('Invalid Credentials', 401));
         }
-        const isMatch = await currStylist.matchPassword(password);
+        const isMatch = await currUser.matchPassword(password);
         if (!isMatch) {
             return next(new ErrorResponse('Invalid Credentials', 401));
         }
-        const token = currStylist.getSignedJwtToken();
-        currStylist.lastLogin = Date.now();
-        currStylist.save();
-        res.status(200).json({ success: true, token, stylist: currStylist });
+        const token = currUser.getSignedJwtToken();
+        currUser.lastLogin = Date.now();
+        currUser.save();
+        res.status(200).json({ success: true, token, user: currUser });
     } catch (err) {
         next(err);
     }
@@ -52,23 +53,33 @@ export const stylistLogin = async (req, res, next) => {
 //@route         POST /stylists/register
 //@access        Public
 export const createStylist = async (req, res, next) => {
-    let stylist = await Stylist.findOne({ email: req.body.email });
-    if (!stylist) {
-        stylist = new Stylist(req.body);
-    } else {
-        return next(new ErrorResponse('Stylist already exists', 400));
-    }
-    try {
-        const newStylist = await stylist.save();
-        //create token
-        const token = stylist.getSignedJwtToken();
-
-        res.json({ sucess: true, token, newStylist });
-    } catch (err) {
-        next(err);
-    }
-};
-
+await    Stylist.findOne({ email: req.body.email }).then(user => {
+        if (user) {
+          return res.status(400).json({ email: "Email already exists" });
+        } else {
+          const newUser = new Stylist({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            password: req.body.password,
+            address: req.body.address,
+            businessName: req.body.businessName,
+            photo: req.body.photo,
+          });
+    // Hash password before saving in database
+          bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+              if (err) throw err;
+              newUser.password = hash;
+              newUser
+                .save()
+                .then(user => res.json(user))
+                .catch(err => console.log(err));
+            });
+          });
+        }
+      });
+    };
 export const updateStylist = async (req, res, next) => {
     try {
         const stylist = await Stylist.findById(req.params.id);
