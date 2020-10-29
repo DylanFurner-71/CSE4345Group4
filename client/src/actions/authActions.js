@@ -35,8 +35,20 @@ export const registerUserStylist = (userData, history) => dispatch => {
             })
         );
 };
-
-export const loginStylist = userData => dispatch =>  {
+export const login = (userData, history) => dispatch => {
+    console.log(userData, 'User data aqui"');
+    const {email, password, isStylist} = userData;
+    const newUserData = {email: email, password: password};
+    console.log(newUserData);
+    if (isStylist === true){
+        console.log("What's up homies")
+        return loginStylist(newUserData, history);
+    } else {
+        return loginUser(newUserData, history);
+    }
+};
+export const loginStylist = (userData, history) => dispatch =>  {
+    console.log(userData, "l;aksdjfl;akdsjfl;akdsj");
     axios
     .post(`/stylists/login/`, userData)
     .then(res => {
@@ -51,7 +63,8 @@ export const loginStylist = userData => dispatch =>  {
         // Set current user
         dispatch(setCurrentUser(decoded));
         console.log("decoded", decoded);
-    })
+        console.log('loginstylist');
+    }).then(() => history.push("/stylist/stylistLanding"))
     .catch(err => {
             dispatch({
                 type: GET_ERRORS,
@@ -74,7 +87,7 @@ export const changePassword = (userData, history) => dispatch => {
 };
 
 // Login - get user token
-export const loginUser = userData => dispatch => {
+export const loginUser = (userData, history) => dispatch => {
     axios
         .post("/users/login", userData)
         .then(res => {

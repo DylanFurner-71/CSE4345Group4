@@ -32,6 +32,7 @@ export const getSylist = async (req, res, next) => {
 //@route         POST /stylists/login
 //@access        Public
 export const stylistLogin = async (req, res, next) => {
+    console.log("We are calling stylist login")
     const email = req.body.email;
     const password = req.body.password;
     if (!email || !password) {

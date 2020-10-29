@@ -30,7 +30,7 @@ require("../config/passport")(passport);
     app.route('/users/register').post(user.createUser);
     app.route('/users/login/').post(user.userLogin);
     app.route('/users/me').get(protectUser, user.getMe);
-
+    app.route('stylists/login/').post(stylist.stylistLogin)
     app.route('/stylists').get(stylist.getStylists);
     app.route('/stylists/:id').put(protectStylist, stylist.updateStylist);
     app.route('/stylists/change/:stylistId').post(
