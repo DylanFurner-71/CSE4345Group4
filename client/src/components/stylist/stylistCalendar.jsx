@@ -13,6 +13,7 @@ export class stylistCalendar extends React.Component {
   state = {
     events: [
       {
+        stylistID: "dfurner@smu.edu",
         start: moment().toDate(),
         end: moment().add(1, "days").toDate(),
         title: "Some title",

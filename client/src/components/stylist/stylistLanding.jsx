@@ -4,17 +4,27 @@ import StylistNav from './stylistNav';
 import {stylistCalendar} from './stylistCalendar';
 import { getCurrentUser } from "../../actions/authActions";
 import {connect} from "react-redux";
-
-class stylistLanding extends Component {
+import moment from "moment";
+import {stylistProfileCard} from "./stylistProfileCard";
+export class stylistLanding extends Component {
     constructor() {
         super();
         this.state = {
-            stylistName: "",
-            stylistId: "",
-            firstName: "",
-            lastName: "",
+            stylistName: "Dylan Furner",
+            stylistId: "dfurner@smu.edu",
+            firstName: "Dylan",
+            lastName: "Furner",
+            email: "dfurner@smu.edu",
+            photo: "https://johnlawrimore.com/smu/101.png",
             reviews: [], //going to use gui homeowrk three to model this
-            calendar: [], //i guess its empty
+            events: [
+                {
+                  stylistID: this.email,
+                  start: moment().toDate(),
+                  end: moment().add(1, "days").toDate(),
+                  title: "Some title",
+                },
+              ],
             error: ""
         };
     }
@@ -38,17 +48,18 @@ class stylistLanding extends Component {
         return (
 
             <div className="justify-content-center container valign-wrapper">
-            {StylistNav()}
+            {StylistNav(this.state.stylistName, this.state.stylistId)}
+            <h1> Hello {`${this.state.stylistName}`} welcome to Ultimate Style!
+                        </h1>
+                            <stylistProfileCard photo={this.state.photo}/>
+                            <img src={this.state.photo}/>
+
+                        <div>
                 <div className="row">
                     <div className="col center-align">
-                        <h1> Hello {`${this.state.stylistName}`}
-                        </h1>
-                        <div className = "stylistNav">
-                        <stylistCalendar/>
-                        </div>
-                        <div>
+                       
                             <Link
-                                to="/stylists/register"
+                                to={`/stylist/stylistCalendar`}
                                 style={{
                                     width: "140px",
                                     borderRadius: "3px",
@@ -56,7 +67,7 @@ class stylistLanding extends Component {
                                     padding: "12px"
                                 }}
                                 className="btn btn-large btn-flat waves-effect blue black-text"
-                            >Log In</Link>
+                            >Calendar</Link>
                             <Link
                                 to="/"
                                 style={{

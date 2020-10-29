@@ -6,7 +6,6 @@ import sendEmail from '../utils/sendEmail.js';
 import crypto from 'crypto';
 const bcrypt = require("bcryptjs");
 
-const validateRegisterInput = require("../validation/register");
 
 //@desc          Get all stylists from DB
 //@route         GET /stylists
@@ -19,6 +18,15 @@ export const getStylists = async (req, res, next) => {
         next(err);
     }
 };
+
+export const getSylist = async (req, res, next) => {
+    try {
+        const stylist = await Stylist.findById(req.body.email);
+        res.json(stylist);
+    } catch (err) {
+        next(err);
+    }
+}
 
 //@desc          Login in stylist
 //@route         POST /stylists/login
