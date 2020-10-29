@@ -15,17 +15,18 @@ export const registerUser = (userData, history) => dispatch => {
         .post("/users/register", userData)
         .then(() => history.push("/login")) // re-direct to login on successful register
         .catch(err =>
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response
-            })
+            // dispatch({
+            //     type: GET_ERRORS,
+            //     payload: err.response
+            // })
+            console.log(err)
         );
 };
 
 //registerSylistUserWillBe updated once I figure out how to correctlyCheck the texas ID database
 export const registerUserStylist = (userData, history) => dispatch => {
     axios
-        .post("/stylists/register", userData)
+        .post("/stylists/register/create", userData)
         .then(() => history.push("/login")) // re-direct to login on successful register
         .catch(err =>
             dispatch({

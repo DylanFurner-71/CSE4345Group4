@@ -20,6 +20,7 @@ import classnames from "classnames";
             address: "",
         };
     }
+    
     componentDidMount() {
         // If logged in and user navigates to Register page, should redirect them to dashboard
     }

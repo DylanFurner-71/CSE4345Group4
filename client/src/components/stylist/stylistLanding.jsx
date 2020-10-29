@@ -29,7 +29,7 @@ export class stylistLanding extends Component {
         };
     }
     componentDidMount() {
-
+        
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.error) {
