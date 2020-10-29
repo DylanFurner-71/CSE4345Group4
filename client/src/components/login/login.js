@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {loginUser} from "../../actions/authActions";
 import classnames from "classnames";
 import "../register/register.css"
+import RegisterPopup from "../register/registerPopup";
 
 class Login extends Component {
     constructor() {
@@ -12,6 +13,7 @@ class Login extends Component {
         this.state = {
             email: "",
             password: "",
+            modalShow: false,
             error: {}
         };
     }
@@ -51,14 +53,19 @@ class Login extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-10 col-xl-9 mx-auto">
+                    <div className="col-5 col-5 mx-auto">
                         <div className="card card-signin flex-row my-5">
                             <div className="card-img-left d-none d-md-flex">
                             </div>
                             <div className="card-body">
                                 <div>
                                     <p className="grey-text text-darken-1">
-                                        Don't have an account yet? <Link to="/register">Register</Link> Now!
+                                        Don't have an account yet?
+                                        <a href="#" onClick={() => this.setState({modalShow: true})}> <u>Register</u> </a>Now!
+                                        <RegisterPopup
+                                            show={this.state.modalShow}
+                                            onHide={() => this.setState({modalShow: false})}
+                                        />
                                     </p>
                                 </div>
                                 <h5 className="card-title text-center">Login</h5>
