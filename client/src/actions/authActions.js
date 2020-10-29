@@ -12,7 +12,7 @@ const api = "http://localhost:8000";
 axios.defaults.baseURL = api;
 export const registerUser = (userData, history) => dispatch => {
     axios
-        .post(`/users/register`, userData)
+        .post("/users/register", userData)
         .then(() => history.push("/login")) // re-direct to login on successful register
         .catch(err =>
             dispatch({
@@ -25,10 +25,8 @@ export const registerUser = (userData, history) => dispatch => {
 //registerSylistUserWillBe updated once I figure out how to correctlyCheck the texas ID database
 export const registerUserStylist = (userData, history) => dispatch => {
     axios
-        .post(`/stylists/register/create`, userData)
-        .then(() => {
-                history.push("/stylists/login")
-            })// re-direct to login on successful register
+        .post("/stylists/register", userData)
+        .then(() => history.push("/login")) // re-direct to login on successful register
         .catch(err =>
             dispatch({
                 type: GET_ERRORS,
@@ -64,7 +62,7 @@ export const loginStylist = userData => dispatch =>  {
 // Change Password
 export const changePassword = (userData, history) => dispatch => {
     axios
-        .post(`/users/changePassword`, userData)
+        .post("/users/changePassword", userData)
         .then(() => history.push("/home")) // re-direct to home after changing password
         .catch(err =>
             dispatch({
@@ -77,7 +75,7 @@ export const changePassword = (userData, history) => dispatch => {
 // Login - get user token
 export const loginUser = userData => dispatch => {
     axios
-        .post(`/users/login`, userData)
+        .post("/users/login", userData)
         .then(res => {
             // Save to localStorage
 // Set token to localStorage

@@ -8,16 +8,12 @@ import jwt_decode from "jwt-decode";
 import PrivateRoute from "./components/PrivateRoute"
 import Navigation from "./components/navigation"
 import Landing from './components/landing'
-import store from "./store";
-import StylistProfile from "./components/profile/stylistProfile";
-import stylistLanding from "./components/stylist/stylistLanding";
 import Login from './components/login/login'
-import Register from './components/register'
+import RegisterUser from './components/register/registerUser'
+import RegisterStylist from './components/register/registerStylist'
 import setAuthToken from "./utils/setAuthToken";
-import {StylistLogin} from "./components/stylist/StylistLogin";
-
+import store from "./store";
 import { ROUTES } from './routes'
-import registerStylistUser from './components/stylist/registerStylistUser';
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
     // Set auth token header auth
@@ -45,12 +41,8 @@ function App() {
 	            <Router>
 	                <Route exact path="/" component={Landing}/>
 	                <Route exact path="/login" component={Login}/>
-	                <Route exact path="/user/register" component={Register}/>
-                    {/* <Route exact path="/stylist/profile" component={StylistProfile}/> */}
-                    {/* <Route exact path="/stylist/landing/" component={stylistLanding}/> */}
-                    <Route exact path="/stylists/register" component={registerStylistUser}/>
-                    {/* <Route exact path="/stylists/stylistLanding" component = {stylistLanding}/> */}
-                    <Route exact path="/stylists/login" component = {StylistLogin}/>
+	                <Route exact path="/user/register" component={RegisterUser}/>
+                    <Route exact path="/stylist/register" component={RegisterStylist}/>
 	                <Switch>
                     <PrivateRoute exact path="/stylist/profile" component={StylistProfile} />
                     <PrivateRoute exact path="/stylists/stylistLanding" component={stylistLanding} />
