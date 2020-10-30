@@ -26,11 +26,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8e476ec-e25f-4be8-b6da-605887600598" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/client/src/components/userLanding.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/atlasConnect.js" beforeDir="false" afterPath="$PROJECT_DIR$/atlasConnect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/changePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/changePassword.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/login/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/register/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/register/register.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/register/registerStylist.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/register/registerStylist.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/register/registerUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/register/registerUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/userController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +93,7 @@
       <workItem from="1603406927782" duration="8879000" />
       <workItem from="1603652487578" duration="35000" />
       <workItem from="1603827845495" duration="1520000" />
-      <workItem from="1604007436520" duration="1373000" />
+      <workItem from="1604007436520" duration="8815000" />
     </task>
     <servers />
   </component>

@@ -21,13 +21,13 @@ class Login extends Component {
     componentDidMount() {
         // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/");
+            this.props.history.push("/userLanding");
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/"); // push user to dashboard when they login
+            this.props.history.push("/userLanding"); // push user to dashboard when they login
         }
         if (nextProps.error) {
             this.setState({
@@ -104,9 +104,10 @@ class Login extends Component {
 
                                     <hr/>
 
-                                        <button className="btn btn-lg btn-primary btn-block text-uppercase"
-                                                type="submit">Login
-                                        </button>
+                                    <Link to="/resetPassword">Forgot password?</Link>
+                                    <button className="btn btn-lg btn-primary btn-block text-uppercase"
+                                            type="submit">Login
+                                    </button>
                                 </form>
                             </div>
                         </div>

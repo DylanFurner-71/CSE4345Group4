@@ -23,6 +23,7 @@ export const createUser = async (req, res, next) => {
         res.json({ sucess: true, token, newUser });
     } catch (err) {
         next(err);
+        console.log(err)
     }
 };
 

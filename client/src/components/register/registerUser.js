@@ -10,6 +10,8 @@ class RegisterUser extends Component {
     constructor() {
         super();
         this.state = {
+            firstName: "",
+            lastName: "",
             name: "",
             email: "",
             password: "",
@@ -33,6 +35,8 @@ class RegisterUser extends Component {
     onSubmit = e => {
         e.preventDefault();
         const newUser = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
             name: this.state.name,
             email: this.state.email,
             password: this.state.password,
@@ -50,6 +54,25 @@ class RegisterUser extends Component {
                             <div className="card-body">
                                 <h5 className="card-title text-center">Register</h5>
                                 <form className="form-signin" onSubmit={this.onSubmit}>
+                                    <div className="row">
+                                        <div className="form-label-group col-6">
+                                            <input type="text" onChange={this.onChange} error={error.firstName}
+                                                   value={this.state.firstName} id="firstName" className={classnames("form-control", {
+                                                invalid: error.firstName
+                                            })} placeholder="First Name" required autoFocus />
+                                            <label htmlFor="firstName">First Name</label>
+                                            <span className="red-text">{error.firstName}</span>
+                                        </div>
+                                        <div className="form-label-group col-6">
+                                            <input type="text" onChange={this.onChange} error={error.lastName}
+                                                   value={this.state.lastName} id="lastName" className={classnames("form-control", {
+                                                invalid: error.lastName
+                                            })} placeholder="Last Name" required autoFocus />
+                                            <label htmlFor="lastName">Last Name</label>
+                                            <span className="red-text">{error.lastName}</span>
+                                        </div>
+                                    </div>
+
                                     <div className="form-label-group">
                                         <input type="text" onChange={this.onChange} error={error.name}
                                                value={this.state.name} id="name" className={classnames("form-control", {

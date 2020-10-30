@@ -1,165 +1,37 @@
-import React, { useState } from "react";
-import { Auth } from "aws-amplify";
-import { Link } from "react-router-dom";
-import {
-    HelpBlock,
-    FormGroup,
-    Glyphicon,
-    FormControl,
-    ControlLabel,
-} from "react-bootstrap";
-// import LoaderButton from "../components/LoaderButton";
-// import { useFormFields } from "../libs/hooksLib";
-// import { onError } from "../libs/errorLib";
-// import "./ResetPassword.css";
+import React, {useState} from 'react';
+import axios from 'axios';
 
-export default function ResetPassword() {
-    const [fields, handleFieldChange] = useFormFields({
-        code: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-    });
-    const [codeSent, setCodeSent] = useState(false);
-    const [confirmed, setConfirmed] = useState(false);
-    const [isConfirming, setIsConfirming] = useState(false);
-    const [isSendingCode, setIsSendingCode] = useState(false);
+const ChangePassword = () => {
+    const url = 'http://localhost:8000/users/forgotPassword'
+    const [email, setEmail] = useState('');
 
-    function validateCodeForm() {
-        return fields.email.length > 0;
-    }
-
-    function validateResetForm() {
-        return (
-            fields.code.length > 0 &&
-            fields.password.length > 0 &&
-            fields.password === fields.confirmPassword
-        );
-    }
-
-    async function handleSendCodeClick(event) {
-        event.preventDefault();
-
-        setIsSendingCode(true);
-
-        try {
-            await Auth.forgotPassword(fields.email);
-            setCodeSent(true);
-        } catch (error) {
-            onError(error);
-            setIsSendingCode(false);
-        }
-    }
-
-    async function handleConfirmClick(event) {
-        event.preventDefault();
-
-        setIsConfirming(true);
-
-        try {
-            await Auth.forgotPasswordSubmit(
-                fields.email,
-                fields.code,
-                fields.password
-            );
-            setConfirmed(true);
-        } catch (error) {
-            onError(error);
-            setIsConfirming(false);
-        }
-    }
-
-    function renderRequestCodeForm() {
-        return (
-            <form onSubmit={handleSendCodeClick}>
-                <FormGroup bsSize="large" controlId="email">
-                    <ControlLabel>Email</ControlLabel>
-                    <FormControl
-                        autoFocus
-                        type="email"
-                        value={fields.email}
-                        onChange={handleFieldChange}
-                    />
-                </FormGroup>
-                <LoaderButton
-                    block
-                    type="submit"
-                    bsSize="large"
-                    isLoading={isSendingCode}
-                    disabled={!validateCodeForm()}
-                >
-                    Send Confirmation
-                </LoaderButton>
-            </form>
-        );
-    }
-
-    function renderConfirmationForm() {
-        return (
-            <form onSubmit={handleConfirmClick}>
-                <FormGroup bsSize="large" controlId="code">
-                    <ControlLabel>Confirmation Code</ControlLabel>
-                    <FormControl
-                        autoFocus
-                        type="tel"
-                        value={fields.code}
-                        onChange={handleFieldChange}
-                    />
-                    <HelpBlock>
-                        Please check your email ({fields.email}) for the confirmation code.
-                    </HelpBlock>
-                </FormGroup>
-                <hr />
-                <FormGroup bsSize="large" controlId="password">
-                    <ControlLabel>New Password</ControlLabel>
-                    <FormControl
-                        type="password"
-                        value={fields.password}
-                        onChange={handleFieldChange}
-                    />
-                </FormGroup>
-                <FormGroup bsSize="large" controlId="confirmPassword">
-                    <ControlLabel>Confirm Password</ControlLabel>
-                    <FormControl
-                        type="password"
-                        value={fields.confirmPassword}
-                        onChange={handleFieldChange}
-                    />
-                </FormGroup>
-                <LoaderButton
-                    block
-                    type="submit"
-                    bsSize="large"
-                    isLoading={isConfirming}
-                    disabled={!validateResetForm()}
-                >
-                    Confirm
-                </LoaderButton>
-            </form>
-        );
-    }
-
-    function renderSuccessMessage() {
-        return (
-            <div className="success">
-                <Glyphicon glyph="ok" />
-                <p>Your password has been reset.</p>
-                <p>
-                    <Link to="/login">
-                        Click here to login with your new credentials.
-                    </Link>
-                </p>
-            </div>
-        );
+    const onSend = async event => {
+        event.preventDefault()
+        await axios.post(url, {
+            email: email
+        })
+            .then(res => alert('Reset password link sent successfully!'))
+            .catch(err => alert('Failed to send the link. Please try again!'))
+        setEmail('')
     }
 
     return (
-        <div className="ResetPassword">
-            {!codeSent
-                ? renderRequestCodeForm()
-                : !confirmed
-                    ? renderConfirmationForm()
-                    : renderSuccessMessage()}
+        <div className="container h-100 mt-5">
+            <div className="row align-items-center h-100">
+                <div className="col-6 mx-auto">
+                    <form onSubmit={onSend}>
+                        <div className="form-group">
+                            <label htmlFor="email">Enter your email below</label>
+                            <input type="email" id="email" value={email} onChange={event => setEmail(event.target.value)} className="form-control"/>
+                        </div>
+                        <button type="submit" className="btn btn-primary">Send reset link</button>
+                    </form>
+                </div>
+
+            </div>
+
         </div>
     );
-}
+};
+
+export default ChangePassword;

@@ -13,6 +13,7 @@ import RegisterStylist from './components/register/registerStylist'
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
 import { ROUTES } from './routes'
+import ChangePassword from "./components/changePassword";
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
     // Set auth token header auth
@@ -43,6 +44,7 @@ function App() {
 	                <Route exact path="/login" component={Login}/>
 	                <Route exact path="/user/register" component={RegisterUser}/>
                     <Route exact path="/stylist/register" component={RegisterStylist}/>
+                    <Route exact path="/resetPassword" component={ChangePassword}/>
 	                <Switch>
 	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>

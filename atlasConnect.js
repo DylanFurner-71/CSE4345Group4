@@ -15,5 +15,6 @@ export const mongooseConnect = async () => {
             console.log(
                 `${process.env.MONGO_DB} database connection established successfully`
             );
-        });
+        })
+        .catch(err => console.log(err));
 };
