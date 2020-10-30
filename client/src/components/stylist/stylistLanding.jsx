@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import StylistNav from './stylistNav';
+import {StylistNav} from './stylistNav';
 import {stylistCalendar} from './stylistCalendar';
 import { getCurrentUser } from "../../actions/authActions";
 import {connect} from "react-redux";
@@ -22,6 +22,17 @@ export class stylistLanding extends Component {
                   stylistID: this.email,
                   start: moment().toDate(),
                   end: moment().add(1, "days").toDate(),
+                  title: "Some title",
+                },
+                   {
+                  stylistID: this.email,
+                  start: moment().add(2).toDate(),
+                  end: moment().add(3, "days").toDate(),
+                  title: "Some title",
+                },    {
+                  stylistID: this.email,
+                  start: moment().add(5).toDate(),
+                  end: moment().add(6, "days").toDate(),
                   title: "Some title",
                 },
               ],
@@ -51,13 +62,13 @@ if (nextProps.errors) {
         return (
 
             <div className="justify-content-center container valign-wrapper">
-            {StylistNav(this.state.stylistName, this.state.stylistId)}
             <h1> Hello {`${this.state.stylistName}`} welcome to Ultimate Style!
                         </h1>
                             <stylistProfileCard photo={this.state.photo}/>
                             <img src={this.state.photo}/>
 
                         <div>
+                <StylistNav></StylistNav>
                 <div className="row">
                     <div className="col center-align">
                        
