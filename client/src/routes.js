@@ -1,4 +1,5 @@
+import {stylistLanding} from "./components/stylist/stylistLanding";
 export const ROUTES = [
     // {path: '/changePassword', component: ChangePassword},
-    // {path: "/register", component: Register}
+    {path: "/stylist/stylistLanding", component: stylistLanding}
 ]

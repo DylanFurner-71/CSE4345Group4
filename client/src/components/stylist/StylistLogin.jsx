@@ -97,7 +97,8 @@ export class StylistLogin extends Component {
                                     <hr/>
 
                                         <button className="btn btn-lg btn-primary btn-block text-uppercase"
-                                                type="submit">Login
+                                                type="button"
+                                                onClick={this.onSubmit}>Login
                                         </button>
                                 </form>
                             </div>

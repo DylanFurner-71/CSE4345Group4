@@ -39,7 +39,6 @@ const StylistSchema = new Schema(
         password: {
             type: String,
             required: [true, 'Please provide a password'],
-            select: false,
         },
         number: {
             type: String,

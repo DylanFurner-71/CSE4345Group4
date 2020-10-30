@@ -41,10 +41,31 @@ export const login = (userData, history) => dispatch => {
     const newUserData = {email: email, password: password};
     console.log(newUserData);
     if (isStylist === true){
-        console.log("What's up homies")
-        return loginStylist(newUserData, history);
+        axios
+    .post(`/stylists/login/`, newUserData)
+    .then(res => {
+        // Save to localStorage
+// Set token to localStorage
+        const {token} = res.data;
+        localStorage.setItem("jwtToken", token);
+        // Set token to Auth header
+        setAuthToken(token);
+        // Decode token to get user data
+        const decoded = jwt_decode(token);
+        // Set current user
+        dispatch(setCurrentUser(decoded));
+        console.log("decoded", decoded);
+        console.log('loginstylist');
+    }).then(() => history.push("/stylist/stylistLanding"))
+    .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        }
+    );
     } else {
-        return loginUser(newUserData, history);
+        // return loginUser(newUserData, history);
     }
 };
 export const loginStylist = (userData, history) => dispatch =>  {

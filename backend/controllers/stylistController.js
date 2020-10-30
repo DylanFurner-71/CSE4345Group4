@@ -5,7 +5,10 @@ import ErrorResponse from '../utils/errorResponse.js';
 import sendEmail from '../utils/sendEmail.js';
 import crypto from 'crypto';
 const bcrypt = require("bcryptjs");
-
+// Load input validation
+const validateLoginInput = require("../validation/login");
+const jwt = require("jsonwebtoken");
+const keys = require("../config/keys");
 
 //@desc          Get all stylists from DB
 //@route         GET /stylists
@@ -32,28 +35,51 @@ export const getSylist = async (req, res, next) => {
 //@route         POST /stylists/login
 //@access        Public
 export const stylistLogin = async (req, res, next) => {
-    console.log("We are calling stylist login")
+try {
+    const { errors, isValid } = validateLoginInput(req.body);
+    // Check validation
+      if (!isValid) {
+        return res.status(400).json(errors);
+      }
     const email = req.body.email;
-    const password = req.body.password;
-    if (!email || !password) {
-        return next(
-            new ErrorResponse('Please provide an email and password', 400)
-        );
-    }
-    try {
-        const currUser = await Stylist.findOne({ email }).select('+password');
-        if (!currUser) {
-            return next(new ErrorResponse('Invalid Credentials', 401));
+      const password = req.body.password;
+    // Find user by email
+      const currUser = await Stylist.findOne({ email }).then(user => {
+        // Check if user exists
+        if (!user) {
+          return res.status(404).json({ emailnotfound: "Email not found" });
         }
-        const isMatch = await currUser.matchPassword(password);
-        if (!isMatch) {
-            return next(new ErrorResponse('Invalid Credentials', 401));
-        }
-        const token = currUser.getSignedJwtToken();
-        currUser.lastLogin = Date.now();
-        currUser.save();
-        res.status(200).json({ success: true, token, user: currUser });
-    } catch (err) {
+    // Check password
+        bcrypt.compare(password, user.password).then(isMatch => {
+          if (isMatch) {
+            // User matched
+            // Create JWT Payload
+            const payload = {
+              id: user.id,
+              name: user.name
+            };
+    // Sign token
+            jwt.sign(
+              payload,
+              keys.secretOrKey,
+              {
+                expiresIn: 31556926 // 1 year in seconds
+              },
+              (err, token) => {
+                res.json({
+                  success: true,
+                  token: "Bearer " + token
+                });
+              }
+            );
+          } else {
+            return res
+              .status(400)
+              .json({ passwordincorrect: "Password incorrect" });
+          }
+        });
+      });
+    } catch(err){
         next(err);
     }
 };

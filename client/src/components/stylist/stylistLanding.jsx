@@ -31,13 +31,16 @@ export class stylistLanding extends Component {
     componentDidMount() {
         
     }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.error) {
-            this.setState({
-                error: nextProps.error
-            });
-        }
+componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/stylist/stylistLanding"); // push user to dashboard when they login
     }
+if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+  }
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     };

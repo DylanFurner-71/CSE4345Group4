@@ -45,7 +45,7 @@ function App() {
 	                <Route exact path="/login" component={Login}/>
 	                <Route exact path="/user/register" component={RegisterUser}/>
                     <Route exact path="/stylist/register" component={RegisterStylist}/>
-                    <Route exact path="/stylist/stylistLanding" component={stylistLanding}/>
+                    {/* <Route exact path="/stylist/stylistLanding" component={stylistLanding}/> */}
                     <Route exact path="/stylist/stylistCalendar" component={stylistCalendar}/>
 	                <Switch>
 	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}

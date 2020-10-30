@@ -51,9 +51,11 @@ export const updateUser = async (req, res, next) => {
         if (!user) {
             return next(new ErrorResponse('Cannot Find Resource', 404));
         }
-        if (!req.user || req.user.id !== user.id) {
-            return next(new ErrorResponse('Unauthorized', 401));
-        }
+        if (!req.user) {
+          return next(new ErrorResponse('Unauthorized !req.user', 401));
+        } else  if (req.user.id !== user.id) {
+            return next(new ErrorResponse('Unauthorized !userid', 401));
+        } 
         ['address', 'firstName', 'lastName', 'photo', 'number'].forEach(
             prop => {
                 if (req.body[prop] && req.body[prop] !== user[prop]) {
