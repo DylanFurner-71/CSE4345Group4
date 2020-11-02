@@ -8,13 +8,12 @@ import {useStore} from 'react-redux'
 const ChangePassword = () => {
     const store = useStore()
     const userType = store.getState().auth
-    console.log(userType)
     let {id} = useParams();
     const [newPassword, setNewPassword] = useState('');
-    const URL = '/users/resetPassword/'
+    const URL = 'http://localhost:8000/users/resetPassword/'
     const onSend = async event => {
         event.preventDefault()
-        await axios.put(URL+{id}, {
+        await axios.put(URL+{id}.id, {
             password: newPassword
         })
             .then(res => console.log(res))

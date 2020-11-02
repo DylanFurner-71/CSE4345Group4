@@ -11,7 +11,10 @@ const SendPassword = () => {
             email: email
         })
             .then(res => alert('Reset password link sent successfully!'))
-            .catch(err => alert('Failed to send the link. Please try again!'))
+            .catch(err => {
+                alert('Failed to send the link. Please try again!')
+                console.log(err)
+            })
         setEmail('')
     }
 
