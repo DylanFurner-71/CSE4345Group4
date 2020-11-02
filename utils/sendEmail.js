@@ -19,6 +19,9 @@ const sendEmail = async options => {
         to: options.email, // list of receivers
         subject: options.subject, // Subject line
         text: options.message, // plain text body
+        html: `<h1> Uh-Oh! You've forgotten your Password! </h1>
+        <p>Don't worry, we got you covered! </p>
+        <a href=localhost:3000/changePassword/${options.token}> Linke </a>`,
     };
 
     const info = await transporter.sendMail(message);
