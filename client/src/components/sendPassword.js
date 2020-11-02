@@ -1,0 +1,37 @@
+import React, {useState} from 'react';
+import axios from 'axios';
+
+const SendPassword = () => {
+    const url = 'http://localhost:8000/users/forgotPassword'
+    const [email, setEmail] = useState('');
+
+    const onSend = async event => {
+        event.preventDefault()
+        await axios.post(url, {
+            email: email
+        })
+            .then(res => alert('Reset password link sent successfully!'))
+            .catch(err => alert('Failed to send the link. Please try again!'))
+        setEmail('')
+    }
+
+    return (
+        <div className="container h-100 mt-5">
+            <div className="row align-items-center h-100">
+                <div className="col-6 mx-auto">
+                    <form onSubmit={onSend}>
+                        <div className="form-group">
+                            <label htmlFor="email">Enter your email below</label>
+                            <input type="email" id="email" value={email} onChange={event => setEmail(event.target.value)} className="form-control"/>
+                        </div>
+                        <button type="submit" className="btn btn-primary">Send reset link</button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    );
+};
+
+export default SendPassword;
