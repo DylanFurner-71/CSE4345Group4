@@ -5,7 +5,11 @@ const Navigation = () => {
     return (
         <div>
             <Navbar bg="dark" variant="dark" expand="lg">
+<<<<<<< HEAD
                 <Navbar.Brand href="/">Ultimate Style</Navbar.Brand>
+=======
+                <Navbar.Brand href="/userLanding">Haircut Uber</Navbar.Brand>
+>>>>>>> a5e3010b7a2498a558e372825e4c23df8fa698d2
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">

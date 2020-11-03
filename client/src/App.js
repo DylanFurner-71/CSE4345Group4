@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {Provider} from "react-redux";
+import {Provider, useDispatch} from "react-redux";
 import {setCurrentUser, logoutUser} from "./actions/authActions";
 import jwt_decode from "jwt-decode";
 import PrivateRoute from "./components/PrivateRoute"
@@ -12,9 +12,12 @@ import RegisterUser from './components/register/registerUser'
 import RegisterStylist from './components/register/registerStylist'
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
-import { ROUTES } from './routes';
-import {stylistLanding} from "./components/stylist/stylistLanding";
-import {stylistCalendar} from "./components/stylist/stylistCalendar";
+import { ROUTES } from './routes'
+import SendPassword from "./components/sendPassword";
+import ChangePassword from "./components/changePassword";
+
+
+
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
     // Set auth token header auth
@@ -45,8 +48,15 @@ function App() {
 	                <Route exact path="/login" component={Login}/>
 	                <Route exact path="/user/register" component={RegisterUser}/>
                     <Route exact path="/stylist/register" component={RegisterStylist}/>
+<<<<<<< HEAD
                     {/* <Route exact path="/stylist/stylistLanding" component={stylistLanding}/> */}
                     <Route exact path="/stylist/stylistCalendar" component={stylistCalendar}/>
+=======
+                    <Route exact path="/resetPassword" component={SendPassword}/>
+                    <Switch>
+                        <Route path="/changePassword/:id" children={<ChangePassword/>}/>
+                    </Switch>
+>>>>>>> a5e3010b7a2498a558e372825e4c23df8fa698d2
 	                <Switch>
 	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>

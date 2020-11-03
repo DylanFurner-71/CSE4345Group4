@@ -280,6 +280,7 @@ export const forgotPassword = async (req, res, next) => {
             email: stylist.email,
             subject: 'Password reset',
             message,
+            token: resetToken,
         });
         res.status(200).json({ sucess: true, data: 'email sent' });
     } catch (err) {

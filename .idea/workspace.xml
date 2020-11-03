@@ -26,11 +26,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8e476ec-e25f-4be8-b6da-605887600598" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/login/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/login/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/register/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/register/register.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/register/registerStylist.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/register/registerStylist.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/register/registerUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/register/registerUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/authActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/userController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/userController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/userModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/userModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +65,9 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="javascript.nodejs.core.library.configured.version" value="13.12.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="13.13.30" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../CS 3345/Klassez" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="C:\Users\hhe99\AppData\Local\JetBrains\Toolbox\apps\WebStorm\ch-0\202.7660.23\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -87,7 +91,11 @@
       <workItem from="1603406927782" duration="8879000" />
       <workItem from="1603652487578" duration="35000" />
       <workItem from="1603827845495" duration="1520000" />
-      <workItem from="1604007436520" duration="1373000" />
+      <workItem from="1604007436520" duration="8815000" />
+      <workItem from="1604330587336" duration="3720000" />
+      <workItem from="1604348880170" duration="15980000" />
+      <workItem from="1604375680504" duration="111000" />
+      <workItem from="1604376702156" duration="728000" />
     </task>
     <servers />
   </component>
@@ -110,9 +118,14 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1061" y="455" key="FileChooserDialogImpl" timestamp="1603652520300">
+    <state x="370" y="450" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1604373999489">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
+    <state x="370" y="450" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1604373999489" />
+    <state x="531" y="190" key="FileChooserDialogImpl" timestamp="1604377429264">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="531" y="190" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1604377429264" />
     <state x="1061" y="455" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1603652520300" />
     <state x="1583" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1603413634367">
       <screen x="0" y="0" width="2560" height="1400" />

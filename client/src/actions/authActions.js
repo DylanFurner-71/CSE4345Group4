@@ -135,8 +135,10 @@ export const loginUser = (userData, history) => dispatch => {
         .then(res => {
             // Save to localStorage
 // Set token to localStorage
+            // console.log(res.data)
             const {token} = res.data;
             localStorage.setItem("jwtToken", token);
+
             // Set token to Auth header
             setAuthToken(token);
             // Decode token to get user data
@@ -153,10 +155,10 @@ export const loginUser = (userData, history) => dispatch => {
         );
 };
 // Set logged in user
-export const setCurrentUser = decoded => {
+export const setCurrentUser = user => {
     return {
         type: SET_CURRENT_USER,
-        payload: decoded
+        payload: user
     };
 };
 
@@ -180,4 +182,5 @@ export const logoutUser = () => dispatch => {
     setAuthToken(false);
     // Set current user to empty object {} which will set isAuthenticated to false
     dispatch(setCurrentUser({}));
+
 };
