@@ -1,12 +1,20 @@
 import mongoose from 'mongoose';
 import User from '../models/userModel.js';
 import ErrorResponse from '../utils/errorResponse.js';
+import sendEmail from '../utils/sendEmail.js';
+import crypto from 'crypto';
 
 //@desc          Allow User to create an account
 //@route         POST /users/register
 //@access        Public
 export const createUser = async (req, res, next) => {
-    const user = new User(req.body);
+    let user = await User.findOne({ email: req.body.email });
+    if (!user) {
+        user = new User(req.body);
+    } else {
+        console.log(user);
+        return next(new ErrorResponse('User already exists', 400));
+    }
     try {
         const newUser = await user.save();
         //create token
@@ -136,6 +144,75 @@ export const getMe = async (req, res, next) => {
             success: true,
             user,
         });
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const forgotPassword = async (req, res, next) => {
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+        return next(new ErrorResponse('There is no user with that email', 404));
+    }
+
+    // get rest token
+    const resetToken = user.getResetPasswordToken();
+
+    console.log(`${resetToken} worked`);
+
+    await user.save({ validateBeforeSave: false });
+
+    // create reset url
+    const resetUrl = `${req.protocol}://${req.get(
+        'host'
+    )}/users/resetPassword/${resetToken}`;
+
+    const message = `You are receiving this email because you (or somebody else) has requested the reset of a password. Please follow the link provided OR make a PUT request to \n\n ${resetUrl}`;
+
+    try {
+        await sendEmail({
+            email: user.email,
+            subject: 'Password reset',
+            message,
+            token: resetToken,
+        });
+        res.status(200).json({ sucess: true, data: 'email sent' });
+    } catch (err) {
+        console.log(err);
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpiration = undefined;
+        await user.save({ validateBeforeSave: false });
+        return next(new ErrorResponse('email could not be sent', 500));
+    }
+};
+
+export const resetPassword = async (req, res, next) => {
+    try {
+        const resetPasswordToken = crypto
+            .createHash('sha256')
+            .update(req.params.resettoken)
+            .digest('hex');
+
+        const user = await User.findOne({
+            resetPasswordToken,
+            resetPasswordExpiration: { $gt: Date.now() },
+        });
+
+        if (!user) {
+            return next(new ErrorResponse('invalid token', 400));
+        }
+
+        // set new password
+
+        user.password = req.body.password;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpiration = undefined;
+
+        const token = user.getSignedJwtToken();
+        user.lastLogin = Date.now();
+        await user.save();
+        res.status(200).json({ success: true, token, user });
     } catch (err) {
         next(err);
     }
