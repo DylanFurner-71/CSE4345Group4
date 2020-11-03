@@ -24,8 +24,10 @@ export const createUser = async (req, res, next) => {
           return res.status(400).json({ email: "Email already exists" });
         } else {
           const newUser = new User({
-            name: req.body.name,
+            userName: req.body.name,
             email: req.body.email,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             password: req.body.password
           });
     // Hash password before saving in database

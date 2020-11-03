@@ -1,21 +1,10 @@
 import React from 'react';
-import {Row, Col, Container} from "react-bootstrap"
 import {Navbar, Nav, NavDropdown} from "react-bootstrap"
 import {StylistCalendar} from "./stylistCalendar";
-import {StylistCard} from "./StylistCard";
-export const StylistNav = (props) =>
-<>
-    <Container fluid>
-    <Row>
-    <Col><StylistCard url={"/appointments/upcoming/"} info={"Upcoming Appointments"}/></Col>
-    <Col><StylistCard url={"/appointments/past/"} info={"Past Appointments"}/></Col>
-    </Row>
-    <Row>
-    <Col><StylistCard url={"/stylist/StylistCalendar/"} info={"Calendar"}/></Col>
-    <Col><StylistCard url={"/services/stylistIDsomeday/"} info={"Services Offered"}/></Col>
-    </Row>
-</Container>
-            {/* <Navbar bg="dark" variant="dark" expand="lg">
+const StylistNav = (props) => {
+    return (
+        <div>
+            <Navbar bg="dark" variant="dark" expand="lg">
                 <Navbar.Brand href="/home">{props.stylistName}</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -27,7 +16,9 @@ export const StylistNav = (props) =>
                         <Nav.Link href="/home">TBD</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
-            </Navbar> */}
-        </>
+            </Navbar>
+        </div>
+    );
+};
 
-
+export default StylistNav;

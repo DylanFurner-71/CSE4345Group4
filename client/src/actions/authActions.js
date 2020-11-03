@@ -11,15 +11,15 @@ import {
 const api = "http://localhost:8000";
 axios.defaults.baseURL = api;
 export const registerUser = (userData, history) => dispatch => {
+    console.log(userData);
     axios
         .post("/users/register", userData)
         .then(() => history.push("/login")) // re-direct to login on successful register
         .catch(err =>
-            // dispatch({
-            //     type: GET_ERRORS,
-            //     payload: err.response
-            // })
-            console.log(err)
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
         );
 };
 
@@ -65,6 +65,27 @@ export const login = (userData, history) => dispatch => {
         }
     );
     } else {
+        axios
+    .post(`/users/login/`, newUserData)
+    .then(res => {
+        // Save to localStorage
+// Set token to localStorage
+        const {token} = res.data;
+        localStorage.setItem("jwtToken", token);
+        // Set token to Auth header
+        setAuthToken(token);
+        // Decode token to get user data
+        const decoded = jwt_decode(token);
+        // Set current user
+        dispatch(setCurrentUser(decoded));
+    }).then(() => history.push("/userLanding"))
+    .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        }
+    );
         // return loginUser(newUserData, history);
     }
 };
