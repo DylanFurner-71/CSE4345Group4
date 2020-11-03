@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {Provider} from "react-redux";
+import {Provider, useDispatch} from "react-redux";
 import {setCurrentUser, logoutUser} from "./actions/authActions";
 import jwt_decode from "jwt-decode";
 import PrivateRoute from "./components/PrivateRoute"
@@ -15,6 +15,9 @@ import store from "./store";
 import { ROUTES } from './routes'
 import SendPassword from "./components/sendPassword";
 import ChangePassword from "./components/changePassword";
+
+
+
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
     // Set auth token header auth

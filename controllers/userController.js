@@ -3,6 +3,10 @@ import User from '../models/userModel.js';
 import ErrorResponse from '../utils/errorResponse.js';
 import sendEmail from '../utils/sendEmail.js';
 import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import dotenv from "dotenv";
+dotenv.config({ path: "./config/config.env" });
 
 //@desc          Allow User to create an account
 //@route         POST /users/register
@@ -20,7 +24,7 @@ export const createUser = async (req, res, next) => {
         //create token
         const token = user.getSignedJwtToken();
 
-        res.json({ sucess: true, token, newUser });
+        res.json({ success: true, token, newUser });
     } catch (err) {
         next(err);
         console.log(err)
