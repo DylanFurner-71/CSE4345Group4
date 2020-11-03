@@ -159,9 +159,18 @@ StylistSchema.pre('save', async function (next) {
 // Sign JWT and return
 
 StylistSchema.methods.getSignedJwtToken = function () {
-    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRE,
-    });
+    return jwt.sign(
+        {
+            id: this._id,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            role: this.role,
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: process.env.JWT_EXPIRE,
+        }
+    );
 };
 
 StylistSchema.methods.geocodeAddress = function (address) {};
