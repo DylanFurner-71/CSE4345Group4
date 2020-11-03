@@ -29,7 +29,16 @@ const StylistSchema = new Schema(
       default: Date.now,
     },
     reviews: {
-      type: Array,
+      type: [{
+        score: {
+          type: Number,
+          required: true,
+        },
+        notes: {
+          type: String,
+          required: true,
+        }
+      }]
     },
   },
   { collection: "Stylist" }

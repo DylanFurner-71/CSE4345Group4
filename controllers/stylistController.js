@@ -70,15 +70,26 @@ export const getReviews = async (req, res) => {
 
 export const postReviews = async (req, res) => {
   const stylistEmail = req.body.stylistEmail;
-  const rev = req.body.rev;
+  let rev = {
+    "score": req.body.score,
+    "notes": req.body.notes
+  };
+  console.log(rev);
   try {
-    const currStylist = await Stylist.findOne({
-      "email": stylistEmail
-    });
-    let myrevs = currStylist.reviews;
-    myrevs.push(rev);
-    currStylist.reviews = myrevs;
-    await currStylist.save();
+    const currStylist = await Stylist.findOneAndUpdate(
+      {"email": stylistEmail}, 
+      { $push: { reviews: { score: 3, notes: "m" }}});
+    //currStylist.reviews.push(rev);
+    /*currStylist.update(
+      {_id: currStylist._id},
+      {
+      $push: { reviews: {score: rev.score, notes: rev.notes }}
+    })*/
+    console.log(rev);
+    console.log(currStylist.reviews);
+    
+    //await currStylist.save(currStylist.reviews);
+    
     res.status(200).send("review posted");
   } catch (err) {
     res.status(400).json({ msg: err });
