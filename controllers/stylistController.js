@@ -71,23 +71,24 @@ export const getReviews = async (req, res) => {
 export const postReviews = async (req, res) => {
   const stylistEmail = req.body.stylistEmail;
   let rev = {
+    "reviewName": req.body.reviewName,
     "score": req.body.score,
     "notes": req.body.notes
   };
-  console.log(rev);
   try {
-    const currStylist = await Stylist.findOneAndUpdate(
+    await Stylist.findOneAndUpdate(
       {"email": stylistEmail}, 
-      { $push: { reviews: { score: 3, notes: "m" }}});
+      { $push: { reviews: { reviewName: rev.reviewName, score: rev.score, notes: rev.notes }, reviewScores: rev.score},
+        $inc: {numReviews: 1},
+        $project: {average: {$avg: "reviewScores"}}});
     //currStylist.reviews.push(rev);
     /*currStylist.update(
       {_id: currStylist._id},
       {
       $push: { reviews: {score: rev.score, notes: rev.notes }}
     })*/
-    console.log(rev);
-    console.log(currStylist.reviews);
-    
+    //currStylist.numReviews = currStylist.numReviews + 1;
+    //currStylist.average = currStylist.numReviews;
     //await currStylist.save(currStylist.reviews);
     
     res.status(200).send("review posted");

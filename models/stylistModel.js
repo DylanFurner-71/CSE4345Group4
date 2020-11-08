@@ -28,8 +28,21 @@ const StylistSchema = new Schema(
       type: Date,
       default: Date.now,
     },
+    numReviews: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
+    average: {
+      type: Number,
+      default: 0,
+    },
     reviews: {
       type: [{
+        reviewName: {
+          type: String,
+          required: true,
+        },
         score: {
           type: Number,
           required: true,
@@ -40,6 +53,9 @@ const StylistSchema = new Schema(
         }
       }]
     },
+    reviewScores: {
+      type:[Number]
+    }
   },
   { collection: "Stylist" }
 );
