@@ -26,13 +26,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8e476ec-e25f-4be8-b6da-605887600598" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/search/searchBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/stylistsList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/search/stylistInfo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/search/stylistsList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/client/debug.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/userLanding.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/userLanding.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/reducers/authReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/authReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/search/searchBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/search/searchBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/stylistsList.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/routes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +75,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hhe99\Documents\SMU\SMU Junior\CS 4345\haircutUber\client\src\components\search" />
       <recent name="C:\Users\hhe99\Documents\SMU\SMU Junior\CS 4345\haircutUber\client\src\components\login" />
       <recent name="C:\Users\hhe99\Documents\SMU\SMU Junior\CS 4345\haircutUber\client\src\components\register" />
       <recent name="C:\Users\hhe99\Documents\SMU\SMU Junior\CS 4345\haircutUber\client\src\components\profile" />
@@ -98,6 +100,8 @@
       <workItem from="1604376702156" duration="728000" />
       <workItem from="1604444026207" duration="6049000" />
       <workItem from="1604503539009" duration="28000" />
+      <workItem from="1604787947445" duration="4318000" />
+      <workItem from="1604871355654" duration="49000" />
     </task>
     <servers />
   </component>
@@ -124,11 +128,12 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="370" y="450" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1604373999489" />
-    <state x="531" y="190" key="FileChooserDialogImpl" timestamp="1604503563512">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="1062" y="391" key="FileChooserDialogImpl" timestamp="1604871402667">
+      <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="531" y="190" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1604503563512" />
     <state x="1061" y="455" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1603652520300" />
+    <state x="1062" y="391" key="FileChooserDialogImpl/3840.663.1280.680/0.0.2560.1400@0.0.2560.1400" timestamp="1604871402667" />
     <state x="1583" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1604449626982">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

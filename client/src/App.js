@@ -15,7 +15,7 @@ import store from "./store";
 import { ROUTES } from './routes'
 import SendPassword from "./components/sendPassword";
 import ChangePassword from "./components/changePassword";
-import StylistsList from "./components/stylistsList";
+import StylistsList from "./components/search/stylistsList";
 
 
 
@@ -50,10 +50,6 @@ function App() {
 	                <Route exact path="/user/register" component={RegisterUser}/>
                     <Route exact path="/stylist/register" component={RegisterStylist}/>
                     <Route exact path="/resetPassword" component={SendPassword}/>
-                    <Route path="/stylistsList" render={props => <StylistsList {...props}/>}
-                    <Switch>
-                        <Route path="/changePassword/:id" children={<ChangePassword/>}/>
-                    </Switch>
 	                <Switch>
 	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>
