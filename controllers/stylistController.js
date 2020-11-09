@@ -275,3 +275,32 @@ export const resetPassword = async (req, res, next) => {
         next(err);
     }
 };
+
+export const postReviews = async (req, res) => {
+    const stylistEmail = req.body.email;
+    let rev = {
+      "reviewerName": req.body.reviewerName,
+      "score": req.body.score,
+      "notes": req.body.notes
+    };
+    try {
+      const currStylist = await Stylist.findOneAndUpdate(
+        {"email": stylistEmail}, 
+        { $push: { reviews: { reviewerName: rev.reviewerName, score: rev.score, notes: rev.notes }, reviewScores: rev.score},
+          $inc: {numReviews: 1}});
+        
+      var a = currStylist.reviewScores.reduce(function(a, b){
+            return a + b;
+        }, 0);
+      
+      a = a / currStylist.numReviews;
+      await Stylist.findOneAndUpdate(
+        {"email": stylistEmail},
+        {$set : {average: Math.round(a)}}
+      );
+      
+      res.status(200).send("review posted");
+    } catch (err) {
+      res.status(400).json({ msg: err });
+    }
+  };
