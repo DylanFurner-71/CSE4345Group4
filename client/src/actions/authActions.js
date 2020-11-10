@@ -4,8 +4,7 @@ import jwt_decode from "jwt-decode";
 import {
     GET_ERRORS,
     SET_CURRENT_USER,
-    USER_LOADING,
-    CURRENT_USER,
+    USER_LOADING
 } from "./types";
 // Register User
 const api = "http://localhost:8000";
@@ -36,7 +35,6 @@ export const registerUserStylist = (userData, history) => dispatch => {
         );
 };
 export const login = (userData, history) => dispatch => {
-    console.log(userData, 'User data aqui"');
     const {email, password, isStylist} = userData;
     const newUserData = {email: email, password: password};
     console.log(newUserData);
@@ -56,8 +54,9 @@ export const login = (userData, history) => dispatch => {
         dispatch(setCurrentUser(decoded));
         console.log("decoded", decoded);
         console.log('loginstylist');
-    }).then(() => history.push("/stylist/stylistLanding"))
+    })
     .catch(err => {
+        console.log(err);
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data
@@ -78,7 +77,7 @@ export const login = (userData, history) => dispatch => {
         const decoded = jwt_decode(token);
         // Set current user
         dispatch(setCurrentUser(decoded));
-    }).then(() => history.push("/userLanding"))
+    })
     .catch(err => {
             dispatch({
                 type: GET_ERRORS,
@@ -88,32 +87,6 @@ export const login = (userData, history) => dispatch => {
     );
         // return loginUser(newUserData, history);
     }
-};
-export const loginStylist = (userData, history) => dispatch =>  {
-    console.log(userData, "l;aksdjfl;akdsjfl;akdsj");
-    axios
-    .post(`/stylists/login/`, userData)
-    .then(res => {
-        // Save to localStorage
-// Set token to localStorage
-        const {token} = res.data;
-        localStorage.setItem("jwtToken", token);
-        // Set token to Auth header
-        setAuthToken(token);
-        // Decode token to get user data
-        const decoded = jwt_decode(token);
-        // Set current user
-        dispatch(setCurrentUser(decoded));
-        console.log("decoded", decoded);
-        console.log('loginstylist');
-    }).then(() => history.push("/stylist/stylistLanding"))
-    .catch(err => {
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data
-            })
-        }
-    );
 };
 // Change Password
 export const changePassword = (userData, history) => dispatch => {
@@ -161,13 +134,6 @@ export const setCurrentUser = user => {
         payload: user
     };
 };
-
-export const getCurrentUser = () => {
-    return {
-        type: CURRENT_USER,
-        payload: SET_CURRENT_USER.payload
-    }
-}
 // User loading
 export const setUserLoading = () => {
     return {

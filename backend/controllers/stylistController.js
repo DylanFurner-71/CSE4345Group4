@@ -22,10 +22,12 @@ export const getStylists = async (req, res, next) => {
     }
 };
 
-export const getSylist = async (req, res, next) => {
+export const getStylist = async (req, res, next) => {
     try {
-        const stylist = await Stylist.findById(req.body.email);
-        res.json(stylist);
+        console.log("REQUEST", req.params);
+        const stylist = await Stylist.findById(req.params.id);
+        console.log(stylist);
+        return res.json(stylist);
     } catch (err) {
         next(err);
     }
@@ -35,21 +37,19 @@ export const getSylist = async (req, res, next) => {
 //@route         POST /stylists/login
 //@access        Public
 export const stylistLogin = async (req, res, next) => {
-try {
     const { errors, isValid } = validateLoginInput(req.body);
     // Check validation
       if (!isValid) {
         return res.status(400).json(errors);
       }
     const email = req.body.email;
-      const password = req.body.password;
-    // Find user by email
-      const currUser = await Stylist.findOne({ email }).then(user => {
+    const password = req.body.password;
+   // Find user by email
+      Stylist.findOne({ email }).then(user => {
         // Check if user exists
         if (!user) {
           return res.status(404).json({ emailnotfound: "Email not found" });
         }
-    // Check password
         bcrypt.compare(password, user.password).then(isMatch => {
           if (isMatch) {
             // User matched
@@ -79,11 +79,7 @@ try {
           }
         });
       });
-    } catch(err){
-        next(err);
-    }
-};
-
+    };
 //@desc          Register a new stylist account
 //@route         POST /stylists/register
 //@access        Public
@@ -101,17 +97,11 @@ await    Stylist.findOne({ email: req.body.email }).then(user => {
             businessName: req.body.businessName,
             photo: req.body.photo,
           });
-    // Hash password before saving in database
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newUser.password, salt, (err, hash) => {
-              if (err) throw err;
-              newUser.password = hash;
-              newUser
-                .save()
-                .then(user => res.json(user))
-                .catch(err => console.log(err));
-            });
-          });
+   
+          newUser
+          .save()
+          .then(newUser => res.json(newUser), )
+          .catch(err => console.log(err));
         }
       });
     };
@@ -280,7 +270,6 @@ export const forgotPassword = async (req, res, next) => {
             email: stylist.email,
             subject: 'Password reset',
             message,
-            token: resetToken,
         });
         res.status(200).json({ sucess: true, data: 'email sent' });
     } catch (err) {

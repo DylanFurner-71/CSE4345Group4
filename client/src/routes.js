@@ -1,7 +1,7 @@
 import UserLanding from "./components/userLanding";
-
+import StylistLanding from "./components/stylist/stylistLanding";
 export const ROUTES = [
     // {path: '/changePassword', component: SendPassword},
-    {path: "/stylistLanding", component: StylistLanding},
+    {path: "/stylist/stylistLanding", component: StylistLanding},
     {path: "/userLanding", component: UserLanding}
 ]

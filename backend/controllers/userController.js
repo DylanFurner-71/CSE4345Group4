@@ -3,25 +3,17 @@ import User from '../models/userModel.js';
 import ErrorResponse from '../utils/errorResponse.js';
 import sendEmail from '../utils/sendEmail.js';
 import crypto from 'crypto';
-<<<<<<< HEAD:backend/controllers/userController.js
 const bcrypt = require("bcryptjs");
 // Load input validation
 const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
-=======
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import dotenv from "dotenv";
-dotenv.config({ path: "./config/config.env" });
->>>>>>> a5e3010b7a2498a558e372825e4c23df8fa698d2:controllers/userController.js
 
 //@desc          Allow User to create an account
 //@route         POST /users/register
 //@access        Public
 export const createUser = async (req, res, next) => {
-<<<<<<< HEAD:backend/controllers/userController.js
     const { errors, isValid } = validateRegisterInput(req.body);
     // Check validation
       if (!isValid) {
@@ -52,27 +44,6 @@ export const createUser = async (req, res, next) => {
         }
       });
     };
-=======
-    let user = await User.findOne({ email: req.body.email });
-    if (!user) {
-        user = new User(req.body);
-    } else {
-        console.log(user);
-        return next(new ErrorResponse('User already exists', 400));
-    }
-    try {
-        const newUser = await user.save();
-        //create token
-        const token = user.getSignedJwtToken();
-
-        res.json({ success: true, token, newUser });
-    } catch (err) {
-        next(err);
-        console.log(err)
-    }
-};
-
->>>>>>> a5e3010b7a2498a558e372825e4c23df8fa698d2:controllers/userController.js
 //@desc          Update user based on userId
 //@route         PUT /users/:id
 //@access        Private
@@ -272,7 +243,6 @@ export const forgotPassword = async (req, res, next) => {
             email: user.email,
             subject: 'Password reset',
             message,
-            token: resetToken,
         });
         res.status(200).json({ sucess: true, data: 'email sent' });
     } catch (err) {

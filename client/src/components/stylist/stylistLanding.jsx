@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import StylistNav from './stylistNav';
 import {stylistCalendar} from './stylistCalendar';
-import { getCurrentUser } from "../../actions/authActions";
 import {connect} from "react-redux";
 import moment from "moment";
 import {stylistProfileCard} from "./stylistProfileCard";
@@ -91,7 +90,7 @@ if (nextProps.errors) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        stylistCurr: () => dispatch(getCurrentUser())
+        stylistCurr: () => dispatch()
     }
   }
 

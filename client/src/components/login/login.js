@@ -22,13 +22,21 @@ class Login extends Component {
     componentDidMount() {
         // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/userLanding");
+            if (this.state.isStylist === true){
+            this.props.history.push("/stylist/stylistLanding"); // push user to dashboard when they login
+            } else {
+                this.props.history.push("/userLanding");
+            }
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/userLanding"); // push user to dashboard when they login
+            if (this.state.isStylist === true){
+            this.props.history.push("/stylist/stylistLanding"); // push user to dashboard when they login
+            } else {
+                this.props.history.push("/userLanding");
+            }
         }
         if (nextProps.error) {
             this.setState({
@@ -115,11 +123,13 @@ class Login extends Component {
     <label class="form-check-label" htmlFor="exampleCheck1">If you are a stylist or barber, please click here </label>
   </div>
                                     <hr/>
-
-                                    <Link to="/resetPassword">Forgot password?</Link>
-                                    <button className="btn btn-lg btn-primary btn-block text-uppercase"
-                                            type="submit">Login
-                                    </button>
+                                        <button
+                                    type="button"
+                                    className="btn btn-lg btn-primary btn-block text-uppercase"
+                                    onClick={this.onSubmit}
+                                >
+                                    Login
+                                </button>
                                 </form>
                             </div>
                         </div>

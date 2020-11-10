@@ -31,7 +31,6 @@ const UserSchema = new Schema(
         password: {
             type: String,
             required: [true, 'Please add a password'],
-            select: false,
         },
         address: {
             type: String,

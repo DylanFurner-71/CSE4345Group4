@@ -48,15 +48,10 @@ function App() {
 	                <Route exact path="/login" component={Login}/>
 	                <Route exact path="/user/register" component={RegisterUser}/>
                     <Route exact path="/stylist/register" component={RegisterStylist}/>
-<<<<<<< HEAD
-                    {/* <Route exact path="/stylist/stylistLanding" component={stylistLanding}/> */}
-                    <Route exact path="/stylist/stylistCalendar" component={stylistCalendar}/>
-=======
                     <Route exact path="/resetPassword" component={SendPassword}/>
                     <Switch>
                         <Route path="/changePassword/:id" children={<ChangePassword/>}/>
                     </Switch>
->>>>>>> a5e3010b7a2498a558e372825e4c23df8fa698d2
 	                <Switch>
 	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>
