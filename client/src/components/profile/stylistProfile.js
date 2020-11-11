@@ -5,6 +5,7 @@ import Loading from "../loading"
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import {CustomPlaceholder} from "react-placeholder-image";
+import ReviewBox from "./reviewBox";
 
 const StylistProfile = () => {
     const [stylist, setStylist] = useState({});
@@ -71,10 +72,11 @@ const StylistProfile = () => {
                                         {/*/>*/}
                                     </TabPanel>
                                     <TabPanel>
-                                        {/*<ReviewBox */}
-                                        {/*    average={stylist.average}*/}
-                                        {/*    reviews={stylist.reviews}*/}
-                                        {/*/>*/}
+                                        <ReviewBox
+                                            stylist={stylist.firstName}
+                                            average={stylist.average}
+                                            reviews={stylist.reviews}
+                                        />
                                     </TabPanel>
                                 </Tabs>
                             </div>

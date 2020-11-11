@@ -13,8 +13,8 @@ const ReviewBox = props => {
             </div>
             <div className='ReviewBox-Reviews'>
                 <header className='display-3 text-center'>Reviews</header>
-                {props.reviews.map(review => (
-                    <div className='Review-Card card my-2 p-2'>
+                {props.reviews.map((review, index) => (
+                    <div className='Review-Card card my-2 p-2' key={index}>
                         <h6 className='display-4 m-1' key={review._id}>
                             {review.reviewerName}{' '}
                         </h6>
