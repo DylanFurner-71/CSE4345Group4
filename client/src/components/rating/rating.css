@@ -5,14 +5,29 @@
     /*top: -.1em;*/
 }
 
+.stars-lg {
+    font-size: 3rem;
+    font-style: normal;
+    position: relative;
+    /*top: -.1em;*/
+}
+
+.stars-lg i {
+    font-style: normal;
+}
+
+.stars-lg i:hover {
+    cursor: pointer;
+}
+
 .stars i {
     font-style: normal;
 }
 
 .full-star:after {
-    content: "\2605";
+    content: '\2605';
 }
 
 .empty-star:after {
-    content: "\2606";
+    content: '\2606';
 }

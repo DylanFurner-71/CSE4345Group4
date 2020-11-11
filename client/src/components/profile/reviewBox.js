@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Rating from '../rating/rating';
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { ReviewForm } from './ReviewForm';
 
 const ReviewBox = props => {
     return (
@@ -25,6 +27,9 @@ const ReviewBox = props => {
                     </div>
                 ))}
             </div>
+            <Router>
+                <Route path='/addReview' component={ReviewForm} />
+            </Router>
         </div>
     );
 };
