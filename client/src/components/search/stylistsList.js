@@ -6,7 +6,6 @@ import Loading from "../loading";
 
 const StylistsList = () => {
     const query = useParams()
-    console.log(query)
     const URL = 'http://localhost:8000/stylists/search'
     const [stylists, setStylists] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -51,9 +50,10 @@ const StylistsList = () => {
     }, [])
 
     return (
-        <div className="h-100">
+        <div className="h-100 align-items-center">
             {
                 isLoading ? <Loading/> :
+                    stylists.length === 0 ? <h1 className="text-center">No Stylists Available</h1> :
                 <ul>
                     {stylists.map((stylist, index) => (
                         <StylistInfo

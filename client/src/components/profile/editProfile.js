@@ -44,6 +44,9 @@ const EditProfile = () => {
                                 <button className="btn btn-primary mr-2"
                                         type="submit">Save
                                 </button>
+                                <Link to="/resetPassword" className="btn btn-warning">
+                                    Change Password
+                                </Link>
 
                             </form>
                         </div>

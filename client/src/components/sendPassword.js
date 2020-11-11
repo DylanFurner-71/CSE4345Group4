@@ -19,7 +19,7 @@ const SendPassword = () => {
     }
 
     return (
-        <div className="container h-100 mt-5">
+        <div className="container mt-5">
             <div className="row align-items-center h-100">
                 <div className="col-6 mx-auto">
                     <form onSubmit={onSend}>
