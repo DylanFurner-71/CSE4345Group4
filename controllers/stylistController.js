@@ -317,12 +317,16 @@ export const postReviews = async (req, res) => {
 };
 
 export const getOneStylist = async (req, res) => {
+    const stylistId = req.params.id;
     try {
-        const stylist = await Stylist.findById(req.stylist.id);
+        const stylist = await Stylist.findById(stylistId);
         res.status(200).json({
             success: true,
             stylist,
         });
+        if (!stylist) {
+            return next(new ErrorResponse('User Not found', 404));
+        }
     } catch (err) {
         next(err);
     }
