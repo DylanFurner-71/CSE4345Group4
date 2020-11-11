@@ -25,7 +25,7 @@ export const getStylists = async (req, res, next) => {
 export const getStylist = async (req, res, next) => {
     try {
         console.log("REQUEST", req.params);
-        const stylist = await Stylist.findById(req.params.id);
+        const stylist = await Stylist.findById(req.params.email);
         console.log(stylist);
         return res.json(stylist);
     } catch (err) {

@@ -10,24 +10,14 @@ import {
 // Register User
 const api = "http://localhost:8000";
 axios.defaults.baseURL = api;
-export const getStylistByID = async (id) => {
-       try {
-           axios
-        .get(`/stylists/${id}`).then(function(result)  {
-            // console.log(data.data);
-            // currStylist = data.data;
-            return result;
-            
-           }) //re-direct to login on successful register
-        .catch(err =>
-            // dispatch({
-            //     type: GET_ERRORS,
-            //     payload: err.response
-            // })
-            console.log(err)
-        );
-       } catch {
-           console.log("we are right here");
-       }
+export const getStylistByID = async (email) => {
+    return new Promise((resolve, reject) => {
+        axios.get(`/stylists/jules@gmail.com}`)
+        .then(x => resolve(x.data))
+        .catch(e => {
+            alert(e);
+            reject();
+        });
+    });          
 };
 

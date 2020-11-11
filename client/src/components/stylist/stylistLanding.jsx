@@ -3,36 +3,46 @@ import {Link} from "react-router-dom";
 import StylistNav from './stylistNav';
 import {stylistCalendar} from './stylistCalendar';
 import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
 import {stylistProfileCard} from "./stylistProfileCard";
+import { getStylistByID } from "../../actions/stylistActions";
+import {logoutUser, getCurrentUser, setCurrentUser} from "../../actions/authActions";
+import { useEffect, useState } from 'react';
+import { createStore } from 'redux';
+import store from "../../store";
+// const dispatch = useDispatch()
+// const onLogout = () => {
+//     dispatch(logoutUser())
+// }
+const stylistLandingInfo = () => {
+    const {user} = store.getState();
+    return user.id;
+}
 export class stylistLanding extends Component {
     constructor() {
         super();
         this.state = {
-            stylistName: "Dylan Furner",
-            stylistId: "dfurner@smu.edu",
-            firstName: "Dylan",
-            lastName: "Furner",
-            email: "dfurner@smu.edu",
-            photo: "https://johnlawrimore.com/smu/101.png",
-            reviews: [], //going to use gui homeowrk three to model this
-            events: [
-                {
-                  stylistID: this.email,
-                  start: moment().toDate(),
-                  end: moment().add(1, "days").toDate(),
-                  title: "Some title",
-                },
-              ],
-            error: ""
+          stylist: [],
+          id: stylistLandingInfo,
         };
     }
-    componentDidMount() {
-        
+
+    componentDidMount(props) {
+        const queryString = window.location.search;
+        const id2 = this.state.id;
+        console.log("We are in query string", id2);
+        const urlParams = new URLSearchParams(queryString);
+        const id = urlParams.get('id');
+        const t = getStylistByID(id)
+        .then(stylist => this.setState({stylist}));
     }
 componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/stylist/stylistLanding"); // push user to dashboard when they login
+        console.log("Stylist landing component will receive props");
+      this.props.history.push(`/stylists/stylistLanding/`); // push user to dashboard when they login
+    const stylist2 = getStylistByID(nextProps.auth);
+    console.log(stylist2);
     }
 if (nextProps.errors) {
       this.setState({
@@ -88,12 +98,13 @@ if (nextProps.errors) {
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        stylistCurr: () => dispatch()
-    }
+const mapDispatchToProps = state => {
+// this.props.stylist = store.dispatch()
+const stylist = setCurrentUser();
+return {
+    stylist: stylist,
   }
-
+}
 
 export default connect(
     mapDispatchToProps,

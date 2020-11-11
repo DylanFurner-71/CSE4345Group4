@@ -23,7 +23,7 @@ class Login extends Component {
         // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
             if (this.state.isStylist === true){
-            this.props.history.push("/stylist/stylistLanding"); // push user to dashboard when they login
+            this.props.history.push(`/stylists/stylistLanding/`); // push user to dashboard when they login
             } else {
                 this.props.history.push("/userLanding");
             }
@@ -33,7 +33,7 @@ class Login extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
             if (this.state.isStylist === true){
-            this.props.history.push("/stylist/stylistLanding"); // push user to dashboard when they login
+            this.props.history.push(`/stylists/stylistLanding/`); // push user to dashboard when they login
             } else {
                 this.props.history.push("/userLanding");
             }
@@ -49,7 +49,6 @@ class Login extends Component {
         this.setState(({isStylist: true}));
         } else {
             this.setState(({isStylist: false}));
-            console.log("JFSDL:KF"); 
         }
     }
     onChange = e => {

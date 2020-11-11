@@ -33,6 +33,14 @@ export class stylistCalendar extends React.Component {
 
   onEventDrop = (data) => {
     console.log(data);
+    this.setState((state) => {
+      state.events.push({
+        stylistID: this.state.stylistID,
+        start: data.start,
+        end: data.end,
+        title: "some title",
+      })
+    })
   };
 
   render() {
