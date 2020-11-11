@@ -1,19 +1,26 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import store from "../../store";
 import {useParams} from 'react-router-dom'
+import axios from 'axios'
 
 const StylistProfile = () => {
+    const [stylist, setStylist] = useState({});
     const stylistId = useParams()
     console.log(stylistId)
+    const URL = "http://localhost:8000/stylists/"
 
-    let currentState = store.getState()
-    console.log(currentState.auth.user)
-
-    // Save the profile
-    const onSubmit = () => {
-
-    }
+    useEffect(() => {
+        const fetchStylist = async () => {
+            await axios.get(URL+stylistId.id)
+                .then(res => {
+                    const stylistData = res.data
+                    console.log(res.data)
+                    setStylist(res.data)
+                })
+        }
+        fetchStylist()
+    }, [])
 
 
     return (
@@ -23,7 +30,7 @@ const StylistProfile = () => {
                     <div className="card card-signin flex-row my-5">
                         <div className="card-body">
                             <h5 className="card-title text-center">Edit Profile</h5>
-                            <form className="form-signin" onSubmit={onSubmit}>
+                            <form className="form-signin">
                                 <div className="form-label-group">
 
                                     <label htmlFor="name">Enter New Username</label>

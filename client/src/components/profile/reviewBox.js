@@ -16,6 +16,7 @@ const ReviewBox = ({stylistId}) => {
                     setReviews(reviews)
                 })
         }
+        fetchStylist()
     }, [])
 
     return (

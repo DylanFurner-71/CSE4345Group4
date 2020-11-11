@@ -26,9 +26,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8e476ec-e25f-4be8-b6da-605887600598" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/components/profile/reviewBox.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/reviewBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/reviewBox.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/profile/stylistProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/stylistProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/search/stylistInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/search/stylistInfo.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
