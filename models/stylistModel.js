@@ -107,6 +107,29 @@ const StylistSchema = new Schema(
             enum: ['stylist'],
             default: 'stylist',
         },
+        average: {
+            type: Number,
+            default: 0,
+          },
+          reviews: {
+            type: [{
+              reviewerName: {
+                type: String,
+                required: true,
+              },
+              score: {
+                type: Number,
+                required: true,
+              },
+              notes: {
+                type: String,
+                required: true,
+              }
+            }]
+          },
+        reviewScores: {
+            type:[Number]
+        },
         resetPasswordToken: String,
         resetPasswordExpiration: Date,
     },

@@ -234,6 +234,7 @@ export const forgotPassword = async (req, res, next) => {
             email: stylist.email,
             subject: 'Password reset',
             message,
+            token: resetToken,
         });
         res.status(200).json({ sucess: true, data: 'email sent' });
     } catch (err) {
@@ -271,6 +272,61 @@ export const resetPassword = async (req, res, next) => {
         stylist.lastLogin = Date.now();
         await stylist.save();
         res.status(200).json({ success: true, token, stylist });
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const postReviews = async (req, res) => {
+    const stylistEmail = req.body.email;
+    let rev = {
+        reviewerName: req.body.reviewerName,
+        score: req.body.score,
+        notes: req.body.notes,
+    };
+    try {
+        const currStylist = await Stylist.findOneAndUpdate(
+            { email: stylistEmail },
+            {
+                $push: {
+                    reviews: {
+                        reviewerName: rev.reviewerName,
+                        score: rev.score,
+                        notes: rev.notes,
+                    },
+                    reviewScores: rev.score,
+                },
+                $inc: { numReviews: 1 },
+            }
+        );
+
+        var a = currStylist.reviewScores.reduce(function (a, b) {
+            return a + b;
+        }, 0);
+
+        a = a / currStylist.numReviews;
+        await Stylist.findOneAndUpdate(
+            { email: stylistEmail },
+            { $set: { average: Math.round(a) } }
+        );
+
+        res.status(200).send('review posted');
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const getOneStylist = async (req, res) => {
+    const stylistId = req.params.id;
+    try {
+        const stylist = await Stylist.findById(stylistId);
+        res.status(200).json({
+            success: true,
+            stylist,
+        });
+        if (!stylist) {
+            return next(new ErrorResponse('User Not found', 404));
+        }
     } catch (err) {
         next(err);
     }

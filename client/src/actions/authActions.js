@@ -11,7 +11,6 @@ const api = "http://localhost:8000";
 axios.defaults.baseURL = api;
 export const registerUser = (userData, history) => dispatch => {
     axios
-<<<<<<< HEAD
         .post("/users/register", userData)
         .then(() => history.push("/login")) // re-direct to login on successful register
         .catch(err =>
@@ -26,9 +25,6 @@ export const registerUser = (userData, history) => dispatch => {
 export const registerStylist = (userData, history) => dispatch => {
     axios
         .post("/stylists/register", userData)
-=======
-        .post(`/users/register`, userData)
->>>>>>> origin
         .then(() => history.push("/login")) // re-direct to login on successful register
         .catch(err =>
             dispatch({
@@ -53,11 +49,7 @@ export const registerUserStylist = (userData, history) => dispatch => {
 // Change Password
 export const changePassword = (userData, history) => dispatch => {
     axios
-<<<<<<< HEAD
         .post("/users/changePassword", userData)
-=======
-        .post(`/users/changePassword`, userData)
->>>>>>> origin
         .then(() => history.push("/home")) // re-direct to home after changing password
         .catch(err =>
             dispatch({
@@ -70,16 +62,14 @@ export const changePassword = (userData, history) => dispatch => {
 // Login - get user token
 export const loginUser = userData => dispatch => {
     axios
-<<<<<<< HEAD
         .post("/users/login", userData)
-=======
-        .post(`/users/login`, userData)
->>>>>>> origin
         .then(res => {
             // Save to localStorage
 // Set token to localStorage
+            // console.log(res.data)
             const {token} = res.data;
             localStorage.setItem("jwtToken", token);
+
             // Set token to Auth header
             setAuthToken(token);
             // Decode token to get user data
@@ -96,10 +86,10 @@ export const loginUser = userData => dispatch => {
         );
 };
 // Set logged in user
-export const setCurrentUser = decoded => {
+export const setCurrentUser = user => {
     return {
         type: SET_CURRENT_USER,
-        payload: decoded
+        payload: user
     };
 };
 // User loading
@@ -116,4 +106,5 @@ export const logoutUser = () => dispatch => {
     setAuthToken(false);
     // Set current user to empty object {} which will set isAuthenticated to false
     dispatch(setCurrentUser({}));
+
 };

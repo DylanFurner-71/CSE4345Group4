@@ -28,7 +28,10 @@ export default app => {
     app.route('/users/me').get(protectUser, user.getMe);
 
     app.route('/stylists').get(stylist.getStylists);
-    app.route('/stylists/:id').put(protectStylist, stylist.updateStylist);
+    app.route('/stylists/search').get(stylist.searchStylist);
+    app.route('/stylists/:id')
+        .put(protectStylist, stylist.updateStylist)
+        .get(stylist.getOneStylist);
     app.route('/stylists/change/:stylistId').post(
         protectStylist,
         stylist.changePassword
@@ -41,7 +44,6 @@ export default app => {
 
     //this one right here, kirk (go to the stylistController for the logic if
     //you want to see)
-    app.route('/stylists/search').get(stylist.searchStylist);
 
     app.use(errorHandler);
 };

@@ -1,26 +1,24 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {Provider} from "react-redux";
+import {Provider, useDispatch} from "react-redux";
 import {setCurrentUser, logoutUser} from "./actions/authActions";
 import jwt_decode from "jwt-decode";
 import PrivateRoute from "./components/PrivateRoute"
 import Navigation from "./components/navigation"
 import Landing from './components/landing'
 import Login from './components/login/login'
-import Register from './components/register/registerUser'
+import RegisterUser from './components/register/registerUser'
+import RegisterStylist from './components/register/registerStylist'
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
-<<<<<<< HEAD
-import RegisterStylist from "./components/register/registerStylist";
-import StylistProfile from "./components/profile/stylistProfile";
-
-
-=======
 import { ROUTES } from './routes'
-import registerStylistUser from './components/stylist/registerStylistUser';
-import stylistLanding from '/Users/dylanfurner/Desktop/haircutUber/client/src/components/stylist/stylistLanding.js';
->>>>>>> origin
+import SendPassword from "./components/sendPassword";
+import ChangePassword from "./components/changePassword";
+import StylistsList from "./components/search/stylistsList";
+
+
+
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
     // Set auth token header auth
@@ -49,15 +47,8 @@ function App() {
 	                <Route exact path="/" component={Landing}/>
                     <Route exact path="/home" component={Landing}/>
 	                <Route exact path="/login" component={Login}/>
-<<<<<<< HEAD
-	                <Route exact path="/user/register" component={Register}/>
+	                <Route exact path="/user/register" component={RegisterUser}/>
                     <Route exact path="/stylist/register" component={RegisterStylist}/>
-                    <Route exact path="/stylist/profile" component={StylistProfile}/>
-=======
-	                <Route exact path="/register" component={Register}/>
-                    <Route exact path="/stylists/register" component={registerStylistUser}/>
-                    <Route exact path="/stylists/stylistLanding" component = {stylistLanding}/>
->>>>>>> origin
 	                <Switch>
 	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>

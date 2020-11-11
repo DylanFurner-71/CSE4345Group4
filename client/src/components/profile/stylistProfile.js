@@ -1,56 +1,94 @@
-import React, {useState} from 'react';
-import {Link} from "react-router-dom";
-import store from "../../store";
+import React, {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom'
+import axios from 'axios'
+import Loading from "../loading"
+import {Tab, Tabs, TabList, TabPanel} from 'react-tabs'
+import 'react-tabs/style/react-tabs.css'
+import {CustomPlaceholder} from "react-placeholder-image";
+import ReviewBox from "./reviewBox";
 
 const StylistProfile = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const [stylist, setStylist] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const stylistId = useParams()
+    const URL = "http://localhost:8000/stylists/"
 
-    let currentState = store.getState()
-    console.log(currentState.auth.user)
-
-    // Save the profile
-    const onSubmit = () => {
-
-    }
+    useEffect(() => {
+        const fetchStylist = async () => {
+            await axios.get(URL+stylistId.id)
+                .then(res => {
+                    const stylistData = res.data.stylist
+                    console.log(stylistData)
+                    setStylist(stylistData)
+                    setIsLoading(false)
+                })
+        }
+        fetchStylist()
+    }, [])
 
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-lg-10 col-xl-9 mx-auto">
-                    <div className="card card-signin flex-row my-5">
-                        <div className="card-body">
-                            <h5 className="card-title text-center">Edit Profile</h5>
-                            <form className="form-signin" onSubmit={onSubmit}>
-                                <div className="form-label-group">
-                                    <input type="text" onChange={event => setName(event.target.value)}
-                                           value={name} className="form-control" id="name" placeholder="Username" required autoFocus />
-                                    <label htmlFor="name">Enter New Username</label>
+        <div className="h-100">
+            {
+                isLoading ? <Loading/> :
+                    <div className="container">
+                        <div className="card card-signin flex-row my-5">
+                            <div className="card-body">
+                                <div className="row mb-4">
+                                    <div className="col-3 mt-4">
+                                        {
+                                            stylist.photo === 'no-photo.jpg' ?
+                                                <CustomPlaceholder
+                                                    width="200"
+                                                    height="200"
+                                                    backgroundColor="#123456"
+                                                    textColor="#ffffff"
+                                                    text={`Stylist ${stylist.firstName}`}
+                                                /> :
+                                                <img src={stylist.photo} className="w-100 h-100" alt="Stylist"/>
+                                        }
+                                    </div>
+                                    <div className="col-9">
+                                        <h2 className="text-center display-4 mb-4">{`${stylist.firstName} ${stylist.lastName}`}</h2>
+                                        <h5>Contact Information</h5>
+                                        <ul className="list-group list-group-flush">
+                                            <li className="list-group-item">Phone Number: {stylist.number === '' ? 'None' : stylist.number}</li>
+                                            <li className="list-group-item">Email: {stylist.email === '' ? 'None' : stylist.email}</li>
+                                            <li className="list-group-item">Address: {stylist.address === '' ? 'None' : stylist.address}</li>
+                                        </ul>
+                                    </div>
+
                                 </div>
 
-                                <div className="form-label-group">
-                                    <input type="email" onChange={event => setEmail(event.target.value)}
-                                           className="form-control"
-                                           value={email}
-                                           id="inputEmail"
-                                           placeholder="Email address" required />
-                                    <label htmlFor="inputEmail">Enter New Email Address</label>
-                                </div>
+                                <Tabs>
+                                    <TabList>
+                                        <Tab>Services</Tab>
+                                        <Tab>Reviews</Tab>
+                                    </TabList>
 
-                                <hr/>
+                                    <TabPanel>
+                                        {/*<Service */}
+                                        {/*    services={stylist.services}*/}
+                                        {/*/>*/}
+                                    </TabPanel>
+                                    <TabPanel>
+                                        <ReviewBox
+                                            stylist={stylist.firstName}
+                                            average={stylist.average}
+                                            reviews={stylist.reviews}
+                                        />
+                                    </TabPanel>
+                                </Tabs>
+                            </div>
 
-                                <Link className="btn btn-secondary mr-2" to="/">Cancel</Link>
-                                <button className="btn btn-primary mr-2"
-                                        type="submit">Save
-                                </button>
-
-                            </form>
                         </div>
+
                     </div>
-                </div>
-            </div>
+
+            }
         </div>
+
+
     );
 };
 

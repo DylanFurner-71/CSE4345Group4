@@ -10,6 +10,8 @@ class RegisterUser extends Component {
     constructor() {
         super();
         this.state = {
+            firstName: "",
+            lastName: "",
             name: "",
             email: "",
             password: "",
@@ -33,6 +35,8 @@ class RegisterUser extends Component {
     onSubmit = e => {
         e.preventDefault();
         const newUser = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
             name: this.state.name,
             email: this.state.email,
             password: this.state.password,
@@ -45,11 +49,30 @@ class RegisterUser extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-10 col-xl-9 mx-auto">
+                    <div className="col-5 col-5 mx-auto">
                         <div className="card card-signin flex-row my-5">
                             <div className="card-body">
                                 <h5 className="card-title text-center">Register</h5>
                                 <form className="form-signin" onSubmit={this.onSubmit}>
+                                    <div className="row">
+                                        <div className="form-label-group col-6">
+                                            <input type="text" onChange={this.onChange} error={error.firstName}
+                                                   value={this.state.firstName} id="firstName" className={classnames("form-control", {
+                                                invalid: error.firstName
+                                            })} placeholder="First Name" required autoFocus />
+                                            <label htmlFor="firstName">First Name</label>
+                                            <span className="red-text">{error.firstName}</span>
+                                        </div>
+                                        <div className="form-label-group col-6">
+                                            <input type="text" onChange={this.onChange} error={error.lastName}
+                                                   value={this.state.lastName} id="lastName" className={classnames("form-control", {
+                                                invalid: error.lastName
+                                            })} placeholder="Last Name" required autoFocus />
+                                            <label htmlFor="lastName">Last Name</label>
+                                            <span className="red-text">{error.lastName}</span>
+                                        </div>
+                                    </div>
+
                                     <div className="form-label-group">
                                         <input type="text" onChange={this.onChange} error={error.name}
                                                value={this.state.name} id="name" className={classnames("form-control", {
@@ -62,11 +85,11 @@ class RegisterUser extends Component {
                                     <div className="form-label-group">
                                         <input type="email" onChange={this.onChange}
                                                value={this.state.email}
-                                               error={error.email} id="inputEmail"
+                                               error={error.email} id="email"
                                                placeholder="Email address" className={classnames("form-control", {
                                             invalid: error.email
                                         })} required />
-                                            <label htmlFor="inputEmail">Email address</label>
+                                            <label htmlFor="email">Email address</label>
                                             <span className="red-text">{error.email}</span>
                                     </div>
 
@@ -75,22 +98,22 @@ class RegisterUser extends Component {
                                         <div className="form-label-group">
                                             <input type="password" onChange={this.onChange}
                                                    value={this.state.password}
-                                                   error={error.password} id="inputPassword"
+                                                   error={error.password} id="password"
                                                    placeholder="Password" className={classnames("form-control", {
                                                 invalid: error.password
                                             })} required />
-                                                <label htmlFor="inputPassword">Password</label>
+                                                <label htmlFor="password">Password</label>
                                                 <span className="red-text">{error.password}</span>
                                         </div>
 
                                         <div className="form-label-group">
                                             <input type="password" onChange={this.onChange}
                                                    value={this.state.password2}
-                                                   error={error.password2} id="inputConfirmPassword" placeholder="Password"
+                                                   error={error.password2} id="password2" placeholder="Password"
                                                    className={classnames("form-control", {
                                                        invalid: error.password2
                                                    })} required />
-                                                <label htmlFor="inputConfirmPassword">Confirm password</label>
+                                                <label htmlFor="password2">Confirm password</label>
                                                 <span className="red-text">{error.password2}</span>
                                         </div>
 

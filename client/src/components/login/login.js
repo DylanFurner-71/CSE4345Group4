@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {loginUser} from "../../actions/authActions";
 import classnames from "classnames";
 import "../register/register.css"
+import RegisterPopup from "../register/registerPopup";
 
 class Login extends Component {
     constructor() {
@@ -12,6 +13,7 @@ class Login extends Component {
         this.state = {
             email: "",
             password: "",
+            modalShow: false,
             error: {}
         };
     }
@@ -19,13 +21,13 @@ class Login extends Component {
     componentDidMount() {
         // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/");
+            this.props.history.push("/userLanding");
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/"); // push user to dashboard when they login
+            this.props.history.push("/userLanding"); // push user to dashboard when they login
         }
         if (nextProps.error) {
             this.setState({
@@ -48,21 +50,29 @@ class Login extends Component {
 
     render() {
         const error = this.state.error;
+        console.log(error.error)
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-lg-10 col-xl-9 mx-auto">
+                    <div className="col-5 col-5 mx-auto">
                         <div className="card card-signin flex-row my-5">
                             <div className="card-img-left d-none d-md-flex">
                             </div>
                             <div className="card-body">
                                 <div>
                                     <p className="grey-text text-darken-1">
-                                        Don't have an account yet? <Link to="/register">Register</Link> Now!
+                                        Don't have an account yet?
+                                        <a href="#" onClick={() => this.setState({modalShow: true})}> <u>Register</u> </a>Now!
+                                        <RegisterPopup
+                                            show={this.state.modalShow}
+                                            onHide={() => this.setState({modalShow: false})}
+                                        />
                                     </p>
                                 </div>
                                 <h5 className="card-title text-center">Login</h5>
                                 <form className="form-signin" onSubmit={this.onSubmit}>
+                                    <span className="text-danger">
+                                            {error.error}</span>
                                     <div className="form-label-group">
                                         <input
                                             onChange={this.onChange}
@@ -74,9 +84,6 @@ class Login extends Component {
                                             })}
                                         />
                                         <label htmlFor="email">Email</label>
-                                        <span className="red-text">
-                                    {error.email}
-                                            {error.emailnotfound}</span>
                                     </div>
 
                                     <div className="form-label-group">
@@ -90,16 +97,14 @@ class Login extends Component {
                                             })}
                                         />
                                         <label htmlFor="password">Password</label>
-                                        <span className="red-text">
-                                    {error.password}
-                                            {error.passwordincorrect}</span>
                                     </div>
 
                                     <hr/>
 
-                                        <button className="btn btn-lg btn-primary btn-block text-uppercase"
-                                                type="submit">Login
-                                        </button>
+                                    <Link to="/resetPassword">Forgot password?</Link>
+                                    <button className="btn btn-lg btn-primary btn-block text-uppercase"
+                                            type="submit">Login
+                                    </button>
                                 </form>
                             </div>
                         </div>
