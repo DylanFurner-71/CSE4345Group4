@@ -277,26 +277,30 @@ export const resetPassword = async (req, res, next) => {
 };
 
 export const postReviews = async (req, res) => {
-    const stylistEmail = req.body.email;
+    let stylistEmail = req.body.email;
     let rev = {
       "reviewerName": req.body.reviewerName,
       "score": req.body.score,
       "notes": req.body.notes
     };
+    console.log(stylistEmail);
     try {
-      const currStylist = await Stylist.findOneAndUpdate(
+        await Stylist.findOneAndUpdate(
         {"email": stylistEmail}, 
         { $push: { reviews: { reviewerName: rev.reviewerName, score: rev.score, notes: rev.notes }, reviewScores: rev.score},
           $inc: {numReviews: 1}});
-        
-      var a = currStylist.reviewScores.reduce(function(a, b){
+        const currStylist = await Stylist.findOne({"email": stylistEmail})
+      console.log(currStylist);
+
+      var c = currStylist.reviewScores.reduce(function(a, b){
             return a + b;
         }, 0);
       
-      a = a / currStylist.numReviews;
+      c = c / currStylist.reviewScores.length;
+      console.log(c)
       await Stylist.findOneAndUpdate(
         {"email": stylistEmail},
-        {$set : {average: Math.round(a)}}
+        {$set : {average: Math.round(c)}}
       );
       
       res.status(200).send("review posted");
