@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import store from "../../store";
+import {useParams} from 'react-router-dom'
 
 const StylistProfile = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const stylistId = useParams()
+    console.log(stylistId)
 
     let currentState = store.getState()
     console.log(currentState.auth.user)
@@ -24,17 +25,12 @@ const StylistProfile = () => {
                             <h5 className="card-title text-center">Edit Profile</h5>
                             <form className="form-signin" onSubmit={onSubmit}>
                                 <div className="form-label-group">
-                                    <input type="text" onChange={event => setName(event.target.value)}
-                                           value={name} className="form-control" id="name" placeholder="Username" required autoFocus />
+
                                     <label htmlFor="name">Enter New Username</label>
                                 </div>
 
                                 <div className="form-label-group">
-                                    <input type="email" onChange={event => setEmail(event.target.value)}
-                                           className="form-control"
-                                           value={email}
-                                           id="inputEmail"
-                                           placeholder="Email address" required />
+
                                     <label htmlFor="inputEmail">Enter New Email Address</label>
                                 </div>
 
