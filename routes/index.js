@@ -29,6 +29,7 @@ export default app => {
 
     app.route('/stylists').get(stylist.getStylists);
     app.route('/stylists/:id').put(protectStylist, stylist.updateStylist);
+    app.route('/stylists/:id').get(stylist.getOneStylist);
     app.route('/stylists/change/:stylistId').post(
         protectStylist,
         stylist.changePassword

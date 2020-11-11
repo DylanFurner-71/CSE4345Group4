@@ -304,3 +304,15 @@ export const postReviews = async (req, res) => {
       res.status(400).json({ msg: err });
     }
   };
+
+  export const getOneStylist = async (req, res) => {
+    try {
+        const stylist = await Stylist.findById(req.stylist.id);
+        res.status(200).json({
+            success: true,
+            stylist,
+        });
+    } catch (err) {
+        res.status(400).json({ msg: err });
+    }
+  }
