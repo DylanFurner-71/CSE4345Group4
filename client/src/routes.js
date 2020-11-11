@@ -1,9 +1,15 @@
 import UserLanding from "./components/userLanding";
-import StylistLanding from "./components/stylist/stylistLanding";
-import StylistCalendar from "./components/stylist/stylistCalendar"
+import StylistsList from "./components/search/stylistsList";
+import ChangePassword from "./components/changePassword";
+import StylistProfile from "./components/profile/stylistProfile";
+import EditProfile from "./components/profile/editProfile";
+
 export const ROUTES = [
     // {path: '/changePassword', component: SendPassword},
-    {path: "/stylists/stylistLanding/", component: StylistLanding,},
+    // {path: "/register", component: Register}
+    {path: "/editProfile", component: EditProfile},
     {path: "/userLanding", component: UserLanding},
-    {path: "/stylist/stylistCalendar", component: StylistCalendar}
+    {path: "/stylists/search/:type/:query", component: StylistsList},
+    {path: "/changePassword/:id", component: ChangePassword},
+    {path: "/stylist/stylistId=:id", component: StylistProfile}
 ]

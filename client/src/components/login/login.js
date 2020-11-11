@@ -66,6 +66,7 @@ class Login extends Component {
 
     render() {
         const error = this.state.error;
+        console.log(error.error)
         return (
             <div className="container">
                 <div className="row">
@@ -86,6 +87,8 @@ class Login extends Component {
                                 </div>
                                 <h5 className="card-title text-center">Login</h5>
                                 <form className="form-signin" onSubmit={this.onSubmit}>
+                                    <span className="text-danger">
+                                            {error.error}</span>
                                     <div className="form-label-group">
                                         <input
                                             onChange={this.onChange}
@@ -97,9 +100,6 @@ class Login extends Component {
                                             })}
                                         />
                                         <label htmlFor="email">Email</label>
-                                        <span className="red-text">
-                                    {error.email}
-                                            {error.emailnotfound}</span>
                                     </div>
 
                                     <div className="form-label-group">
@@ -113,9 +113,6 @@ class Login extends Component {
                                             })}
                                         />
                                         <label htmlFor="password">Password</label>
-                                        <span className="red-text">
-                                    {error.password}
-                                            {error.passwordincorrect}</span>
                                     </div>
            <div class="form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1" checked={this.state.isStylist} onChange={this.onCheck}/>
