@@ -16,7 +16,7 @@ const SearchBar = () => {
                    onChange={event => setName(event.target.value)}
             />
             <div className="input-group-append">
-                <Link to={`/stylists/${name}`} className="btn btn-outline-secondary">Search</Link>
+                <Link to={`/stylists/search=${name}`} className="btn btn-outline-secondary">Search</Link>
             </div>
         </div>
     );

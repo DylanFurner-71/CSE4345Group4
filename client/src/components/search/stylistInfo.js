@@ -5,10 +5,9 @@ import {Link} from "react-router-dom";
 
 // Information span for each stylist
 const StylistInfo = ({stylist}) => {
-    console.log(stylist)
     return (
         <div className="container-fluid w-75 my-2">
-            <Link to={`/stylist/stylistId=${stylist.id}`}>
+            <Link to={`/stylist/stylistId=${stylist._id}`}>
                 <hr/>
                 <div className="row">
                     <div className="col-3 p-0">
@@ -21,7 +20,7 @@ const StylistInfo = ({stylist}) => {
                                     textColor="#ffffff"
                                     text={`Stylist ${stylist.firstName}`}
                                 /> :
-                                <img src={stylist.photo} className="w-100 h-100" alt="Stylist"/>
+                                <img src={stylist.photo} className="stylistImage" alt="Stylist"/>
                         }
 
                     </div>

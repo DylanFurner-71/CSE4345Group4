@@ -5,27 +5,49 @@ import StylistInfo from "./stylistInfo";
 import Loading from "../loading";
 
 const StylistsList = () => {
-    const stylistName = useParams()
+    const query = useParams()
+    console.log(query)
     const URL = 'http://localhost:8000/stylists/search'
     const [stylists, setStylists] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        const getStylists = async () => {
-            await axios.get(URL, {
-                params: {
-                    name: stylistName.name
-                }
+    const getStylistsOnName = async () => {
+        await axios.get(URL, {
+            params: {
+                name: query.query
+            }
+        })
+            .then(res => {
+                setStylists(res.data.returnedStylists)
+                setIsLoading(false)
+                console.log('Stylists data fetched')
             })
-                .then(res => {
-                    setStylists(res.data.returnedStylists)
-                    setIsLoading(false)
-                    console.log('Stylists data fetched')
-                })
-                .catch(err => console.log(err))
+            .catch(err => console.log(err))
 
+    }
+
+    const getStylistsOnServices = async () => {
+        await axios.get(URL, {
+            params: {
+                services: query.query
+            }
+        })
+            .then(res => {
+                setStylists(res.data.returnedStylists)
+                setIsLoading(false)
+                console.log('Stylists data fetched')
+            })
+            .catch(err => console.log(err))
+    }
+
+    useEffect(() => {
+        if(query.type === 'name'){
+            getStylistsOnName()
         }
-        getStylists()
+        else if(query.type === 'services'){
+            getStylistsOnServices()
+        }
+
     }, [])
 
     return (

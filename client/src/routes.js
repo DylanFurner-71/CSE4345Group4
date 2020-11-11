@@ -9,7 +9,7 @@ export const ROUTES = [
     // {path: "/register", component: Register}
     {path: "/editProfile", component: EditProfile},
     {path: "/userLanding", component: UserLanding},
-    {path: "/stylists/:name", component: StylistsList},
+    {path: "/stylists/search/:type/:query", component: StylistsList},
     {path: "/changePassword/:id", component: ChangePassword},
     {path: "/stylist/stylistId=:id", component: StylistProfile}
 ]
