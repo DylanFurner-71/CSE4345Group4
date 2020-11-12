@@ -33,7 +33,10 @@ export const ReviewForm = props => {
                 score: rating,
                 notes: reviewNote,
             };
-            axios.post('http://localhost:8000/stylists/postreview', review);
+            await axios.post(
+                'http://localhost:8000/stylists/postreview',
+                review
+            );
             props.history.push(`/stylist/stylistId=${stylistId.id}`);
         }
     };
