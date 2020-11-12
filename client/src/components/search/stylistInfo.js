@@ -5,13 +5,13 @@ import {Link} from "react-router-dom";
 
 // Information span for each stylist
 const StylistInfo = ({stylist}) => {
-    console.log(stylist)
+
     return (
         <div className="container-fluid w-75 my-2">
-            <Link to={`/stylist/stylistId=${stylist._id}`}>
+            <Link to={`/stylist/stylistId=${stylist._id}`} style={{textDecoration: 'none'}}>
                 <hr/>
                 <div className="row">
-                    <div className="col-3 p-0">
+                    <div className="col-4">
                         {
                             stylist.photo === 'no-photo.jpg' ?
                                 <CustomPlaceholder
@@ -25,14 +25,23 @@ const StylistInfo = ({stylist}) => {
                         }
 
                     </div>
-                    <div className="col-6">
-                        <h4>{stylist.firstName} {stylist.lastName}</h4>
-                        <h5><span className="badge badge-primary">{stylist.businessName}</span></h5>
+                    <div className="col-8">
+                        <div className="row">
+                            <div className="col-8">
+                                <h4>{stylist.firstName} {stylist.lastName}</h4>
+                                <p className="text-muted">{stylist.businessName}</p>
+                            </div>
+                            <div className="col-4">
+                                <Rating rating={stylist.average}/>
+                                <p className="text-muted d-inline ml-1">({stylist.reviews.length})</p>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <button className="btn btn-warning align-self-end">Book an appointment</button>
+                        </div>
                     </div>
-                    <div className="col-3">
-                        <Rating rating={stylist.average}/>
-                        <p className="text-muted d-inline ml-1">({stylist.reviews.length})</p>
-                    </div>
+
+
                 </div>
                 <hr/>
             </Link>
