@@ -1,7 +1,6 @@
-import { format } from 'path';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams, Redirect } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 export const ReviewForm = props => {
@@ -12,23 +11,12 @@ export const ReviewForm = props => {
     const stylistId = useParams();
 
     const submitForm = async e => {
-        let stylist = props.location.stylist;
         if (rating === 0) {
             alert('Must add a rating');
         } else {
-            if (!stylist) {
-                console.log('here', stylistId);
-                await axios
-                    .get('http://localhost:8000/stylists/' + stylistId.id)
-                    .then(res => {
-                        stylist = res.data.stylist;
-                    });
-                console.log(stylist);
-            }
-
             // email should be passed down from props...
             const review = {
-                email: stylist.email,
+                id: stylistId.id,
                 reviewerName: `${user.firstName} ${user.lastName}`,
                 score: rating,
                 notes: reviewNote,
