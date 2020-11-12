@@ -278,16 +278,15 @@ export const resetPassword = async (req, res, next) => {
 };
 
 export const postReviews = async (req, res) => {
-    let stylistEmail = req.body.email;
+    let stylistId = req.body.id;
     let rev = {
         reviewerName: req.body.reviewerName,
         score: req.body.score,
         notes: req.body.notes,
     };
-    console.log(stylistEmail);
     try {
         await Stylist.findOneAndUpdate(
-            { email: stylistEmail },
+            { _id: stylistId },
             {
                 $push: {
                     reviews: {
@@ -300,7 +299,7 @@ export const postReviews = async (req, res) => {
                 $inc: { numReviews: 1 },
             }
         );
-        const currStylist = await Stylist.findOne({ email: stylistEmail });
+        const currStylist = await Stylist.findById(stylistId);
         console.log(currStylist);
 
         var c = currStylist.reviewScores.reduce(function (a, b) {
@@ -310,7 +309,7 @@ export const postReviews = async (req, res) => {
         c = c / currStylist.reviewScores.length;
         console.log(c);
         await Stylist.findOneAndUpdate(
-            { email: stylistEmail },
+            { _id: stylistId },
             { $set: { average: Math.round(c) } }
         );
 
