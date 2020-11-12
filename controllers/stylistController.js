@@ -331,3 +331,21 @@ export const getOneStylist = async (req, res) => {
         next(err);
     }
 };
+
+export const addService = async (req, res) => {
+    const stylistId = req.params.id;
+    const service = req.params.service;
+    try {
+        const stylist = await Stylist.findById(stylistId);
+        stylist.services.push(service);
+        res.status(200).json({
+            success: true,
+            stylist,
+        });
+        if (!stylist) {
+            return next(new ErrorResponse('Add Service failed due to unknown reason', 404));
+        }
+    } catch (err) {
+        next(err);
+    }
+};

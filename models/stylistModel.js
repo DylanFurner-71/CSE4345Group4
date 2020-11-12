@@ -52,26 +52,44 @@ const StylistSchema = new Schema(
         },
         services: [
             {
-                type: String,
-                enum: [
-                    'hair treatment',
-                    'haircuts',
-                    'hair coloring',
-                    'hair styling',
-                    'extensions',
-                    'waxing',
-                    'men',
-                    'women',
-                    'children',
-                    'waxing',
-                    'shaving',
-                    'special occasion',
-                    'blow outs',
-                    'perms',
-                    'other',
+                type: Object,
+                service: {
+                    name: {
+                        type: String,
+                        default: "no-name",
+                    },
+                    description: {
+                        type: String,
+                        default: "No-description",
+                    },
+                    price: {
+                        type: [Number],
+                        default: 1.0,
+                    }, 
+                    category: {
+                    
+                        type: String,
+                        enum: [
+                            'hair treatment',
+                            'haircuts',
+                            'hair coloring',
+                            'hair styling',
+                            'extensions',
+                            'waxing',
+                            'men',
+                            'women',
+                            'children',
+                            'waxing',
+                            'shaving',
+                            'special occasion',
+                            'blow outs',
+                            'perms',
+                            'other',
+                        ],
+                    }
+                },
+            }
                 ],
-            },
-        ],
         address: {
             type: String,
             required: [true, 'Must Provide address of business location'],
@@ -181,12 +199,21 @@ StylistSchema.pre('save', async function (next) {
 
 // Sign JWT and return
 
+// Sign JWT and return
 StylistSchema.methods.getSignedJwtToken = function () {
-    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRE,
-    });
+    return jwt.sign(
+        {
+            id: this._id,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            role: this.role,
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: process.env.JWT_EXPIRE,
+        }
+    );
 };
-
 StylistSchema.methods.geocodeAddress = function (address) {};
 
 // Match plain pwd and hashed pwd

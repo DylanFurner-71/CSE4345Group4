@@ -9,10 +9,9 @@ import {
 // Register User
 const api = "http://localhost:8000";
 axios.defaults.baseURL = api;
-export const registerUser = (userData, history) => dispatch => {
+export const addService = (id, service) => dispatch => {
     axios
-        .post("/users/register", userData)
-        .then(() => history.push("/login")) // re-direct to login on successful register
+        .post(`services/${id}/add`, service)
         .catch(err =>
             dispatch({
                 type: GET_ERRORS,
