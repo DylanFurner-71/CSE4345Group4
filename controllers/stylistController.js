@@ -147,16 +147,59 @@ export const getMe = async (req, res, next) => {
         next(err);
     }
 };
+/*
+startDate
+endDate
+ title
+  category
+location
+
+*/
+
+export const getAppointments = async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const stylist = await Stylist.findById(id);
+        if (!stylist) {
+            return next(new ErrorResponse('Stylist does not exist', 404));
+        }
+        const { appointments } = stylist;
+
+        res.json({
+            sucess: true,
+            appointments,
+        });
+    } catch (err) {
+        next(err);
+    }
+};
 
 export const addAppointment = async (req, res, next) => {
     const { id } = req.params;
-    const stylist = await Stylist.findById(id);
-    const appointments = stylist.appointments;
-    if (!stylist) {
-        return next(new ErrorResponse('Stylist does not exist', 404));
-    }
+    const { startDate, endDate, title, category, location, allday } = req.body;
+    const newAppointment = {
+        startDate,
+        endDate,
+        title,
+        category,
+        location,
+        allday,
+    };
     try {
-    } catch (err) {}
+        const stylist = await Stylist.findById(id);
+        if (!stylist) {
+            return next(new ErrorResponse('Stylist does not exist', 404));
+        }
+        stylist.appointments = { ...stylist.appointments, newAppointment };
+        await stylist.save();
+        res.json({
+            sucess: true,
+            stylist,
+        });
+    } catch (err) {
+        next(err);
+    }
 };
 
 //@desc          Search STylist by name
