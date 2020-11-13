@@ -90,6 +90,31 @@ const StylistSchema = new Schema(
                 },
             }
                 ],
+
+        appointments: {
+            type: [{
+                startDate: {
+                    type: String,
+                    required: false,
+                    default: Date.now,
+                }, 
+                endDate: {
+                    type: String,
+                required: false,
+                default: Date.now,
+            },
+             title:  { 
+            type: String,
+             required: false,
+             default: "Some Title",
+            },
+            category: {
+                type: String,
+                required: false,
+                default: 'haircut',
+            }
+    }],
+},
         address: {
             type: String,
             required: [true, 'Must Provide address of business location'],

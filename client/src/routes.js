@@ -8,6 +8,7 @@ import {Route} from "react-router-dom";
 import React from "react";
 import StylistLanding from "./components/stylistLanding";
 import ServicesOffered from "./components/stylist/servicesOffered";
+import StylistCalendar from "./components/stylist/stylistCalendar";
 export const ROUTES = [
     {path: "/editProfile", component: EditProfile},
     {path: "/userLanding", component: UserLanding},
@@ -17,4 +18,6 @@ export const ROUTES = [
     {path: "/resetPassword", component: SendPassword},
     {path: "/stylists/stylistLanding", component: StylistLanding},
     {path: "/services/servicesOffered", component: ServicesOffered},
+    {path: "/stylists/stylistCalendar/stylistId=:id", component: StylistCalendar},
+
 ]

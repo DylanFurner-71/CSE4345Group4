@@ -28,7 +28,7 @@ const StylistLanding = () => {
         <div className="col center-align">
            
                 <Link
-                    to={`/stylist/stylistCalendar`}
+                    to={`/stylists/stylistCalendar/stylistId=${user.id}`}
                     style={{
                         width: "140px",
                         borderRadius: "3px",
