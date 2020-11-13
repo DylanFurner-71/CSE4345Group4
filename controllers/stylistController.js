@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { userInfo } from 'os';
 import Stylist from '../models/stylistModel.js';
+import Appointment from '../models/appointmentModel.js';
 import ErrorResponse from '../utils/errorResponse.js';
 import sendEmail from '../utils/sendEmail.js';
 import crypto from 'crypto';
@@ -162,9 +163,9 @@ export const getAppointments = async (req, res, next) => {
     try {
         const stylist = await Stylist.findById(id);
         if (!stylist) {
-            return next(new ErrorResponse('Stylist does not exist', 404));
+            return next(new ErrorResponse('Stylist not found', 404));
         }
-        const { appointments } = stylist;
+        const appointments = await Appointment.find({ stylist: id });
 
         res.json({
             sucess: true,
@@ -177,25 +178,35 @@ export const getAppointments = async (req, res, next) => {
 
 export const addAppointment = async (req, res, next) => {
     const { id } = req.params;
-    const { startDate, endDate, title, category, location, allday } = req.body;
-    const newAppointment = {
+    const {
+        userId,
         startDate,
         endDate,
         title,
         category,
         location,
         allday,
-    };
+    } = req.body;
     try {
         const stylist = await Stylist.findById(id);
         if (!stylist) {
             return next(new ErrorResponse('Stylist does not exist', 404));
         }
-        stylist.appointments = { ...stylist.appointments, newAppointment };
-        await stylist.save();
+        const newAppointment = {
+            user: userId,
+            stylist: id,
+            startDate,
+            endDate,
+            title,
+            category,
+            location,
+            allday,
+        };
+        const appointments = new Appointment(newAppointment);
+        await appointments.save();
         res.json({
             sucess: true,
-            stylist,
+            appointments,
         });
     } catch (err) {
         next(err);

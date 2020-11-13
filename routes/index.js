@@ -25,6 +25,8 @@ export default app => {
     app.route('/users/resetPassword/:resettoken').put(user.resetPassword);
     app.route('/users/register').post(user.createUser);
     app.route('/users/login/').post(user.userLogin);
+
+    app.route('/users/appointments/:id').get(user.getAppointments);
     app.route('/users/me').get(protectUser, user.getMe);
 
     app.route('/stylists').get(stylist.getStylists);
