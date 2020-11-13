@@ -14,7 +14,7 @@ const Navigation = () => {
     return (
         <div>
             {/*make nav bar bigger brigher*/}
-            <Navbar bg="light" variant="light" expand="lg">
+            <Navbar bg="light" variant="light" expand="lg" className="border-bottom" fixed="top">
                 <Navbar.Brand href="/userLanding">Ultimate Style</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -36,10 +36,11 @@ const Navigation = () => {
                         className="mr-sm-2"
                     />
                 </Form>
-                <a href={`${searchURL}name/${name}`}><Button variant="primary">Search</Button></a>
+                <a href={`${searchURL}name/${name}`}><Button variant="dark">Search</Button></a>
                 {user.isAuthenticated ? <button onClick={onLogout} className="btn btn-warning mx-2">Logout</button> : <></>}
 
             </Navbar>
+
         </div>
     );
 };
