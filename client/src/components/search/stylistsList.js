@@ -23,7 +23,7 @@ const StylistsList = () => {
                 params: params
             })
                 .then(res => {
-                    setStylists(res.data.returnedStylists)
+                    setStylists(res.data.stylists)
                     setIsLoading(false)
                     console.log('Stylists data fetched')
                 })
