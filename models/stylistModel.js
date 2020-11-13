@@ -56,20 +56,19 @@ const StylistSchema = new Schema(
                 service: {
                     name: {
                         type: String,
-                        default: "no-name",
+                        default: 'no-name',
                     },
                     description: {
                         type: String,
-                        default: "No-description",
+                        default: 'No-description',
                     },
                     price: {
                         type: [Number],
                         default: 1.0,
-                    }, 
+                    },
                     category: {
-                    
-                        type: String,
-                        enum: [
+                        type: [String],
+                        default: [
                             'hair treatment',
                             'haircuts',
                             'hair coloring',
@@ -86,45 +85,11 @@ const StylistSchema = new Schema(
                             'perms',
                             'other',
                         ],
-                    }
+                    },
                 },
-            }
-                ],
+            },
+        ],
 
-        appointments: {
-            type: [{
-                startDate: {
-                    type: Date,
-                    required: false,
-                    default: Date.now,
-                }, 
-                endDate: {
-                    type: Date,
-                required: false,
-                default: Date.now,
-            },
-             title:  { 
-            type: String,
-             required: false,
-             default: "Some Title",
-            },
-            category: {
-                type: String,
-                required: false,
-                default: 'haircut',
-            },
-            location: {
-                type: String,
-                required: false,
-                default: 'Home',
-            },
-            allday: {
-                type: Boolean,
-                required: false,
-                default: false,
-            }
-    }],
-},
         address: {
             type: String,
             required: [true, 'Must Provide address of business location'],
@@ -163,25 +128,27 @@ const StylistSchema = new Schema(
         average: {
             type: Number,
             default: 0,
-          },
-          reviews: {
-            type: [{
-              reviewerName: {
-                type: String,
-                required: true,
-              },
-              score: {
-                type: Number,
-                required: true,
-              },
-              notes: {
-                type: String,
-                required: true,
-              }
-            }]
-          },
+        },
+        reviews: {
+            type: [
+                {
+                    reviewerName: {
+                        type: String,
+                        required: true,
+                    },
+                    score: {
+                        type: Number,
+                        required: true,
+                    },
+                    notes: {
+                        type: String,
+                        required: true,
+                    },
+                },
+            ],
+        },
         reviewScores: {
-            type:[Number]
+            type: [Number],
         },
         resetPasswordToken: String,
         resetPasswordExpiration: Date,

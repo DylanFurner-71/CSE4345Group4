@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { userInfo } from 'os';
 import Stylist from '../models/stylistModel.js';
+import Appointment from '../models/appointmentModel.js';
 import ErrorResponse from '../utils/errorResponse.js';
 import sendEmail from '../utils/sendEmail.js';
 import crypto from 'crypto';
@@ -142,6 +143,70 @@ export const getMe = async (req, res, next) => {
         res.status(200).json({
             success: true,
             stylist,
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+/*
+startDate
+endDate
+ title
+  category
+location
+
+*/
+
+export const getAppointments = async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const stylist = await Stylist.findById(id);
+        if (!stylist) {
+            return next(new ErrorResponse('Stylist not found', 404));
+        }
+        const appointments = await Appointment.find({ stylist: id });
+
+        res.json({
+            sucess: true,
+            appointments,
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const addAppointment = async (req, res, next) => {
+    const { id } = req.params;
+    const {
+        userId,
+        startDate,
+        endDate,
+        title,
+        category,
+        location,
+        allday,
+    } = req.body;
+    try {
+        const stylist = await Stylist.findById(id);
+        if (!stylist) {
+            return next(new ErrorResponse('Stylist does not exist', 404));
+        }
+        const newAppointment = {
+            user: userId,
+            stylist: id,
+            startDate,
+            endDate,
+            title,
+            category,
+            location,
+            allday,
+        };
+        const appointments = new Appointment(newAppointment);
+        await appointments.save();
+        res.json({
+            sucess: true,
+            appointments,
         });
     } catch (err) {
         next(err);
@@ -343,7 +408,12 @@ export const addService = async (req, res) => {
             stylist,
         });
         if (!stylist) {
-            return next(new ErrorResponse('Add Service failed due to unknown reason', 404));
+            return next(
+                new ErrorResponse(
+                    'Add Service failed due to unknown reason',
+                    404
+                )
+            );
         }
     } catch (err) {
         next(err);
