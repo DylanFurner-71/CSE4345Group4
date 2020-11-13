@@ -16,7 +16,13 @@ const useIsMount = () => {
     return isMountRef.current;
 };
 
-const LocationPin = ({ stylist, lng, lat, onClickLocation, clicked }) => (
+export const LocationPin = ({
+    stylist,
+    lng,
+    lat,
+    onClickLocation,
+    clicked,
+}) => (
     <div onClick={e => onClickLocation({ lat, lng })} className='pin'>
         <Icon icon={locationIcon} className='pin-icon' />
         <div className={`pin-text ${clicked ? 'bg-white p-3' : null}`}>
@@ -67,6 +73,7 @@ export const Map = ({ location, stylists }) => {
                 <GoogleMapReact
                     bootstrapURLKeys={{ key: YOUR_API_KEY }}
                     center={center.length > 0 ? center : location}
+                    defaultZoom={5}
                     zoom={zoom}
                     onDrag={e => setTarget({})}
                 >
