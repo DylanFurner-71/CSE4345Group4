@@ -6,9 +6,26 @@ import {Link} from 'react-router-dom'
 import SearchBar from "./search/searchBar";
 import StylistNav from "./stylistNav";
 import ServicesOffered from "./stylist/servicesOffered";
+import  * as StylistCalendar from "./stylist/stylistCalendar";
+import AddServices from "./stylist/addServices";
+const appointmentsOrAdd = ({appointments}) => {
+    if (appointments === undefined){
+        return (<div>
+            <AddServices />
+            
+            
+            
+            You have no appointments and we will make functionality soon undefined option</div>)
+    }
+   else  if (!(appointments === undefined) && appointments && appointments.length && appointments.length > 0){
+        return (<StylistCalendar/>);
+    } else {
+        return (<div>You have no appointments and we will make functionality soon</div>)
+    }
+}
 const StylistLanding = () => {
     const {user} = useSelector(state => state.auth);
-    const {services} = user;
+    const {services, appointments} = user;
     return (
         <div className="container justify-content-center align-items-center h-100">
             <div className="row">
@@ -23,10 +40,10 @@ const StylistLanding = () => {
                 <div className="container">
 
                 </div>
+              {appointmentsOrAdd({appointments: user.appointments})}
             <div>
     <div className="row">
         <div className="col center-align">
-           
                 <Link
                     to={`/stylists/stylistCalendar/stylistId=${user.id}`}
                     style={{

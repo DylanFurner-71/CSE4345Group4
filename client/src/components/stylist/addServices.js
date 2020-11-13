@@ -15,17 +15,23 @@ export const AddServices = () => {
   const [stylist, setStylist] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const stylistId = useParams();
-  const URL = "http://localhost:8000/stylists/";  
+  const URL = `http://localhost:8000/stylists/${stylistId}/`;  
+  let [newService, setNewService] = useState({});
+
   const { value:name, bind:bindName, reset:resetName } = useInput('');
   const { value:description, bind:bindDescription, reset:resetDescription } = useInput('');
   const { value:price, bind: bindPrice, reset: resetPrice } = useInput('');
   const { value:imgUrl, bind: bindImgUrl, reset: resetImgUrl} = useInput('');
   const { value:category, bind: bindCateogry, reset: resetCategory} = useInput('');
   const onAddClick = () => {
-    const service = {
-      name: name, description: description, price: price, imgUrl: imgUrl, category:category,
+    newService = {
+      name: name,
+      description: description,
+      price: price,
+      imgUrl: imgUrl,
+      category: category,
     }
-    addService(stylist.id, service);
+    addService(stylist.id, newService);
     resetName();
     resetDescription();
     resetPrice();
@@ -39,11 +45,37 @@ export const AddServices = () => {
 
         */
     }
+    const onSend = async event => {
+      event.preventDefault();
+      console.log("On send here we are");
+      newService = {
+        name: name,
+        description: description,
+        price: price,
+        imgUrl: imgUrl,
+        category: category,
+      }
+      addService(stylist.id, newService);
+      resetName();
+      resetDescription();
+      resetPrice();
+      resetImgUrl();
+      await axios.put(`${URL}add`, {
+          services: newService
+      })
+          .then(res => console.log(res))
+          .catch(err => console.log(err))
 
+          addService(stylistId, newService);
+          resetName();
+          resetDescription();
+          resetPrice();
+          resetImgUrl();
+  }
     useEffect(() => {
       const fetchStylist = async () => {
           console.log(stylist);
-          await axios.get(URL+stylist.id)
+          await axios.get(URL+stylistId)
               .then(res => {
                   const stylistData = res.data.stylist
                   console.log(stylistData)
@@ -53,7 +85,9 @@ export const AddServices = () => {
       }
       fetchStylist()
   }, [])
-
+/*
+onChange={event => setNewService(event.target.value)}
+*/
 
     return(<>
        <form className="container bg-green text-success" style={{width: "50%", height: "50%"}}>
@@ -73,9 +107,12 @@ export const AddServices = () => {
                 <label htmlFor="ItemPrice">Price</label>
                   <input type="text" {...bindPrice} />
                 </div>
-            <input className="bg-primary" type="button" value="Submit"
-               onClick={ () => onAddClick()}                                    />
+            <input className="bg-primary" type="button"
+               onSubmit={ () => onSend()} text="helloworldAddServices"/>
+
                </div>
       </form>
       </>)
 }
+
+export default AddServices;
