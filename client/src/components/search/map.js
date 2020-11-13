@@ -79,16 +79,20 @@ export const Map = ({ location, stylists }) => {
                 >
                     {stylists.map((stylist, i) => {
                         return (
-                            <LocationPin
-                                key={i}
-                                lat={stylist.location.coordinates[1]}
-                                lng={stylist.location.coordinates[0]}
-                                stylist={stylist}
-                                clicked={target && target._id == stylist._id}
-                                onClickLocation={location =>
-                                    handleClick(location, stylist)
-                                }
-                            />
+                            stylist.location && (
+                                <LocationPin
+                                    key={i}
+                                    lat={stylist.location.coordinates[1]}
+                                    lng={stylist.location.coordinates[0]}
+                                    stylist={stylist}
+                                    clicked={
+                                        target && target._id == stylist._id
+                                    }
+                                    onClickLocation={location =>
+                                        handleClick(location, stylist)
+                                    }
+                                />
+                            )
                         );
                     })}
                 </GoogleMapReact>

@@ -65,8 +65,8 @@ const StylistsList = () => {
                                     stylist => stylist.location
                                 )}
                                 location={{
-                                    lat: stylists[0].location.coordinates[1],
-                                    lng: stylists[0].location.coordinates[0],
+                                    lat: 39.8283,
+                                    lng: -98.5795,
                                 }}
                             />
                         )}
