@@ -94,12 +94,12 @@ const StylistSchema = new Schema(
         appointments: {
             type: [{
                 startDate: {
-                    type: String,
+                    type: Date,
                     required: false,
                     default: Date.now,
                 }, 
                 endDate: {
-                    type: String,
+                    type: Date,
                 required: false,
                 default: Date.now,
             },
@@ -112,6 +112,16 @@ const StylistSchema = new Schema(
                 type: String,
                 required: false,
                 default: 'haircut',
+            },
+            location: {
+                type: String,
+                required: false,
+                default: 'Home',
+            },
+            allday: {
+                type: Boolean,
+                required: false,
+                default: false,
             }
     }],
 },

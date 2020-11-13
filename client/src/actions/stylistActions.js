@@ -7,11 +7,11 @@ import {
     USER_LOADING
 } from "./types";
 // Register User
-const api = "http://localhost:8000";
+const api = "http://localhost:8000/stylists";
 axios.defaults.baseURL = api;
 export const addService = (id, service) => dispatch => {
     axios
-        .post(`services/${id}/add`, service)
+        .post(`/services/${id}/add`, service)
         .catch(err =>
             dispatch({
                 type: GET_ERRORS,
@@ -19,6 +19,16 @@ export const addService = (id, service) => dispatch => {
             })
         );
 };
+export const addAppointment = (id, appointment) => dispatch => {
+    axios
+    .post(`/appointments/${id}/add`, appointment)
+    .catch(err =>
+        dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        })
+    );
+}; //soon will become add appooitment
 
 // Register Stylist
 export const registerStylist = (userData, history) => dispatch => {

@@ -41,7 +41,7 @@ export default app => {
     app.route('/stylists/me').get(protectStylist, stylist.getMe);
     app.route('/stylists/register/create').post(stylist.createStylist);
     app.route('/stylists/login/').post(stylist.stylistLogin);
-    app.route('stylists/services/:id/add').post(stylist.addService);
+    app.route('/stylists/services/:id/add').post(stylist.addService);
 
     
 
