@@ -13,15 +13,16 @@ const Navigation = () => {
     }
     return (
         <div>
-            <Navbar bg="dark" variant="dark" expand="lg">
+            {/*make nav bar bigger brigher*/}
+            <Navbar bg="light" variant="light" expand="lg">
                 <Navbar.Brand href="/userLanding">Ultimate Style</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <NavDropdown title="Services" id="basic-nav-dropdown">
                             {/*<NavDropdown.Item href="/retail">Overview</NavDropdown.Item>*/}
-                            <NavDropdown.Item href={searchURL+'services/Men Haircut'}>Men's Haircut</NavDropdown.Item>
-                            <NavDropdown.Item href={searchURL+'services/Women Haircut'}>Women's Haircut</NavDropdown.Item>
+                            <NavDropdown.Item href={searchURL+'services/haircuts'}>Haircuts</NavDropdown.Item>
+                            <NavDropdown.Item href={searchURL+'services/waxing'}>Waxing</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link href="/UserProfile">My Profile</Nav.Link>
                     </Nav>

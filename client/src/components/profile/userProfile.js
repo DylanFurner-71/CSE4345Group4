@@ -10,9 +10,27 @@ import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 
 const UserProfile = () => {
-    const [isLoading, setIsLoading] = useState(false);
-    const {user} = useSelector(state => state.auth)
-    console.log(user)
+    const [isLoading, setIsLoading] = useState(true);
+    const token = localStorage.jwtToken
+    // const {user} = useSelector(state => state.auth)
+    // console.log(user)
+    const [user, setUser] = useState({})
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            await axios.get("http://localhost:8000/users/me", {
+                headers: {
+                    Authorization: 'Bearer '+token
+                }
+            })
+                .then(res => {
+                    setUser(res.data.user)
+                    setIsLoading(false)
+                })
+                .catch(err => console.log(err))
+        }
+        fetchUser()
+    }, [])
 
 
     return (
@@ -25,6 +43,12 @@ const UserProfile = () => {
                                 <div className="row mb-4">
                                     <div className="col-10">
                                         <h2 className="text-center display-4 mb-4">{`${user.firstName} ${user.lastName}`}</h2>
+                                        <h5>Contact Information</h5>
+                                        <ul className="list-group list-group-flush">
+                                            <li className="list-group-item">Phone Number: {user.number === '' ? 'None' : user.number}</li>
+                                            <li className="list-group-item">Email: {user.email === '' ? 'None' : user.email}</li>
+                                            <li className="list-group-item">Address: {user.address === '' ? 'None' : user.address}</li>
+                                        </ul>
                                     </div>
                                     <div className="col-2 justify-content-end">
                                         <Link to="/editProfile" className="btn btn-info">Edit Profile</Link>
