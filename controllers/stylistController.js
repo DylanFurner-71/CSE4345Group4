@@ -148,6 +148,17 @@ export const getMe = async (req, res, next) => {
     }
 };
 
+export const addAppointment = async (req, res, next) => {
+    const { id } = req.params;
+    const stylist = await Stylist.findById(id);
+    const appointments = stylist.appointments;
+    if (!stylist) {
+        return next(new ErrorResponse('Stylist does not exist', 404));
+    }
+    try {
+    } catch (err) {}
+};
+
 //@desc          Search STylist by name
 //@route         GET /stylists/search?xxx
 //@access        Private
@@ -343,7 +354,12 @@ export const addService = async (req, res) => {
             stylist,
         });
         if (!stylist) {
-            return next(new ErrorResponse('Add Service failed due to unknown reason', 404));
+            return next(
+                new ErrorResponse(
+                    'Add Service failed due to unknown reason',
+                    404
+                )
+            );
         }
     } catch (err) {
         next(err);
