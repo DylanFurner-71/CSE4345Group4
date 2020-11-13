@@ -4,6 +4,7 @@ import axios from 'axios';
 import StylistInfo from './stylistInfo';
 import Loading from '../loading';
 import SearchFilter from './searchFilter';
+import { Map } from './map';
 
 const StylistsList = () => {
     const URL = 'http://localhost:8000/stylists/search';
@@ -33,7 +34,7 @@ const StylistsList = () => {
     }, []);
 
     return (
-        <div className='h-100 align-items-center'>
+        <div className='h-100 align-items-center m-0 overflow-hidden'>
             {isLoading ? (
                 <Loading />
             ) : stylists.length === 0 ? (
@@ -49,12 +50,26 @@ const StylistsList = () => {
                         />
                     </div>
 
-                    <div className='p-0 border-left col-10'>
+                    <div className='p-0 border-left col-7'>
                         <ul className='p-0 m-0'>
                             {stylists.map((stylist, index) => (
                                 <StylistInfo key={index} stylist={stylist} />
                             ))}
                         </ul>
+                    </div>
+
+                    <div className='col-3 p-2'>
+                        {stylists.length > 0 && (
+                            <Map
+                                stylists={stylists.filter(
+                                    stylist => stylist.location
+                                )}
+                                location={{
+                                    lat: stylists[0].location.coordinates[1],
+                                    lng: stylists[0].location.coordinates[0],
+                                }}
+                            />
+                        )}
                     </div>
                 </div>
             )}
