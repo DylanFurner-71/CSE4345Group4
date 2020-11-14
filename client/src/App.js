@@ -1,23 +1,21 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {Provider, useDispatch} from "react-redux";
-import {setCurrentUser, logoutUser} from "./actions/authActions";
-import jwt_decode from "jwt-decode";
-import PrivateRoute from "./components/PrivateRoute"
-import Navigation from "./components/navigation"
-import Landing from './components/landing'
-import Login from './components/login/login'
-import RegisterUser from './components/register/registerUser'
-import RegisterStylist from './components/register/registerStylist'
-import setAuthToken from "./utils/setAuthToken";
-import store from "./store";
-import { ROUTES } from './routes'
-import SendPassword from "./components/sendPassword";
-import ChangePassword from "./components/changePassword";
-import StylistsList from "./components/search/stylistsList";
-
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider, useDispatch } from 'react-redux';
+import { setCurrentUser, logoutUser } from './actions/authActions';
+import jwt_decode from 'jwt-decode';
+import PrivateRoute from './components/PrivateRoute';
+import Navigation from './components/navigation';
+import Landing from './components/landing';
+import Login from './components/login/login';
+import RegisterUser from './components/register/registerUser';
+import RegisterStylist from './components/register/registerStylist';
+import setAuthToken from './utils/setAuthToken';
+import store from './store';
+import { ROUTES } from './routes';
+import SendPassword from './components/sendPassword';
+import ChangePassword from './components/changePassword';
+import StylistsList from './components/search/stylistsList';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -34,27 +32,42 @@ if (localStorage.jwtToken) {
         // Logout user
         store.dispatch(logoutUser());
         // Redirect to login
-        window.location.href = "/login";
+        window.location.href = '/login';
     }
 }
 
 function App() {
     return (
         <Provider store={store}>
-	        <div className="App">
-	            <Navigation/>
-	            <Router>
-	                <Route exact path="/" component={Landing}/>
-                    <Route exact path="/home" component={Landing}/>
-	                <Route exact path="/login" component={Login}/>
-	                <Route exact path="/user/register" component={RegisterUser}/>
-                    <Route exact path="/stylist/register" component={RegisterStylist}/>
-	                <Switch>
-	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
-	                </Switch>
-	            </Router>
-	    	</div>
-    	</Provider>
+            <div className='App'>
+                <Navigation />
+                <Router>
+                    <Route exact path='/' component={Landing} />
+                    <Route exact path='/home' component={Landing} />
+                    <Route exact path='/login' component={Login} />
+                    <Route
+                        exact
+                        path='/user/register'
+                        component={RegisterUser}
+                    />
+                    <Route
+                        exact
+                        path='/stylist/register'
+                        component={RegisterStylist}
+                    />
+                    <Route
+                        exact
+                        path='/resetPassword'
+                        component={SendPassword}
+                    />
+                    <Switch>
+                        {ROUTES.map((route, i) => (
+                            <PrivateRoute key={i} {...route} />
+                        ))}
+                    </Switch>
+                </Router>
+            </div>
+        </Provider>
     );
 }
 

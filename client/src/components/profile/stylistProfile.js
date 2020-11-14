@@ -6,6 +6,7 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import {CustomPlaceholder} from "react-placeholder-image";
 import ReviewBox from "./reviewBox";
+import Services from "./services";
 
 const StylistProfile = () => {
     const [stylist, setStylist] = useState({});
@@ -67,9 +68,9 @@ const StylistProfile = () => {
                                     </TabList>
 
                                     <TabPanel>
-                                        {/*<Service */}
-                                        {/*    services={stylist.services}*/}
-                                        {/*/>*/}
+                                        <Services
+                                            services={stylist.services}
+                                        />
                                     </TabPanel>
                                     <TabPanel>
                                         <ReviewBox
