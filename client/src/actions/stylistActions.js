@@ -11,7 +11,7 @@ const api = "http://localhost:8000/stylists";
 axios.defaults.baseURL = api;
 export const addService = (id, service) => dispatch => {
     axios
-        .post(`/services/${id}/add`, service)
+        .post(`${api}/services/${id}/add`, service)
         .catch(err =>
             dispatch({
                 type: GET_ERRORS,

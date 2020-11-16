@@ -50,8 +50,8 @@ const StylistSchema = new Schema(
             type: String,
             default: 'no-photo.jpg',
         },
-        services: [
-            {
+        services: {
+            type: [{
                 type: Object,
                 service: {
                     name: {
@@ -88,8 +88,9 @@ const StylistSchema = new Schema(
                         ],
                     }
                 },
-            }
+            },
                 ],
+            },
 
         appointments: {
             type: [{
@@ -107,11 +108,6 @@ const StylistSchema = new Schema(
             type: String,
              required: false,
              default: "Some Title",
-            },
-            category: {
-                type: String,
-                required: false,
-                default: 'haircut',
             },
             location: {
                 type: String,

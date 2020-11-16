@@ -8,16 +8,15 @@ import StylistNav from "./stylistNav";
 import ServicesOffered from "./stylist/servicesOffered";
 import  * as StylistCalendar from "./stylist/stylistCalendar";
 import AddServices from "./stylist/addServices";
-const appointmentsOrAdd = ({appointments}) => {
-    if (appointments === undefined){
+const appointmentsOrAdd = ({stylist}) => {
+    if (stylist.appointments === undefined){
         return (<div>
-            <AddServices />
-            
+            <AddServices stylist={stylist}/>
             
             
             You have no appointments and we will make functionality soon undefined option</div>)
     }
-   else  if (!(appointments === undefined) && appointments && appointments.length && appointments.length > 0){
+   else  if (!(stylist.appointments === undefined) && stylist.appointments && stylist.appointments.length && stylist.appointments.length > 0){
         return (<StylistCalendar/>);
     } else {
         return (<div>You have no appointments and we will make functionality soon</div>)
@@ -40,7 +39,7 @@ const StylistLanding = () => {
                 <div className="container">
 
                 </div>
-              {appointmentsOrAdd({appointments: user.appointments})}
+              {appointmentsOrAdd({stylist: user})}
             <div>
     <div className="row">
         <div className="col center-align">
