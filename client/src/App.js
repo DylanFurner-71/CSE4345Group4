@@ -49,6 +49,7 @@ function App() {
 	                <Route exact path="/login" component={Login}/>
 	                <Route exact path="/user/register" component={RegisterUser}/>
                     <Route exact path="/stylist/register" component={RegisterStylist}/>
+                    <Route exact path="/resetPassword" component={SendPassword}/>
 	                <Switch>
 	                    {ROUTES.map((route, i) => <PrivateRoute key={i} {...route}/>)}
 	                </Switch>
