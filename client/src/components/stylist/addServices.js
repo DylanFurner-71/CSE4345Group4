@@ -22,6 +22,7 @@ export const AddServices = () => {
   const { value:description, bind:bindDescription, reset:resetDescription } = useInput('');
   const { value:price, bind: bindPrice, reset: resetPrice } = useInput('');
   const { value:category, bind: bindCateogry, reset: resetCategory} = useInput('');
+
     const onSend = () => {
       const newService = {
         name: name,

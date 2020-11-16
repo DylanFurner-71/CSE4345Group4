@@ -61,7 +61,7 @@ export const changePassword = (userData, history) => dispatch => {
 export const login = userData => dispatch => {
     if (userData.isStylist === true){
         axios
-        .post("/login", userData)
+        .post("/stylists/login", userData)
         .then(res => {
             // Save to localStorage
 // Set token to localStorage

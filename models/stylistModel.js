@@ -50,77 +50,30 @@ const StylistSchema = new Schema(
             type: String,
             default: 'no-photo.jpg',
         },
-        services: {
-            type: [{
+        services: [
+            {
                 type: Object,
                 service: {
                     name: {
                         type: String,
-                        default: "no-name",
+                        default: 'no-name',
                     },
                     description: {
                         type: String,
-                        default: "No-description",
+                        default: 'No-description',
                     },
                     price: {
                         type: [Number],
                         default: 1.0,
-                    }, 
+                    },
                     category: {
-                    
-                        type: String,
-                        enum: [
-                            'hair treatment',
-                            'haircuts',
-                            'hair coloring',
-                            'hair styling',
-                            'extensions',
-                            'waxing',
-                            'men',
-                            'women',
-                            'children',
-                            'waxing',
-                            'shaving',
-                            'special occasion',
-                            'blow outs',
-                            'perms',
-                            'other',
-                        ],
-                    }
+                        type: [String],
+                        default: 'hello',
+                    },
                 },
             },
-                ],
-            },
+        ],
 
-        appointments: {
-            type: [{
-                startDate: {
-                    type: Date,
-                    required: false,
-                    default: Date.now,
-                }, 
-                endDate: {
-                    type: Date,
-                required: false,
-                default: Date.now,
-            },
-             title:  { 
-            type: String,
-             required: false,
-             default: "Some Title",
-            },
-            location: {
-                type: String,
-                required: false,
-                default: 'Home',
-            },
-            allday: {
-                type: Boolean,
-                required: false,
-                default: false,
-            }
-    }],
-},
         address: {
             type: String,
             required: [true, 'Must Provide address of business location'],
@@ -253,25 +206,6 @@ StylistSchema.methods.geocodeAddress = function (address) {};
 
 StylistSchema.methods.matchPassword = async function (plain) {
     return await bcrypt.compare(plain, this.password);
-};
-
-StylistSchema.methods.getDistance = function (long, lat) {
-    let d;
-    if (this.location.coordinates) {
-        const R = 6371e3; // metres
-        const φ1 = (lat * Math.PI) / 180; // φ, λ in radians
-        const φ2 = (this.location.coordinates[1] * Math.PI) / 180;
-        const Δφ = ((this.location.coordinates[1] - lat) * Math.PI) / 180;
-        const Δλ = ((this.location.coordinates[0] - long) * Math.PI) / 180;
-
-        const a =
-            Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-            Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-        d = R * c; // in metres
-    }
-    return Math.floor(d / 1609.344);
 };
 
 StylistSchema.methods.getResetPasswordToken = function () {

@@ -1,12 +1,13 @@
 import mongoose from 'mongoose';
 import User from '../models/userModel.js';
+import Appointment from '../models/appointmentModel.js';
 import ErrorResponse from '../utils/errorResponse.js';
 import sendEmail from '../utils/sendEmail.js';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import dotenv from "dotenv";
-dotenv.config({ path: "./config/config.env" });
+import dotenv from 'dotenv';
+dotenv.config({ path: './config/config.env' });
 
 //@desc          Allow User to create an account
 //@route         POST /users/register
@@ -27,7 +28,7 @@ export const createUser = async (req, res, next) => {
         res.json({ success: true, token, newUser });
     } catch (err) {
         next(err);
-        console.log(err)
+        console.log(err);
     }
 };
 
@@ -189,6 +190,25 @@ export const forgotPassword = async (req, res, next) => {
         user.resetPasswordExpiration = undefined;
         await user.save({ validateBeforeSave: false });
         return next(new ErrorResponse('email could not be sent', 500));
+    }
+};
+
+export const getAppointments = async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return next(new ErrorResponse('User not found', 404));
+        }
+        const appointments = await Appointment.find({ user: id });
+
+        res.json({
+            sucess: true,
+            appointments,
+        });
+    } catch (err) {
+        next(err);
     }
 };
 

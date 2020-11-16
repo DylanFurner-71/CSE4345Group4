@@ -10,13 +10,17 @@ import  * as StylistCalendar from "./stylist/stylistCalendar";
 import AddServices from "./stylist/addServices";
 const appointmentsOrAdd = ({stylist}) => {
     if (stylist.appointments === undefined){
-        return (<div>
+        if (stylist.services === undefined) {
+            return (<div>
             <AddServices stylist={stylist}/>
-            
-            
-            You have no appointments and we will make functionality soon undefined option</div>)
+            </div>
+            );
+           } 
+            return (
+                <div>
+            You have no appointments and we will make functionality soon undefined option</div>);
     }
-   else  if (!(stylist.appointments === undefined) && stylist.appointments && stylist.appointments.length && stylist.appointments.length > 0){
+   else  if ((stylist.appointments != undefined)){
         return (<StylistCalendar/>);
     } else {
         return (<div>You have no appointments and we will make functionality soon</div>)

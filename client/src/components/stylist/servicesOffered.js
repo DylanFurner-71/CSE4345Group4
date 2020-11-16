@@ -15,7 +15,7 @@
                     const [stylist, setStylist] = useState({});
                     const [isLoading, setIsLoading] = useState(true);
                     const stylistId = useParams();
-                    const URL = "http://localhost:8000/stylists/";
+                    const URL = "http://localhost:8000/";
                 
         useEffect(() => {
                         const fetchStylist = async () => {

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { userInfo } from 'os';
 import Stylist from '../models/stylistModel.js';
+import Appointment from '../models/appointmentModel.js';
 import ErrorResponse from '../utils/errorResponse.js';
 import sendEmail from '../utils/sendEmail.js';
 import crypto from 'crypto';
@@ -147,6 +148,69 @@ export const getMe = async (req, res, next) => {
         next(err);
     }
 };
+/*
+startDate
+endDate
+ title
+  category
+location
+*/
+
+export const getAppointments = async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const stylist = await Stylist.findById(id);
+        if (!stylist) {
+            return next(new ErrorResponse('Stylist not found', 404));
+        }
+        const appointments = await Appointment.find({ stylist: id });
+
+        res.json({
+            sucess: true,
+            appointments,
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+export const addAppointment = async (req, res, next) => {
+    const { id } = req.params;
+    const {
+        userId,
+        startDate,
+        endDate,
+        title,
+        category,
+        location,
+        allday,
+    } = req.body;
+    try {
+        const stylist = await Stylist.findById(id);
+        if (!stylist) {
+            return next(new ErrorResponse('Stylist does not exist', 404));
+        }
+        const newAppointment = {
+            user: userId,
+            stylist: id,
+            startDate,
+            endDate,
+            title,
+            category,
+            location,
+            allday,
+        };
+        const appointments = new Appointment(newAppointment);
+        await appointments.save();
+        res.json({
+            sucess: true,
+            appointments,
+        });
+    } catch (err) {
+        next(err);
+    }
+};
 
 //@desc          Search STylist by name
 //@route         GET /stylists/search?xxx
@@ -154,13 +218,14 @@ export const getMe = async (req, res, next) => {
 /**
  * types of searches supported:
  * name=<name of stylist - space seperated list of names user is looking for>
+ * within=<max distance from current user - integer>
  * min=<minimum rating - integer>
  * rat=<exact rating desired - integer (floored value of stylist avg rating)>
  * services=<services desired - space-seperated string list>
  */
 export const searchStylist = async (req, res) => {
     try {
-        const { name, within, min, rat, services, long, lat } = req.query;
+        const { name, within, min, rat, services } = req.query;
         let returnedStylists;
 
         // search by name logic
@@ -196,30 +261,9 @@ export const searchStylist = async (req, res) => {
             });
         }
 
-        if (rat || min) {
-            if (min) {
-                returnedStylists = returnedStylists.filter(stylist => {
-                    return stylist.average >= min;
-                });
-            } else {
-                returnedStylists = returnedStylists.filter(stylist => {
-                    return stylist.average == rat;
-                });
-            }
-        }
-
-        let distances = returnedStylists.map(stylist => {
-            let distance = stylist.getDistance(long, lat);
-            return { ...stylist._doc, distance };
-        });
-
-        let stylists = distances.sort((a, b) =>
-            a.distance > b.distance ? 1 : -1
-        );
-
         res.json({
             success: true,
-            stylists,
+            returnedStylists,
         });
     } catch (err) {
         res.status(400).json({ msg: err });
@@ -355,16 +399,32 @@ export const getOneStylist = async (req, res) => {
 export const addService = async (req, res) => {
     const stylistId = req.params.id;
     const service = req.body.service;
-    console.log("Inside of addService");
     try {
-        const stylist = await Stylist.findById(stylistId);
-        stylist.services.push(service);
+        const currStylist = await Stylist.findOneAndUpdate(
+            { id: stylistId },
+            {
+                $push: {
+                    services: {
+                        name: service.name,
+                        description: service.description,
+                        price: service.price,
+                        category: service.category,
+                    },
+                },
+            }
+        );
+        currStylist.save();
         res.status(200).json({
             success: true,
             stylist,
         });
         if (!stylist) {
-            return next(new ErrorResponse('Add Service failed due to unknown reason', 404));
+            return next(
+                new ErrorResponse(
+                    'Add Service failed due to unknown reason',
+                    404
+                )
+            );
         }
     } catch (err) {
         next(err);

@@ -1,5 +1,3 @@
-// import home from './home.js';
-// import notes from './notes.js';
 import * as homeController from '../controllers/homeController.js';
 import * as notebook from '../controllers/notebookController.js';
 import * as user from '../controllers/userController.js';
@@ -25,6 +23,8 @@ export default app => {
     app.route('/users/resetPassword/:resettoken').put(user.resetPassword);
     app.route('/users/register').post(user.createUser);
     app.route('/users/login/').post(user.userLogin);
+
+    app.route('/users/appointments/:id').get(user.getAppointments);
     app.route('/users/me').get(protectUser, user.getMe);
 
     app.route('/stylists').get(stylist.getStylists);
@@ -39,11 +39,12 @@ export default app => {
     app.route('/stylists/forgotPassword').post(stylist.forgotPassword);
     app.route('/stylists/resetPassword/:resettoken').put(stylist.resetPassword);
     app.route('/stylists/me').get(protectStylist, stylist.getMe);
-    app.route('/stylists/register/create').post(stylist.createStylist);
+    app.route('/stylists/register/').post(stylist.createStylist);
     app.route('/stylists/login/').post(stylist.stylistLogin);
     app.route('/stylists/services/:id/add').post(stylist.addService);
-
-    
+    app.route('/stylists/appointments/:id')
+        .post(stylist.addAppointment)
+        .get(stylist.getAppointments);
 
     //this one right here, kirk (go to the stylistController for the logic if
     //you want to see)
