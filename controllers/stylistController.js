@@ -334,7 +334,7 @@ export const getOneStylist = async (req, res) => {
 
 export const addService = async (req, res) => {
     const stylistId = req.params.id;
-    const service = req.params.service;
+    const service = req.body.service;
     console.log("Inside of addService");
     try {
         const stylist = await Stylist.findById(stylistId);

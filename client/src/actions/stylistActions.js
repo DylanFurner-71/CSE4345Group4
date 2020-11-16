@@ -9,9 +9,10 @@ import {
 // Register User
 const api = "http://localhost:8000/stylists";
 axios.defaults.baseURL = api;
-export const addService = (id, service) => dispatch => {
+export const addService = (id, service, history) => dispatch => {
+    console.log("Calling add service");
     axios
-        .post(`${api}/services/${id}/add`, service)
+        .post(`/services/${id}/add`, service).then( () => {history.push("/stylists/stylistLanding")})
         .catch(err =>
             dispatch({
                 type: GET_ERRORS,

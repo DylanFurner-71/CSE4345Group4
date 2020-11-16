@@ -22,19 +22,6 @@ export const AddServices = () => {
   const { value:description, bind:bindDescription, reset:resetDescription } = useInput('');
   const { value:price, bind: bindPrice, reset: resetPrice } = useInput('');
   const { value:category, bind: bindCateogry, reset: resetCategory} = useInput('');
-//  const putAppt = async (newService) => {
-  //   await axios.put(`${URL}add`, {
-  //     services: newService
-  // })
-  //     .then(res => console.log(res))
-  //     .catch(err => console.log(err))
-  
-  //     addService(stylistId, newService);
-  //     resetName();
-  //     resetDescription();
-  //     resetPrice();
-  //     resetCategory();
-  // }
     const onSend = () => {
       const newService = {
         name: name,
