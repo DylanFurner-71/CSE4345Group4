@@ -50,10 +50,9 @@ const StylistSchema = new Schema(
             type: String,
             default: 'no-photo.jpg',
         },
-        services: [
-            {
-                type: Object,
-                service: {
+        services: {
+                type: [
+                    {
                     name: {
                         type: String,
                         default: 'no-name',
@@ -87,8 +86,8 @@ const StylistSchema = new Schema(
                         ],
                     },
                 },
+                ],
             },
-        ],
 
         address: {
             type: String,

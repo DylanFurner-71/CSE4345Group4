@@ -8,8 +8,13 @@ import 'react-tabs/style/react-tabs.css'
 import {CustomPlaceholder} from "react-placeholder-image";
 import ReviewBox from "../profile/reviewBox";
 import Rating from "../rating/rating"
-const ServicesList = ({ services }) => {
-    if (services){
+const ServicesList = (props) => {
+    const stylist = props.stylist;
+    const stylistId = useParams();
+    const URL = "http://localhost:8000";
+    const services = stylist.services;
+
+    if (stylist && services && services.length > 0){
     return (
         <div>
             {services.map((service, i) => (
@@ -17,8 +22,7 @@ const ServicesList = ({ services }) => {
             ))}
         </div>
     );
-            }
-            else {
+            } else {
                 return (
                     <div>
                         there are no services available currently. Please add one Below!

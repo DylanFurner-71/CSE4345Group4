@@ -10,17 +10,18 @@ import  * as StylistCalendar from "./stylist/stylistCalendar";
 import AddServices from "./stylist/addServices";
 const appointmentsOrAdd = ({stylist}) => {
     if (stylist.appointments === undefined){
-        if (stylist.services === undefined) {
-            return (<div>
-            <AddServices stylist={stylist}/>
-            </div>
-            );
-           } 
             return (
                 <div>
             You have no appointments and we will make functionality soon undefined option</div>);
     }
-   else  if ((stylist.appointments != undefined)){
+    if (stylist.services === undefined) {
+        return (<div>
+            You need to add services that you offer before you are able to have customers book appointments with
+        <AddServices stylist={stylist}/>
+        </div>
+        );
+       } 
+    if ((stylist.appointments != undefined)){
         return (<StylistCalendar/>);
     } else {
         return (<div>You have no appointments and we will make functionality soon</div>)
@@ -28,7 +29,6 @@ const appointmentsOrAdd = ({stylist}) => {
 }
 const StylistLanding = () => {
     const {user} = useSelector(state => state.auth);
-    const {services, appointments} = user;
     return (
         <div className="container justify-content-center align-items-center h-100">
             <div className="row">

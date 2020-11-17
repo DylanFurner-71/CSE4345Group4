@@ -15,31 +15,26 @@
                     const [stylist, setStylist] = useState({});
                     const [isLoading, setIsLoading] = useState(true);
                     const stylistId = useParams();
-                    const URL = "http://localhost:8000/";
-                
+                    const URL = "http://localhost:8000";
+
         useEffect(() => {
                         const fetchStylist = async () => {
-                            console.log(stylist);
-                            await axios.get(URL+stylist.id)
-                                .then(res => {
+                            await axios.get(`${URL}/stylists/${stylistId.id}`)
+                            .then(res => {
                                     const stylistData = res.data.stylist
-                                    console.log(stylistData)
                                     setStylist(stylistData)
                                     setIsLoading(false)
                                 })
                         }
                         fetchStylist()
-                    }, [])
-
-
-
+                    }, [stylist])
                         return (
                             <div className="container-fluid w-75 my-2">
-                                <Link to={`/stylists/stylistLanding`}>
+                                <Link to={`/stylists/stylistLanding/stylistId=${stylistId.id}`}>
                              Back To Your Home Page                                
                              </Link>
                              <ServicesList
-                             services={stylist.services}
+                             id={stylist.id}
                         />
                             <AddServices
                             id={stylist.id}

@@ -20,6 +20,5 @@ export const ROUTES = [
     {path: "/stylists/stylistLanding/stylistId=:id", component: StylistLanding},
     {path: "/services/servicesOffered/stylistId=:id", component: ServicesOffered},
     {path: "/stylists/stylistCalendar/stylistId=:id", component: StylistCalendar},
-
     {path: "/stylist/stylistId=:id", component: StylistProfile}
 ]
