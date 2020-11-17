@@ -1,48 +1,54 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom'
 import {useParams} from 'react-router-dom'
 import axios from 'axios'
-import Loading from "../loading"
-import {Tab, Tabs, TabList, TabPanel} from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
-import {CustomPlaceholder} from "react-placeholder-image";
-import ReviewBox from "../profile/reviewBox";
-import Rating from "../rating/rating";
 import { useInput } from '../hooks/InputHook';
-import {addService} from "../../actions/stylistActions";
+
+// Register User
 // import { MenuItem } from '../temporaryObjects/restaurantModel';
 export const AddServices = () => {
   const [stylist, setStylist] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const stylistId = useParams();
-  const URL = `http://localhost:8000/`;  
-  let [newService, setNewService] = useState({});
-
+  const URL = `http://localhost:8000`;  
   const { value:name, bind:bindName, reset:resetName } = useInput('');
   const { value:description, bind:bindDescription, reset:resetDescription } = useInput('');
   const { value:price, bind: bindPrice, reset: resetPrice } = useInput('');
   const { value:category, bind: bindCateogry, reset: resetCategory} = useInput('');
 
     const onSend = () => {
-      const newService = {
+      const service = {
         name: name,
         description: description,
         price: price,
         category: category,
       }
-      addService(stylistId, newService);
+      const callAxios = async () => {  
+        await axios
+      .post(`/stylists/services/${stylistId.id}/add`, {service: service})
+        .then( res => {
+          setStylist(res.data.stylist)})
+          .catch(err =>
+          //   dispatch({
+          //     type: GET_ERRORS,
+          //     payload: err.response.data
+          // })
+          console.log("Error upon errors")
+      );   
+        };
       resetName();
       resetDescription();
       resetPrice();
       resetCategory();
   //   putAppt(newService);
+  callAxios();   
 
-}
+   }
 
     useEffect(() => {
       const fetchStylist = async () => {
           console.log(stylist);
-          await axios.get(URL+stylistId)
+          await axios.get(`${URL}/stylists/${stylistId.id}`)
               .then(res => {
                   const stylistData = res.data.stylist
                   console.log(stylistData)
@@ -51,14 +57,14 @@ export const AddServices = () => {
               })
       }
       fetchStylist()
-  }, [])
+  }, [stylist])
 /*
 onChange={event => setNewService(event.target.value)}
 */
 
     return(<>
        <form className="container bg-green text-success" style={{width: "50%", height: "50%"}}>
-      <h3 class="action">Add Service Offered</h3>
+      <h3 className="action">Add Service Offered</h3>
       <div className="form-group">
           <label htmlFor="name">Service Name</label>
           <input type="text" {...bindName} />

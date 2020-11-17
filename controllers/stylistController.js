@@ -398,35 +398,19 @@ export const getOneStylist = async (req, res) => {
 
 export const addService = async (req, res) => {
     const stylistId = req.params.id;
-    const service = req.body.service;
+    const service = req.body;
     try {
-        const currStylist = await Stylist.findOneAndUpdate(
-            { id: stylistId },
-            {
-                $push: {
-                    services: {
-                        name: service.name,
-                        description: service.description,
-                        price: service.price,
-                        category: service.category,
-                    },
-                },
-            }
-        );
-        currStylist.save();
+        const stylist = await Stylist.findById(stylistId);
+        stylist.services.push(service);
+        await stylist.save();
         res.status(200).json({
             success: true,
             stylist,
         });
         if (!stylist) {
-            return next(
-                new ErrorResponse(
-                    'Add Service failed due to unknown reason',
-                    404
-                )
-            );
+            return next(new ErrorResponse('User Not found', 404));
         }
     } catch (err) {
-        next(err);
+        res.status(400).json({ msg: err });
     }
 };

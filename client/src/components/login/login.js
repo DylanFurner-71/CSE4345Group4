@@ -25,7 +25,7 @@ class Login extends Component {
         // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
             if (this.state.isStylist === true){
-            this.props.history.push(`/stylists/stylistLanding/`); // push user to dashboard when they login
+            this.props.history.push(`/stylists/stylistLanding/stylistId=${this.props.auth.user.id}`); // push user to dashboard when they login
             } else {
                 this.props.history.push("/userLanding");
             }
@@ -34,8 +34,9 @@ class Login extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.auth.isAuthenticated) {
+            console.log(nextProps.auth);
             if (this.state.isStylist === true){
-            this.props.history.push(`/stylists/stylistLanding/`); // push user to dashboard when they login
+            this.props.history.push(`/stylists/stylistLanding/stylistId=${nextProps.auth.user.id}`); // push user to dashboard when they login
             } else {
                 this.props.history.push("/userLanding");
             }

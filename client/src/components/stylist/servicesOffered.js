@@ -42,7 +42,7 @@
                              services={stylist.services}
                         />
                             <AddServices
-                            stylist={stylist}
+                            id={stylist.id}
                             />
                             </div>
                         );

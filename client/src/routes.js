@@ -6,7 +6,7 @@ import EditProfile from "./components/profile/editProfile";
 import SendPassword from "./components/sendPassword";
 import StylistLanding from "./components/stylistLanding";
 import ServicesOffered from "./components/stylist/servicesOffered";
-import StylistCalendar from "./components/stylist/stylistCalendar";
+ import StylistCalendar from "./components/stylist/stylistCalendar";
 import UserProfile from "./components/profile/userProfile";
 
 export const ROUTES = [
@@ -17,8 +17,8 @@ export const ROUTES = [
     {path: "/changePassword/:id", component: ChangePassword},
     {path: "/stylist/stylistId=:id", component: StylistProfile},
     {path: "/resetPassword", component: SendPassword},
-    {path: "/stylists/stylistLanding", component: StylistLanding},
-    {path: "/services/servicesOffered", component: ServicesOffered},
+    {path: "/stylists/stylistLanding/stylistId=:id", component: StylistLanding},
+    {path: "/services/servicesOffered/stylistId=:id", component: ServicesOffered},
     {path: "/stylists/stylistCalendar/stylistId=:id", component: StylistCalendar},
 
     {path: "/stylist/stylistId=:id", component: StylistProfile}
