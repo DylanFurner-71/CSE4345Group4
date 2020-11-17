@@ -11,6 +11,25 @@ const Navigation = () => {
     const onLogout = () => {
         dispatch(logoutUser())
     }
+    if (user.role === "stylist"){
+        return (       
+             <div>
+            <Navbar bg="dark" variant="dark" expand="lg">
+                <Navbar.Brand href={`/stylistLanding/stylistId=${user.id}`}></Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="mr-auto">
+                        <Nav.Link href={`/stylists/appointments/upcoming/stylistId=${user.id}`}>Upcoming Appointments</Nav.Link>
+                        <Nav.Link href={`/stylists/appointments/past/stylistId=${user.id}`}>Past Appointments</Nav.Link>
+                        <Nav.Link href={`/services/servicesOffered/stylistId=${user.id}`}>Services Offered</Nav.Link>
+                        <Nav.Link href={`/stylists/stylistCalendar/${user.id}`}>Calendar </Nav.Link>
+                        <Nav.Link href={`/stylistLanding/stylistId=${user.id}`}>TBD</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        </div>
+        );
+    } else {
     return (
         <div>
             {/*make nav bar bigger brigher*/}
@@ -43,6 +62,7 @@ const Navigation = () => {
 
         </div>
     );
-};
+    }
+}
 
 export default Navigation;

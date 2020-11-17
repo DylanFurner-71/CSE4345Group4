@@ -25,7 +25,7 @@ export const AddServices = () => {
       }
       const callAxios = async () => {  
         await axios
-      .post(`/stylists/services/${stylistId.id}/add`, {service: service})
+      .post(`/stylists/services/${stylistId.id}/add`, service)
         .then( res => {
           setStylist(res.data.stylist)})
           .catch(err =>
