@@ -259,6 +259,50 @@ const appointments = [
 //we need to measure minutes on this one if yyyy-mm-dd === currentDate
 //past Appointments is just the flip side of this
 const UpcomingApppointments = () => {
+  const [stylist, setStylist] = useState({});
+  const stylistId = useParams();
+  const URL = `http://localhost:8000`;  
+  const { value:name, bind:bindName, reset:resetName } = useInput('');
+  const { value:description, bind:bindDescription, reset:resetDescription } = useInput('');
+  const { value:price, bind: bindPrice, reset: resetPrice } = useInput('');
+  const { value:category, bind: bindCateogry, reset: resetCategory} = useInput('');
+  const appointments = stylist.appointments;
+  useEffect(() => {
+    const fetchStylist = async () => {
+        await axios.get(`${URL}/stylists/${stylistId.id}`)
+            .then(res => {
+                const stylistData = res.data.stylist
+                setStylist(stylistData)
+            })
+    }
+    fetchStylist()
+}, [stylist])
 
+
+ if (stylist && appointments && appointments.length > 0){
+    return (
+        <div className='Services text-center'>
+        <h5 className='card-title display-4'> Upcoming Apppointments </h5>
+        <div className='card'>
+            {appointments.map((appointment, i) => (
+                <div className='m-3' key={i}>
+                    <div className='h3'>Appointment {i}</div>
+                    <p> {appointment.startDate}</p>
+                    <p> {appointment.endDate}</p>
+                    <p> {appointment.location}</p>
+                    <p> {appointment.stylist.id}</p>
+
+                </div>
+            ))}
+        </div>
+    </div>
+    );
+            } else {
+                return (
+                    <div>
+                        There are no upcoming appointments. Please add one Below!
+                    </div>
+                )
+            }
 }
 export default UpcomingApppointments

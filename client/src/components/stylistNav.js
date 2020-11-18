@@ -14,7 +14,7 @@ const StylistNav = (props) => {
                         <Nav.Link href={`/stylists/appointments/upcoming/stylistId=${user.id}`}>Upcoming Appointments</Nav.Link>
                         <Nav.Link href={`/stylists/appointments/past/stylistId=${user.id}`}>Past Appointments</Nav.Link>
                         <Nav.Link href={`/services/servicesOffered/stylistId=${user.id}`}>Services Offered</Nav.Link>
-                        <Nav.Link href={`/stylists/stylistCalendar/${user.id}`}>Calendar </Nav.Link>
+                        <Nav.Link href={`/stylists/stylistCalendar/stylistId=${user.id}`}>Calendar </Nav.Link>
                         <Nav.Link href="/home">TBD</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

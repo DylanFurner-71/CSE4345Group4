@@ -20,6 +20,9 @@ export const addService = (id, service) => dispatch => {
             })
         );
 };
+
+
+
 export const addAppointment = (id, appointment) => dispatch => {
     axios
     .post(`/appointments/${id}/add`, appointment)
