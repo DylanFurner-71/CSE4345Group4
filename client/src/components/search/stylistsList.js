@@ -59,14 +59,13 @@ const StylistsList = () => {
                     </div>
 
                     <div className='col-3 p-2'>
+                        {console.log(stylists.filter(stylist => Object.keys(stylist.location).length !== 0))}
                         {stylists.length > 0 && (
                             <Map
-                                stylists={stylists.filter(
-                                    stylist => stylist.location
-                                )}
+                                stylists={stylists.filter(stylist => Object.keys(stylist.location).length !== 0)}
                                 location={{
-                                    lat: 39.8283,
-                                    lng: -98.5795,
+                                    lat: 32.779167,
+                                    lng: -96.808891,
                                 }}
                             />
                         )}

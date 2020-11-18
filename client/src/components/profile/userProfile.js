@@ -58,9 +58,15 @@ const UserProfile = () => {
 
                                 <Tabs>
                                     <TabList>
-                                        <Tab>Appointments</Tab>
+                                        <Tab>Upcoming Appointments</Tab>
+                                        <Tab>Past Appointments</Tab>
                                     </TabList>
 
+                                    <TabPanel>
+                                        {/*<Service */}
+                                        {/*    services={stylist.services}*/}
+                                        {/*/>*/}
+                                    </TabPanel>
                                     <TabPanel>
                                         {/*<Service */}
                                         {/*    services={stylist.services}*/}
