@@ -258,7 +258,7 @@ const appointments2 = [
 // filter appointments to see only those where start date is after current date
 //we need to measure minutes on this one if yyyy-mm-dd === currentDate
 //past Appointments is just the flip side of this
-const UpcomingApppointments = () => {
+const PastApointments = () => {
   const [stylist, setStylist] = useState({});
   const stylistId = useParams();
   // const currentDate = new Date().toLocaleString(),
@@ -279,13 +279,13 @@ const UpcomingApppointments = () => {
     }
     fetchStylist()
 }, [stylist])
-const appointments =  appointments2.filter(event => event.startDate >= currentDate);
+const appointments =  appointments2.filter(event => event.startDate <= currentDate);
 
  if (stylist && appointments && appointments.length > 0){
    console.log(appointments);
     return (
         <div className='Services text-center'>
-        <h5 className='card-title display-4'> Upcoming Apppointments </h5>
+        <h5 className='card-title display-4'> Past Apppointments </h5>
         <div className='card'>
             {appointments.map((appointment, i) => (
                 <div className='m-3' key={i}>
@@ -308,4 +308,4 @@ const appointments =  appointments2.filter(event => event.startDate >= currentDa
                 )
             }
 }
-export default UpcomingApppointments
+export default PastApointments
