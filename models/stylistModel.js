@@ -130,6 +130,9 @@ const StylistSchema = new Schema(
         reviewScores: {
             type:[Number]
         },
+        availableTimes: {
+            type: [Date]
+        },
         resetPasswordToken: String,
         resetPasswordExpiration: Date,
     },

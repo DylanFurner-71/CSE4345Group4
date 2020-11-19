@@ -41,6 +41,9 @@ export default app => {
     app.route('/stylists/me').get(protectStylist, stylist.getMe);
     app.route('/stylists/register/create').post(stylist.createStylist);
     app.route('/stylists/login/').post(stylist.stylistLogin);
+    app.route('/stylists/addTimes').post(stylist.addAvailableTime);
+    app.route('/stylists/removeTimes').delete(stylist.removeAvailableTime);
+    app.route('/stylists/AvailableTimes/:id').get(stylist.getAvailableTimes);
 
     //this one right here, kirk (go to the stylistController for the logic if
     //you want to see)

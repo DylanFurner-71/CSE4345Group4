@@ -4,6 +4,7 @@ import Stylist from '../models/stylistModel.js';
 import ErrorResponse from '../utils/errorResponse.js';
 import sendEmail from '../utils/sendEmail.js';
 import crypto from 'crypto';
+mongoose.set('useFindAndModify', false);
 
 //@desc          Get all stylists from DB
 //@route         GET /stylists
@@ -234,7 +235,6 @@ export const forgotPassword = async (req, res, next) => {
             email: stylist.email,
             subject: 'Password reset',
             message,
-            token: resetToken,
         });
         res.status(200).json({ sucess: true, data: 'email sent' });
     } catch (err) {
@@ -278,56 +278,94 @@ export const resetPassword = async (req, res, next) => {
 };
 
 export const postReviews = async (req, res) => {
-    const stylistEmail = req.body.email;
+    let stylistId = req.body.id;
     let rev = {
-        reviewerName: req.body.reviewerName,
-        score: req.body.score,
-        notes: req.body.notes,
+      "reviewerName": req.body.reviewerName,
+      "score": req.body.score,
+      "notes": req.body.notes
     };
     try {
-        const currStylist = await Stylist.findOneAndUpdate(
-            { email: stylistEmail },
-            {
-                $push: {
-                    reviews: {
-                        reviewerName: rev.reviewerName,
-                        score: rev.score,
-                        notes: rev.notes,
-                    },
-                    reviewScores: rev.score,
-                },
-                $inc: { numReviews: 1 },
-            }
-        );
+        await Stylist.findOneAndUpdate(
+        {"_id": stylistId}, 
+        { $push: { reviews: { reviewerName: rev.reviewerName, score: rev.score, notes: rev.notes }, reviewScores: rev.score},
+          $inc: {numReviews: 1}});
+      const currStylist = await Stylist.findById(stylistId);
 
-        var a = currStylist.reviewScores.reduce(function (a, b) {
+      var c = currStylist.reviewScores.reduce(function(a, b){
             return a + b;
         }, 0);
-
-        a = a / currStylist.numReviews;
-        await Stylist.findOneAndUpdate(
-            { email: stylistEmail },
-            { $set: { average: Math.round(a) } }
-        );
-
-        res.status(200).send('review posted');
+      
+      c = c / currStylist.reviewScores.length;
+      await Stylist.findOneAndUpdate(
+        {"_id":stylistId},
+        {$set : {average: Math.round(c)}}
+      );
+      
+      res.status(200).send("review posted");
     } catch (err) {
-        next(err);
+      res.status(400).json({ msg: err });
     }
-};
+  };
 
-export const getOneStylist = async (req, res) => {
-    const stylistId = req.params.id;
+  export const getOneStylist = async (req, res) => {
     try {
-        const stylist = await Stylist.findById(stylistId);
+        const stylist = await Stylist.findById(req.stylist.id);
         res.status(200).json({
             success: true,
             stylist,
         });
+    } catch (err) {
+        res.status(400).json({ msg: err });
+    }
+  };
+
+ export const addAvailableTime = async (req, res) => {
+    let stylistId = req.body.id;
+    let time = req.body.time;
+    try {
+        await Stylist.findOneAndUpdate(
+        {"_id": stylistId}, 
+        { $push: { availableTimes: time}});
+        
+      
+      res.status(200).send("time posted");
+    } catch (err) {
+      res.status(400).json({ msg: err });
+    }
+ };
+
+ export const removeAvailableTime = async (req, res) => {
+    let stylistId = req.body.id;
+    let time = req.body.time;
+    try {
+        await Stylist.findOneAndUpdate(
+        {"_id": stylistId}, 
+        { $pull: { availableTimes: time}});
+        
+      
+      res.status(200).send("time removed");
+    } catch (err) {
+      res.status(400).json({ msg: err });
+    }
+ };
+
+ export const getAvailableTimes = async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const stylist = await Stylist.findById(id);
         if (!stylist) {
-            return next(new ErrorResponse('User Not found', 404));
+            return next(new ErrorResponse('Stylist not found', 404));
         }
+        let availableTimes = stylist.availableTimes;
+        console.log(availableTimes)
+        res.json({
+            sucess: true,
+            availableTimes,
+        });
     } catch (err) {
         next(err);
     }
-};
+ }
+
+  
