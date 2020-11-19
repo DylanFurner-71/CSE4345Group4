@@ -115,10 +115,15 @@ getStylistByID = (id) => {
             startDayHour={10}
             endDayHour={19}
           />
-
-          <Toolbar />
-          <ViewSwitcher />
+          <AllDayPanel />
+          <EditRecurrenceMenu />
+          <ConfirmationDialog />
           <Appointments />
+          <AppointmentTooltip
+            showOpenButton
+            showDeleteButton
+          />
+          <AppointmentForm />
         </Scheduler>
       </Paper>
     );
