@@ -349,6 +349,21 @@ export const postReviews = async (req, res) => {
     }
  };
 
+ export const clearAvailableTime = async (req, res) => {
+    let stylistId = req.body.id;
+    try {
+        await Stylist.findOneAndUpdate(
+        {"_id": stylistId}, 
+        { $set: { availableTimes: []}});
+      let s = await Stylist.findById(stylistId)
+      console.log(s);
+      console.log(stylistId)
+      res.status(200).send("times removed");
+    } catch (err) {
+      res.status(400).json({ msg: err });
+    }
+ };
+
  export const getAvailableTimes = async (req, res, next) => {
     const { id } = req.params;
 
