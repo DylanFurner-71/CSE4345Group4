@@ -23,12 +23,19 @@ export default app => {
     app.route('/users/resetPassword/:resettoken').put(user.resetPassword);
     app.route('/users/register').post(user.createUser);
     app.route('/users/login/').post(user.userLogin);
+    app.route('/users/appointments/book/:appointmentId').put(
+        user.bookAppointment
+    );
+    app.route('/users/appointments/cancel/:appointmentId').put(
+        user.cancelAppointment
+    );
 
     app.route('/users/appointments/:id').get(user.getAppointments);
     app.route('/users/me').get(protectUser, user.getMe);
 
     app.route('/stylists').get(stylist.getStylists);
     app.route('/stylists/search').get(stylist.searchStylist);
+    app.route('/stylists/me').get(protectStylist, stylist.getMe);
     app.route('/stylists/:id')
         .put(protectStylist, stylist.updateStylist)
         .get(stylist.getOneStylist);
@@ -36,9 +43,14 @@ export default app => {
         protectStylist,
         stylist.changePassword
     );
+    /*
+    // PUT /users/appointments/book/:appointmentId
+// PUT /users/appointments/cancel/:appointmentId
+        bookAppointment
+        cancelAppoint
+    */
     app.route('/stylists/forgotPassword').post(stylist.forgotPassword);
     app.route('/stylists/resetPassword/:resettoken').put(stylist.resetPassword);
-    app.route('/stylists/me').get(protectStylist, stylist.getMe);
     app.route('/stylists/register/').post(stylist.createStylist);
     app.route('/stylists/login/').post(stylist.stylistLogin);
     app.route('/stylists/services/:id/add').post(stylist.addService);

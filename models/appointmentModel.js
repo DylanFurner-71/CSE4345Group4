@@ -12,18 +12,16 @@ const AppointmentSchema = new Schema({
 
     user: {
         type: mongoose.ObjectId,
-        required: true,
+        default: null,
     },
 
     startDate: {
         type: Date,
-        required: false,
-        default: Date.now,
+        required: true,
     },
     endDate: {
         type: Date,
-        required: false,
-        default: Date.now,
+        required: true,
     },
     title: {
         type: String,
@@ -39,6 +37,14 @@ const AppointmentSchema = new Schema({
         type: String,
         required: false,
         default: 'Home',
+    },
+    booked: {
+        type: Boolean,
+        default: false,
+    },
+    canceled: {
+        type: Boolean,
+        default: false,
     },
     allday: {
         type: Boolean,

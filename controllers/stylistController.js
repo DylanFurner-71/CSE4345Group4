@@ -177,22 +177,13 @@ export const getAppointments = async (req, res, next) => {
 
 export const addAppointment = async (req, res, next) => {
     const { id } = req.params;
-    const {
-        userId,
-        startDate,
-        endDate,
-        title,
-        category,
-        location,
-        allday,
-    } = req.body;
+    const { startDate, endDate, title, category, location, allday } = req.body;
     try {
         const stylist = await Stylist.findById(id);
         if (!stylist) {
             return next(new ErrorResponse('Stylist does not exist', 404));
         }
         const newAppointment = {
-            user: userId,
             stylist: id,
             startDate,
             endDate,
@@ -380,7 +371,7 @@ export const postReviews = async (req, res) => {
     }
 };
 
-export const getOneStylist = async (req, res) => {
+export const getOneStylist = async (req, res, next) => {
     const stylistId = req.params.id;
     try {
         const stylist = await Stylist.findById(stylistId);

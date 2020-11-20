@@ -7,6 +7,7 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
+import { userInfo } from 'os';
 dotenv.config({ path: './config/config.env' });
 
 //@desc          Allow User to create an account
@@ -195,7 +196,6 @@ export const forgotPassword = async (req, res, next) => {
 
 export const getAppointments = async (req, res, next) => {
     const { id } = req.params;
-
     try {
         const user = await User.findById(id);
         if (!user) {
@@ -206,6 +206,63 @@ export const getAppointments = async (req, res, next) => {
         res.json({
             sucess: true,
             appointments,
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+// PUT /users/appointments/book/:appointmentId
+export const bookAppointment = async (req, res, next) => {
+    const { appointmentId } = req.params;
+    const userId = req.body.userId;
+    try {
+        const appointment = await Appointment.findById(appointmentId);
+        if (!appointment) {
+            return next(new ErrorResponse('Appointment not found', 404));
+        }
+        if (!userId) {
+            return next(new ErrorResponse('User id not provided', 400));
+        }
+        if (appointment.userId) {
+            return next(
+                new ErrorResponse('This appointment has been booked'),
+                400
+            );
+        }
+        appointment.user = userId;
+        await appointment.save();
+        res.json({
+            sucess: true,
+            appointment,
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+// PUT /users/appointments/cancel/:appointmentId
+export const cancelAppointment = async (req, res, next) => {
+    const { appointmentId } = req.params;
+    const userId = req.body.userId;
+    try {
+        const appointment = await Appointment.findById(appointmentId);
+        if (!appointment) {
+            return next(new ErrorResponse('Appointment not found', 404));
+        }
+        if (!userId) {
+            return next(new ErrorResponse('User id not provided', 400));
+        }
+        if (userId.toString() !== appointment.user.toString()) {
+            console.log(userId);
+            console.log(appointment.user);
+            return next(new ErrorResponse('Not authorized', 401));
+        }
+        appointment.user = null;
+        await appointment.save();
+        res.json({
+            sucess: true,
+            appointment,
         });
     } catch (err) {
         next(err);
