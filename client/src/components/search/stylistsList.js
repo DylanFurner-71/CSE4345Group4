@@ -11,17 +11,13 @@ const StylistsList = () => {
     const [stylists, setStylists] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const query = useParams();
-    const types = query.types.split('&');
-    const queries = query.queries.split('&');
-    let params = {};
-    types.forEach((key, index) => (params[key] = queries[index]));
+    const queries = useParams();
 
     useEffect(() => {
         const getStylists = async () => {
             await axios
                 .get(URL, {
-                    params: params,
+                    params: queries,
                 })
                 .then(res => {
                     setStylists(res.data.stylists);
@@ -34,7 +30,7 @@ const StylistsList = () => {
     }, []);
 
     return (
-        <div className='h-100 align-items-center m-0 overflow-hidden'>
+        <div className='h-100 align-items-center m-0'>
             {isLoading ? (
                 <Loading />
             ) : stylists.length === 0 ? (
@@ -43,14 +39,13 @@ const StylistsList = () => {
                 </h1>
             ) : (
                 <div className='row'>
-                    <div className='col-2'>
+                    <div className='col-2 overflow-hidden'>
                         <SearchFilter
-                            types={query.types}
-                            queries={query.queries}
+                            queries={queries}
                         />
                     </div>
 
-                    <div className='p-0 border-left col-7'>
+                    <div className='p-0 border-left col-7 overflow-auto'>
                         <ul className='p-0 m-0'>
                             {stylists.map((stylist, index) => (
                                 <StylistInfo key={index} stylist={stylist} />
@@ -58,14 +53,13 @@ const StylistsList = () => {
                         </ul>
                     </div>
 
-                    <div className='col-3 p-2'>
-                        {console.log(stylists.filter(stylist => Object.keys(stylist.location).length !== 0))}
+                    <div className='col-3 p-2 overflow-hidden'>
                         {stylists.length > 0 && (
                             <Map
                                 stylists={stylists.filter(stylist => Object.keys(stylist.location).length !== 0)}
                                 location={{
                                     lat: 32.779167,
-                                    lng: -96.808891,
+                                    lng: -96.808891
                                 }}
                             />
                         )}

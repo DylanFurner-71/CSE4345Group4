@@ -1,32 +1,33 @@
 import React, {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
-import store from "../../store";
+import {Link, useHistory} from "react-router-dom";
 import {useSelector} from "react-redux";
 import axios from "axios";
 import Loading from "../loading";
 
 const EditProfile = () => {
-    const [email, setEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [address, setAddress] = useState('');
     const [number, setNumber] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+
+    let history = useHistory()
 
     const {user} = useSelector(state => state.auth)
 
     const userId = {user}.user.id
     const token = localStorage.jwtToken
+    const config = {headers: {
+            Authorization: 'Bearer '+token
+        }}
     useEffect(() => {
         const fetchUser = async () => {
-            await axios.get("http://localhost:8000/users/me", {
-                headers: {
-                    Authorization: 'Bearer '+token
-                }
-            })
+            await axios.get("http://localhost:8000/users/me", config)
                 .then(res => {
                     const userData = res.data.user
-                    console.log(userData)
                     setIsLoading(false)
-                    setEmail(userData.email)
+                    setFirstName(userData.firstName)
+                    setLastName(userData.lastName)
                     setAddress(userData.address)
                     setNumber(userData.number)
                 })
@@ -40,15 +41,21 @@ const EditProfile = () => {
     const onSubmit = async event => {
         event.preventDefault()
         await axios.put(`http://localhost:8000/users/${userId}`, {
-            email: email,
+            firstName: firstName,
+            lastName: lastName,
             address: address,
             number: number
-        })
-            .then(res => alert('Profile Updated!'))
+        }, config)
+            .then(res => {
+                alert('Profile Updated!')
+                history.push('/userProfile')
+            })
             .catch(err => console.log(err))
 
     }
 
+    // first name, last name
+    // get rid of email
 
     return (
         <div className="container">
@@ -61,12 +68,21 @@ const EditProfile = () => {
                                 <form className="form-signin" onSubmit={onSubmit}>
 
                                     <div className="form-label-group">
-                                        <input type="email" onChange={event => setEmail(event.target.value)}
+                                        <input type="firstName" onChange={event => setFirstName(event.target.value)}
                                                className="form-control"
-                                               value={email}
-                                               id="email"
-                                               placeholder="Email address"/>
-                                        <label htmlFor="email">Enter New Email Address</label>
+                                               value={firstName}
+                                               id="firstName"
+                                               placeholder="First Name"/>
+                                        <label htmlFor="firstName">Enter New First Name</label>
+                                    </div>
+
+                                    <div className="form-label-group">
+                                        <input type="lastName" onChange={event => setLastName(event.target.value)}
+                                               className="form-control"
+                                               value={lastName}
+                                               id="lastName"
+                                               placeholder="Last Name"/>
+                                        <label htmlFor="lastName">Enter New Last Name</label>
                                     </div>
 
                                     <div className="form-label-group">
