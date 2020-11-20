@@ -38,7 +38,7 @@ const AppointmentSchema = new Schema({
         required: false,
         default: 'Home',
     },
-    booked: {
+    pending: {
         type: Boolean,
         default: false,
     },

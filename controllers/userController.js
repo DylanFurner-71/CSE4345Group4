@@ -231,6 +231,7 @@ export const bookAppointment = async (req, res, next) => {
             );
         }
         appointment.user = userId;
+        appointment.pending = true;
         await appointment.save();
         res.json({
             sucess: true,
@@ -253,12 +254,16 @@ export const cancelAppointment = async (req, res, next) => {
         if (!userId) {
             return next(new ErrorResponse('User id not provided', 400));
         }
-        if (userId.toString() !== appointment.user.toString()) {
+        if (
+            !appointment.user ||
+            userId.toString() !== appointment.user.toString()
+        ) {
             console.log(userId);
             console.log(appointment.user);
             return next(new ErrorResponse('Not authorized', 401));
         }
         appointment.user = null;
+        appointment.pending = false;
         await appointment.save();
         res.json({
             sucess: true,

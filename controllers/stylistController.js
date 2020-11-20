@@ -177,6 +177,7 @@ export const getAppointments = async (req, res, next) => {
 
 export const addAppointment = async (req, res, next) => {
     const { id } = req.params;
+    const { past } = req.query;
     const { startDate, endDate, title, category, location, allday } = req.body;
     try {
         const stylist = await Stylist.findById(id);
