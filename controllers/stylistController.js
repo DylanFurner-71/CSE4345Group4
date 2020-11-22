@@ -218,7 +218,7 @@ export const addAppointment = async (req, res, next) => {
  */
 export const searchStylist = async (req, res) => {
     try {
-        const { name, within, min, rat, services } = req.query;
+        const { name, within, min, rat, services, long, lat } = req.query;
         let returnedStylists;
 
         // search by name logic
@@ -258,9 +258,30 @@ export const searchStylist = async (req, res) => {
             });
         }
 
+        if (rat || min) {
+            if (min) {
+                returnedStylists = returnedStylists.filter(stylist => {
+                    return stylist.average >= min;
+                });
+            } else {
+                returnedStylists = returnedStylists.filter(stylist => {
+                    return stylist.average == rat;
+                });
+            }
+        }
+
+        let distances = returnedStylists.map(stylist => {
+            let distance = stylist.getDistance(long, lat);
+            return { ...stylist._doc, distance };
+        });
+
+        let stylists = distances.sort((a, b) =>
+            a.distance > b.distance ? 1 : -1
+        );
+
         res.json({
             success: true,
-            returnedStylists,
+            stylists,
         });
     } catch (err) {
         res.status(400).json({ msg: err });
