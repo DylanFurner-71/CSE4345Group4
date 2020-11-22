@@ -265,6 +265,7 @@ export const cancelAppointment = async (req, res, next) => {
             return next(new ErrorResponse('Not authorized', 401));
         }
         appointment.user = null;
+        appointment.userName = null;
         appointment.pending = false;
         await appointment.save();
         res.json({
