@@ -186,6 +186,7 @@ export const addAppointment = async (req, res, next) => {
         }
         const newAppointment = {
             stylist: id,
+            stylistName: `${stylist.firstName} ${stylist.lastName}`,
             startDate,
             endDate,
             title,

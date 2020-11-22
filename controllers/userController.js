@@ -230,7 +230,9 @@ export const bookAppointment = async (req, res, next) => {
                 400
             );
         }
+        const user = await User.findById(userId);
         appointment.user = userId;
+        appointment.userName = `${user.firstName} ${user.lastName}`;
         appointment.pending = true;
         await appointment.save();
         res.json({
