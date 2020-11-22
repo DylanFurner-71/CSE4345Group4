@@ -243,9 +243,13 @@ export const searchStylist = async (req, res) => {
         //-------------------------------------------------------
         if (services) {
             returnedStylists = returnedStylists.filter(stylist => {
+                let stylistServices = stylist.services.map(
+                    service => service.name
+                );
+                console.log(stylistServices);
                 let hasServices = true;
                 for (let service of services.split(' ')) {
-                    if (stylist.services.indexOf(service) === -1) {
+                    if (stylistServices.indexOf(service) === -1) {
                         hasServices = false;
                         break;
                     }
