@@ -8,7 +8,7 @@
     "start": "nodemon server.js --exec babel-node --presets env",
     "release": "npm run clean && npm run build && npm run serve",
     "clean": "rm -rf dist && mkdir dist",
-    "build": "babel . -s -D -d dist --presets env --ignore node_modules",
+    "build": "babel server.js --out-file server.compiled.js --presets env --ignore node_modules",
     "serve": "node dist/server.js",
     "test": "jest",
     "lint": "eslint"
