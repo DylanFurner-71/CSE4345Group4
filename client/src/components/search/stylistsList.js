@@ -20,7 +20,7 @@ const StylistsList = () => {
                     params: queries,
                 })
                 .then(res => {
-                    setStylists(res.data.stylists);
+                    setStylists(res.data.returnedStylists);
                     setIsLoading(false);
                     console.log('Stylists data fetched');
                 })
@@ -54,9 +54,13 @@ const StylistsList = () => {
                     </div>
 
                     <div className='col-3 p-2 overflow-hidden'>
+                        {console.log(stylists)}
                         {stylists.length > 0 && (
                             <Map
-                                stylists={stylists.filter(stylist => Object.keys(stylist.location).length !== 0)}
+                                // Object.keys(stylist.location).length !== 0
+                                stylists={stylists.filter(stylist => {
+                                    return stylist.hasOwnProperty('location')
+                                })}
                                 location={{
                                     lat: 32.779167,
                                     lng: -96.808891

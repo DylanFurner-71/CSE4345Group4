@@ -1,21 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Modal} from "react-bootstrap";
+import axios from 'axios'
+import BookingPopup from "./bookingPopup";
 
-const ServicePopup = props => {
-    const [times, setTimes] = useState({
-        'M': [],
-        'Tu': [],
-        'W': [],
-        'Th': [],
-        'F': [],
-        'SAT': [],
-        'Sun': []
-    });
+const ServicePopup = ({show, onHide, appointments}) => {
+    const [nextModalShow, setNextModalShow] = useState(false);
 
     return (
         <div>
             <Modal
-                {...props}
+                show={show}
+                onHide={onHide}
                 centered
             >
                 <Modal.Header closeButton>
@@ -24,6 +19,23 @@ const ServicePopup = props => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="mx-auto">
+                    <ul className="list-group">
+                        {appointments.map((appointment, index) =>
+                            <li key={index} className="list-group-item">
+                                <BookingPopup
+                                    show={nextModalShow}
+                                    onHide={() => setNextModalShow(false)}
+                                    appointmentId={appointment._id}
+                                />
+                                <button onClick={() => setNextModalShow(true)}>
+                                    {
+                                        appointment.startDate
+                                    }
+                                </button>
+
+                            </li>
+                        )}
+                    </ul>
 
                 </Modal.Body>
             </Modal>

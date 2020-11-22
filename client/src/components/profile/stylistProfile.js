@@ -69,6 +69,7 @@ const StylistProfile = () => {
 
                                     <TabPanel>
                                         <Services
+                                            stylistId={stylistId.id}
                                             services={stylist.services}
                                         />
                                     </TabPanel>

@@ -8,13 +8,22 @@ import {CustomPlaceholder} from "react-placeholder-image";
 import ReviewBox from "./reviewBox";
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
+import AppointmentsList from "./appointmentsList";
 
 const UserProfile = () => {
     const [isLoading, setIsLoading] = useState(true);
+
     const token = localStorage.jwtToken
-    // const {user} = useSelector(state => state.auth)
-    // console.log(user)
+
     const [user, setUser] = useState({})
+
+    const [futureAppointments, setFutureAppointments] = useState([]);
+    const [pastAppointments, setPastAppointments] = useState([]);
+
+    const store = useSelector(state => state.auth)
+    const userId = store.user.id
+
+    const URL = 'http://localhost:8000/users/appointments/'
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -31,6 +40,39 @@ const UserProfile = () => {
         }
         fetchUser()
     }, [])
+
+
+    useEffect(() => {
+        const fetchAppointments = async () => {
+            await axios.get(URL + userId)
+                .then(res => {
+                    let returnedAppointments = res.data.appointments
+                    let past = []
+                    let future =[]
+                    returnedAppointments.forEach(appointment => {
+                        let startDate = new Date(appointment.startDate)
+                        let endDate = new Date(appointment.endDate)
+                        const now = new Date().toLocaleString()
+                        appointment.startDate = startDate.toLocaleString()
+                        appointment.endDate = endDate.toLocaleString()
+                        if (appointment.endDate < now) {
+                            past = [...past, appointment]
+                        }
+                        else {
+                            future = [...future, appointment]
+                        }
+                    })
+                    setPastAppointments(past)
+                    setFutureAppointments(future)
+                    setIsLoading(false)
+                })
+                .catch(err => console.log(err))
+        }
+        fetchAppointments()
+    }, [])
+
+
+
 
 
     return (
@@ -63,14 +105,10 @@ const UserProfile = () => {
                                     </TabList>
 
                                     <TabPanel>
-                                        {/*<Service */}
-                                        {/*    services={stylist.services}*/}
-                                        {/*/>*/}
+                                        <AppointmentsList appointments={futureAppointments}/>
                                     </TabPanel>
                                     <TabPanel>
-                                        {/*<Service */}
-                                        {/*    services={stylist.services}*/}
-                                        {/*/>*/}
+                                        <AppointmentsList appointments={pastAppointments}/>
                                     </TabPanel>
                                 </Tabs>
                             </div>
