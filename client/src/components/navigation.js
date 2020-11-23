@@ -11,19 +11,39 @@ const Navigation = () => {
     const onLogout = () => {
         dispatch(logoutUser())
     }
+    if (user.role === "stylist"){
+        return (       
+             <div>
+            <Navbar bg="dark" variant="dark" expand="lg">
+                <Navbar.Brand href={`/stylistLanding/stylistId=${user.id}`}></Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="mr-auto">
+                        <Nav.Link href={`/stylists/appointments/upcoming/stylistId=${user.id}`}>Upcoming Appointments</Nav.Link>
+                        <Nav.Link href={`/stylists/appointments/past/stylistId=${user.id}`}>Past Appointments</Nav.Link>
+                        <Nav.Link href={`/services/servicesOffered/stylistId=${user.id}`}>Services Offered</Nav.Link>
+                        <Nav.Link href={`/stylists/stylistCalendar/${user.id}`}>Calendar </Nav.Link>
+                        <Nav.Link href={`/stylistLanding/stylistId=${user.id}`}>TBD</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        </div>
+        );
+    } else {
     return (
         <div>
-            <Navbar bg="dark" variant="dark" expand="lg">
-                <Navbar.Brand href="/userLanding">Haircut Uber</Navbar.Brand>
+            {/*make nav bar bigger brigher*/}
+            <Navbar bg="light" variant="light" expand="lg" className="border-bottom" fixed="top">
+                <Navbar.Brand href="/userLanding">Ultimate Style</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <NavDropdown title="Services" id="basic-nav-dropdown">
                             {/*<NavDropdown.Item href="/retail">Overview</NavDropdown.Item>*/}
-                            <NavDropdown.Item href={searchURL+'services/Men Haircut'}>Men's Haircut</NavDropdown.Item>
-                            <NavDropdown.Item href={searchURL+'services/Women Haircut'}>Women's Haircut</NavDropdown.Item>
+                            <NavDropdown.Item href={searchURL+'services/haircuts'}>Haircuts</NavDropdown.Item>
+                            <NavDropdown.Item href={searchURL+'services/waxing'}>Waxing</NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link href="/editProfile">My Profile</Nav.Link>
+                        <Nav.Link href="/UserProfile">My Profile</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 <Form inline>
@@ -35,12 +55,14 @@ const Navigation = () => {
                         className="mr-sm-2"
                     />
                 </Form>
-                <a href={`${searchURL}name/${name}`}><Button variant="primary">Search</Button></a>
+                <a href={`${searchURL}name/${name}`}><Button variant="dark">Search</Button></a>
                 {user.isAuthenticated ? <button onClick={onLogout} className="btn btn-warning mx-2">Logout</button> : <></>}
 
             </Navbar>
+
         </div>
     );
-};
+    }
+}
 
 export default Navigation;

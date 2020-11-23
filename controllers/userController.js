@@ -1,12 +1,14 @@
 import mongoose from 'mongoose';
 import User from '../models/userModel.js';
+import Appointment from '../models/appointmentModel.js';
 import ErrorResponse from '../utils/errorResponse.js';
 import sendEmail from '../utils/sendEmail.js';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import dotenv from "dotenv";
-dotenv.config({ path: "./config/config.env" });
+import dotenv from 'dotenv';
+import { userInfo } from 'os';
+dotenv.config({ path: './config/config.env' });
 
 //@desc          Allow User to create an account
 //@route         POST /users/register
@@ -27,7 +29,7 @@ export const createUser = async (req, res, next) => {
         res.json({ success: true, token, newUser });
     } catch (err) {
         next(err);
-        console.log(err)
+        console.log(err);
     }
 };
 
@@ -189,6 +191,89 @@ export const forgotPassword = async (req, res, next) => {
         user.resetPasswordExpiration = undefined;
         await user.save({ validateBeforeSave: false });
         return next(new ErrorResponse('email could not be sent', 500));
+    }
+};
+
+export const getAppointments = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return next(new ErrorResponse('User not found', 404));
+        }
+        const appointments = await Appointment.find({ user: id });
+
+        res.json({
+            sucess: true,
+            appointments,
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+// PUT /users/appointments/book/:appointmentId
+export const bookAppointment = async (req, res, next) => {
+    const { appointmentId } = req.params;
+    const userId = req.body.userId;
+    try {
+        const appointment = await Appointment.findById(appointmentId);
+        if (!appointment) {
+            return next(new ErrorResponse('Appointment not found', 404));
+        }
+        if (!userId) {
+            return next(new ErrorResponse('User id not provided', 400));
+        }
+        if (appointment.userId) {
+            return next(
+                new ErrorResponse('This appointment has been booked'),
+                400
+            );
+        }
+        const user = await User.findById(userId);
+        appointment.user = userId;
+        appointment.userName = `${user.firstName} ${user.lastName}`;
+        appointment.pending = true;
+        await appointment.save();
+        res.json({
+            sucess: true,
+            appointment,
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+// PUT /users/appointments/cancel/:appointmentId
+export const cancelAppointment = async (req, res, next) => {
+    const { appointmentId } = req.params;
+    const userId = req.body.userId;
+    try {
+        const appointment = await Appointment.findById(appointmentId);
+        if (!appointment) {
+            return next(new ErrorResponse('Appointment not found', 404));
+        }
+        if (!userId) {
+            return next(new ErrorResponse('User id not provided', 400));
+        }
+        if (
+            !appointment.user ||
+            userId.toString() !== appointment.user.toString()
+        ) {
+            console.log(userId);
+            console.log(appointment.user);
+            return next(new ErrorResponse('Not authorized', 401));
+        }
+        appointment.user = null;
+        appointment.userName = null;
+        appointment.pending = false;
+        await appointment.save();
+        res.json({
+            sucess: true,
+            appointment,
+        });
+    } catch (err) {
+        next(err);
     }
 };
 

@@ -50,28 +50,45 @@ const StylistSchema = new Schema(
             type: String,
             default: 'no-photo.jpg',
         },
-        services: [
-            {
-                type: String,
-                enum: [
-                    'hair treatment',
-                    'haircuts',
-                    'hair coloring',
-                    'hair styling',
-                    'extensions',
-                    'waxing',
-                    'men',
-                    'women',
-                    'children',
-                    'waxing',
-                    'shaving',
-                    'special occasion',
-                    'blow outs',
-                    'perms',
-                    'other',
-                ],
-            },
-        ],
+        services: {
+            type: [
+                {
+                    name: {
+                        type: String,
+                        default: 'no-name',
+                    },
+                    description: {
+                        type: String,
+                        default: 'No-description',
+                    },
+                    price: {
+                        type: [Number],
+                        default: 1.0,
+                    },
+                    category: {
+                        type: [String],
+                        default: [
+                            'hair treatment',
+                            'haircuts',
+                            'hair coloring',
+                            'hair styling',
+                            'extensions',
+                            'waxing',
+                            'men',
+                            'women',
+                            'children',
+                            'waxing',
+                            'shaving',
+                            'special occasion',
+                            'blow outs',
+                            'perms',
+                            'other',
+                        ],
+                    },
+                },
+            ],
+        },
+
         address: {
             type: String,
             required: [true, 'Must Provide address of business location'],
@@ -110,25 +127,27 @@ const StylistSchema = new Schema(
         average: {
             type: Number,
             default: 0,
-          },
-          reviews: {
-            type: [{
-              reviewerName: {
-                type: String,
-                required: true,
-              },
-              score: {
-                type: Number,
-                required: true,
-              },
-              notes: {
-                type: String,
-                required: true,
-              }
-            }]
-          },
+        },
+        reviews: {
+            type: [
+                {
+                    reviewerName: {
+                        type: String,
+                        required: true,
+                    },
+                    score: {
+                        type: Number,
+                        required: true,
+                    },
+                    notes: {
+                        type: String,
+                        required: true,
+                    },
+                },
+            ],
+        },
         reviewScores: {
-            type:[Number]
+            type: [Number],
         },
         resetPasswordToken: String,
         resetPasswordExpiration: Date,
@@ -181,13 +200,41 @@ StylistSchema.pre('save', async function (next) {
 
 // Sign JWT and return
 
+// Sign JWT and return
 StylistSchema.methods.getSignedJwtToken = function () {
-    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRE,
-    });
+    return jwt.sign(
+        {
+            id: this._id,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            role: this.role,
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: process.env.JWT_EXPIRE,
+        }
+    );
 };
-
 StylistSchema.methods.geocodeAddress = function (address) {};
+
+StylistSchema.methods.getDistance = function (long, lat) {
+    let d;
+    if (this.location.coordinates) {
+        const R = 6371e3; // metres
+        const φ1 = (lat * Math.PI) / 180; // φ, λ in radians
+        const φ2 = (this.location.coordinates[1] * Math.PI) / 180;
+        const Δφ = ((this.location.coordinates[1] - lat) * Math.PI) / 180;
+        const Δλ = ((this.location.coordinates[0] - long) * Math.PI) / 180;
+
+        const a =
+            Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+            Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        d = R * c; // in metres
+    }
+    return Math.floor(d / 1609.344);
+};
 
 // Match plain pwd and hashed pwd
 

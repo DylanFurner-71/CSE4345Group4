@@ -1,5 +1,3 @@
-// import home from './home.js';
-// import notes from './notes.js';
 import * as homeController from '../controllers/homeController.js';
 import * as notebook from '../controllers/notebookController.js';
 import * as user from '../controllers/userController.js';
@@ -10,37 +8,60 @@ import { protectStylist, protectUser } from '../middleware/auth.js';
 export default app => {
     console.log('we made it to here');
     //GET request
-    app.route('/home').get(homeController.getHome);
-    app.route('/notes').get(notebook.getAllNotes).post(notebook.createNote);
+    app.route('/api/home').get(homeController.getHome);
+    app.route('/api/notes').get(notebook.getAllNotes).post(notebook.createNote);
 
-    app.route('/notes/:noteId')
+    app.route('/api/notes/:noteId')
         .get(notebook.getNote)
         .put(notebook.updateNote)
         .delete(notebook.deleteNote);
 
-    app.route('/users').get(user.getUsers);
-    app.route('/users/:id').put(protectUser, user.updateUser);
-    app.route('/users/change/:userId').post(protectUser, user.changePassword);
-    app.route('/users/forgotPassword').post(user.forgotPassword);
-    app.route('/users/resetPassword/:resettoken').put(user.resetPassword);
-    app.route('/users/register').post(user.createUser);
-    app.route('/users/login/').post(user.userLogin);
-    app.route('/users/me').get(protectUser, user.getMe);
+    app.route('/api/users').get(user.getUsers);
+    app.route('/api/users/:id').put(protectUser, user.updateUser);
+    app.route('/api/users/change/:userId').post(
+        protectUser,
+        user.changePassword
+    );
+    app.route('/api/users/forgotPassword').post(user.forgotPassword);
+    app.route('/api/users/resetPassword/:resettoken').put(user.resetPassword);
+    app.route('/api/users/register').post(user.createUser);
+    app.route('/api/users/login/').post(user.userLogin);
+    app.route('/api/users/appointments/book/:appointmentId').put(
+        user.bookAppointment
+    );
+    app.route('/api/users/appointments/cancel/:appointmentId').put(
+        user.cancelAppointment
+    );
 
-    app.route('/stylists').get(stylist.getStylists);
-    app.route('/stylists/search').get(stylist.searchStylist);
-    app.route('/stylists/:id')
+    app.route('/api/users/appointments/:id').get(user.getAppointments);
+    app.route('/api/users/me').get(protectUser, user.getMe);
+
+    app.route('/api/stylists').get(stylist.getStylists);
+    app.route('/api/stylists/search').get(stylist.searchStylist);
+    app.route('/api/stylists/me').get(protectStylist, stylist.getMe);
+    app.route('/api/stylists/:id')
         .put(protectStylist, stylist.updateStylist)
         .get(stylist.getOneStylist);
-    app.route('/stylists/change/:stylistId').post(
+    app.route('/api/stylists/change/:stylistId').post(
         protectStylist,
         stylist.changePassword
     );
-    app.route('/stylists/forgotPassword').post(stylist.forgotPassword);
-    app.route('/stylists/resetPassword/:resettoken').put(stylist.resetPassword);
-    app.route('/stylists/me').get(protectStylist, stylist.getMe);
-    app.route('/stylists/register/create').post(stylist.createStylist);
-    app.route('/stylists/login/').post(stylist.stylistLogin);
+    /*
+    // PUT /users/appointments/book/:appointmentId
+// PUT /users/appointments/cancel/:appointmentId
+        bookAppointment
+        cancelAppoint
+    */
+    app.route('/api/stylists/forgotPassword').post(stylist.forgotPassword);
+    app.route('/api/stylists/resetPassword/:resettoken').put(
+        stylist.resetPassword
+    );
+    app.route('/api/stylists/register/').post(stylist.createStylist);
+    app.route('/api/stylists/login/').post(stylist.stylistLogin);
+    app.route('/api/stylists/services/:id/add').post(stylist.addService);
+    app.route('/api/stylists/appointments/:id')
+        .post(stylist.addAppointment)
+        .get(stylist.getAppointments);
 
     //this one right here, kirk (go to the stylistController for the logic if
     //you want to see)

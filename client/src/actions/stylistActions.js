@@ -9,10 +9,10 @@ import {
 // Register User
 const api = "http://localhost:8000";
 axios.defaults.baseURL = api;
-export const registerUser = (userData, history) => dispatch => {
+export const addService = (id, service) => dispatch => {
+    console.log("Calling add service 2.0ß");
     axios
-        .post("/users/register", userData)
-        .then(() => history.push("/login")) // re-direct to login on successful register
+        .post(`/stylists/services/${id}/add`, service).then( res =>{console.log(res, "res res res")})
         .catch(err =>
             dispatch({
                 type: GET_ERRORS,
@@ -20,6 +20,19 @@ export const registerUser = (userData, history) => dispatch => {
             })
         );
 };
+
+
+
+export const addAppointment = (id, appointment) => dispatch => {
+    axios
+    .post(`/appointments/${id}/add`, appointment)
+    .catch(err =>
+        dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        })
+    );
+}; //soon will become add appooitment
 
 // Register Stylist
 export const registerStylist = (userData, history) => dispatch => {
