@@ -10,8 +10,8 @@ import ReviewBox from "../profile/reviewBox";
 import Rating from "../rating/rating";
 import { useInput } from '../hooks/InputHook';
 import {addService} from "../../actions/stylistActions";
-
-const appointments = [
+import AppointmentsCard from "./appointmentsCard";
+const appointments2 = [
     {
       title: 'Website Re-Design Plan',
       startDate: new Date(2018, 5, 25, 9, 35),
@@ -181,7 +181,7 @@ const appointments = [
       id: 27,
       location: 'Room 2',
     }, {
-      title: 'Prepare 2015 Marketing Plan',
+      title: 'Service Name ',
       startDate: new Date(2018, 6, 5, 20, 0),
       endDate: new Date(2018, 6, 6, 13, 30),
       id: 28,
@@ -261,12 +261,14 @@ const appointments = [
 const UpcomingApppointments = () => {
   const [stylist, setStylist] = useState({});
   const stylistId = useParams();
+  const currentDate = new Date();
+  // const currentDate = new Date(2018, 6, 3, 15, 45);
   const URL = `http://localhost:8000`;  
   const { value:name, bind:bindName, reset:resetName } = useInput('');
   const { value:description, bind:bindDescription, reset:resetDescription } = useInput('');
   const { value:price, bind: bindPrice, reset: resetPrice } = useInput('');
   const { value:category, bind: bindCateogry, reset: resetCategory} = useInput('');
-  const appointments = stylist.appointments;
+  // const appointments = stylist.appointments.filter(event => event.startDate >= currentDate);
   useEffect(() => {
     const fetchStylist = async () => {
         await axios.get(`${URL}/stylists/${stylistId.id}`)
@@ -277,24 +279,26 @@ const UpcomingApppointments = () => {
     }
     fetchStylist()
 }, [stylist])
-
+const appointments =  appointments2.filter(event => event.startDate >= currentDate);
 
  if (stylist && appointments && appointments.length > 0){
+   console.log(appointments);
     return (
         <div className='Services text-center'>
         <h5 className='card-title display-4'> Upcoming Apppointments </h5>
-        <div className='card'>
+        <AppointmentsCard appointments={appointments} currentDate={currentDate}/>
+        {/* <div className='card'>
             {appointments.map((appointment, i) => (
                 <div className='m-3' key={i}>
                     <div className='h3'>Appointment {i}</div>
-                    <p> {appointment.startDate}</p>
-                    <p> {appointment.endDate}</p>
+                    <p> {appointment.startDate.toLocaleString()}</p>
+                    <p> {appointment.endDate.toLocaleString()}</p>
                     <p> {appointment.location}</p>
-                    <p> {appointment.stylist.id}</p>
-
+                    <p> {appointment.id}</p>
+                    <p>{currentDate.toLocaleDateString()}</p>
                 </div>
             ))}
-        </div>
+        </div> */}
     </div>
     );
             } else {

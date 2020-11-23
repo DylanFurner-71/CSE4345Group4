@@ -82,6 +82,7 @@ getStylistByID = (id) => {
     const {currentDate, data, addedAppointment, appointmentChanges, editingAppointment,
   } = this.state;
     return (
+      <div className="container">
       <Paper>
         <Scheduler
           data={data}
@@ -115,12 +116,18 @@ getStylistByID = (id) => {
             startDayHour={10}
             endDayHour={19}
           />
-
-          <Toolbar />
-          <ViewSwitcher />
+          <AllDayPanel />
+          <EditRecurrenceMenu />
+          <ConfirmationDialog />
           <Appointments />
+          <AppointmentTooltip
+            showOpenButton
+            showDeleteButton
+          />
+          <AppointmentForm />
         </Scheduler>
       </Paper>
+      </div>
     );
   }
   componentDidMount() {
