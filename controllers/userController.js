@@ -230,7 +230,9 @@ export const bookAppointment = async (req, res, next) => {
                 400
             );
         }
+        const user = await User.findById(userId);
         appointment.user = userId;
+        appointment.userName = `${user.firstName} ${user.lastName}`;
         appointment.pending = true;
         await appointment.save();
         res.json({
@@ -263,6 +265,7 @@ export const cancelAppointment = async (req, res, next) => {
             return next(new ErrorResponse('Not authorized', 401));
         }
         appointment.user = null;
+        appointment.userName = null;
         appointment.pending = false;
         await appointment.save();
         res.json({
