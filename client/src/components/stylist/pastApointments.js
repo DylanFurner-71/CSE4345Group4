@@ -11,48 +11,48 @@ import Rating from "../rating/rating";
 import { useInput } from '../hooks/InputHook';
 import {addService} from "../../actions/stylistActions";
 import AppointmentsCard from "./appointmentsCard";
-// filter appointments to see only those where start date is after current date
-//we need to measure minutes on this one if yyyy-mm-dd === currentDate
-//past Appointments is just the flip side of this
+
 const PastAppointments = () => {
-  const [stylist, setStylist] = useState({});
-  const stylistId = useParams();
-  const currentDate = new Date();
-  // const currentDate = new Date(2018, 6, 3, 15, 45);
-  const URL = `http://localhost:8000`;  
+    const [appointments2, setAppointments] = useState([]);
+    const stylistId = useParams();
+  const currentDate = new Date().toISOString();
   const { value:name, bind:bindName, reset:resetName } = useInput('');
   const { value:description, bind:bindDescription, reset:resetDescription } = useInput('');
   const { value:price, bind: bindPrice, reset: resetPrice } = useInput('');
   const { value:category, bind: bindCateogry, reset: resetCategory} = useInput('');
   useEffect(() => {
-    const fetchStylist = async () => {
-        await axios.get(`${URL}/stylists/${stylistId.id}`)
+    const fetchAppointments = async () => {
+        await axios.get(`http://localhost:8000/api/stylists/appointments/${stylistId.id}`)
             .then(res => {
-                const stylistData = res.data.stylist
-                setStylist(stylistData)
+                const appts = res.data.appointments.filter(event => { return Date.parse(event.startDate) <= Date.parse(currentDate)});
+                console.log(appts);
+                setAppointments(appts)
             })
     }
-    fetchStylist()
-}, [stylist])
-// const appointments =  appointments2.filter(event => event.startDate <= currentDate);
-let appointments;
-if (stylist && stylist.appointments && stylist.appointments.length > 0){
- appointments = stylist.appointments.filter(event => event.startDate <= currentDate);
-} 
-
- if (stylist && appointments && appointments.length > 0){
-   console.log(appointments);
+    
+    fetchAppointments()
+  }, [appointments2])
+  let appointments5;
+if (appointments2 && appointments2.length > 0){
+    appointments5 = appointments2;
+    
+    appointments5.filter(event => {
+        console.log(Date.parse(event.startDate) <= Date.parse(currentDate));
+        return Date.parse(event.startDate) <= Date.parse(currentDate)});
+    console.log("CURR APPOINTMENTS: ", appointments5);
+}
+if (appointments5 && appointments5.length > 0){
     return (
         <div className='Services text-center border border-primary'>
 
         <h5 className='card-title display-4'> Past Apppointments </h5>
-        <AppointmentsCard appointments={appointments} currentDate={currentDate}/>
+        <AppointmentsCard appointments={appointments2} currentDate={currentDate}/>
     </div>
     );
             } else {
                 return (
                     <div>
-                        There are no upcoming appointments. Please add one Below!
+                        There are no Past appointments. Please add one Below!
                     </div>
                 )
             }

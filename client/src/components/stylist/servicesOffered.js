@@ -15,7 +15,7 @@
                     const [stylist, setStylist] = useState({});
                     const [isLoading, setIsLoading] = useState(true);
                     const stylistId = useParams();
-                    const URL = "http://localhost:8000";
+                    const URL = "http://localhost:8000/api";
 
         useEffect(() => {
                         const fetchStylist = async () => {

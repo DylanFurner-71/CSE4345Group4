@@ -11,7 +11,7 @@ const api = "http://localhost:8000";
 axios.defaults.baseURL = api;
 export const registerUser = (userData, history) => dispatch => {
     axios
-        .post("/users/register", userData)
+        .post("/api/users/register", userData)
         .then(() => history.push("/login")) // re-direct to login on successful register
         .catch(err =>
             dispatch({
@@ -24,7 +24,7 @@ export const registerUser = (userData, history) => dispatch => {
 // Register Stylist
 export const registerStylist = (userData, history) => dispatch => {
     axios
-        .post("/stylists/register", userData)
+        .post("/api/stylists/register", userData)
         .then(() => history.push("/login")) // re-direct to login on successful register
         .catch(err =>
             dispatch({
@@ -37,7 +37,7 @@ export const registerStylist = (userData, history) => dispatch => {
 //registerSylistUserWillBe updated once I figure out how to correctlyCheck the texas ID database
 export const registerUserStylist = (userData, history) => dispatch => {
     axios
-        .post(`/stylists/register/create`, userData)
+        .post(`/api/stylists/register/create`, userData)
         .then(() => history.push("/stylists/stylistLanding")) // re-direct to login on successful register
         .catch(err =>
             dispatch({
@@ -49,7 +49,7 @@ export const registerUserStylist = (userData, history) => dispatch => {
 // Change Password
 export const changePassword = (userData, history) => dispatch => {
     axios
-        .post("/users/changePassword", userData)
+        .post("/api/users/changePassword", userData)
         .then(() => history.push("/home")) // re-direct to home after changing password
         .catch(err =>
             dispatch({
@@ -61,7 +61,7 @@ export const changePassword = (userData, history) => dispatch => {
 export const login = userData => dispatch => {
     if (userData.isStylist === true){
         axios
-        .post("/stylists/login", userData)
+        .post("/api/stylists/login", userData)
         .then(res => {
             // Save to localStorage
 // Set token to localStorage
@@ -85,7 +85,7 @@ export const login = userData => dispatch => {
         );
     } else {
     axios
-        .post("/users/login", userData)
+        .post("/api/users/login", userData)
         .then(res => {
             // Save to localStorage
 // Set token to localStorage
@@ -112,7 +112,7 @@ export const login = userData => dispatch => {
 // Login - get user token
 export const loginUser = userData => dispatch => {
     axios
-        .post("/users/login", userData)
+        .post("/api/users/login", userData)
         .then(res => {
             // Save to localStorage
 // Set token to localStorage
@@ -137,7 +137,7 @@ export const loginUser = userData => dispatch => {
 };
 export const loginStylist = userData => dispatch => {
     axios
-        .post("/stylists/login", userData)
+        .post("/api/stylists/login", userData)
         .then(res => {
             // Save to localStorage
 // Set token to localStorage

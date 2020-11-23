@@ -40,8 +40,8 @@ export default class StylistCalendar extends React.PureComponent {
 
 getStylistByID = (id) => {
   return new Promise((resolve, reject) => {
-     axios.get(`http://localhost:8000/stylists/${id}`)
-      .then(x => resolve(x.data.stylist))
+     axios.get(`http://localhost:8000/api/stylists/appointments/${id}`)
+      .then(x => resolve(x.data.appointments))
       .catch(e => {
           alert(e);
           reject();
@@ -132,7 +132,7 @@ getStylistByID = (id) => {
   }
   componentDidMount() {
     this.getStylistByID(this.state.stylistId).then(stylist => this.setState({stylist}, () => {
-      this.setState({data: stylist.appointments})
+      this.setState({data: stylist})
     }));
      }
 }

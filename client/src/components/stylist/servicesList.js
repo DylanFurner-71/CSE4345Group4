@@ -11,7 +11,7 @@ import Rating from "../rating/rating"
 const ServicesList = (props) => {
     const [stylist, setStylist] = useState({});
     const stylistId = useParams();
-    const URL = "http://localhost:8000";
+    const URL = "http://localhost:8000/api";
     const services = stylist.services;
     console.log("Services: ", services);
     useEffect(() => {
@@ -25,7 +25,7 @@ const ServicesList = (props) => {
         }
         fetchStylist()
     }, [stylist])
-    if (stylist && services && services.length > 0){
+    if (stylist && stylist.services && stylist.services.length > 0){
     return (
         <div className='Services text-center'>
         <h5 className='card-title display-4'> Services </h5>

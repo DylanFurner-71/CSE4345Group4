@@ -6,8 +6,9 @@ import { useInput } from '../hooks/InputHook';
 
 // Register User
 // import { MenuItem } from '../temporaryObjects/restaurantModel';
-export const AddServices = () => {
+export const AddAvailability = () => {
   const [stylist, setStylist] = useState({});
+  const [appointments, setAppointments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const stylistId = useParams();
   const URL = `http://localhost:8000/api`;  
@@ -17,7 +18,7 @@ export const AddServices = () => {
   const { value:category, bind: bindCateogry, reset: resetCategory} = useInput('');
 
     const onSend = () => {
-      const service = {
+      const appointment = {
         name: name,
         description: description,
         price: price,
@@ -25,9 +26,9 @@ export const AddServices = () => {
       }
       const callAxios = async () => {  
         await axios
-      .post(`/stylists/services/${stylistId.id}/add`, service)
+      .post(`/api/stylists/appointments/${stylistId.id}`, appointment)
         .then( res => {
-          setStylist(res.data.stylist)})
+          setAppointments(res.data.appointments)})
           .catch(err =>
           //   dispatch({
           //     type: GET_ERRORS,
@@ -57,10 +58,17 @@ export const AddServices = () => {
       }
       fetchStylist()
   }, [stylist])
-/*
-onChange={event => setNewService(event.target.value)}
-*/
 
+  useEffect(() => {
+    const fetchAppointments = async () => {
+        await axios.get(`http://localhost:8000/api/stylists/appointments/${stylistId.id}`)
+            .then(res => {
+                const appts = res.data.appointments;
+                setAppointments(appts)
+            })
+    }  
+    fetchAppointments()
+  }, [appointments])
     return(<>
        <form className="container bg-green text-success border border-primary" style={{width: "50%", height: "50%"}}>
       <h3 className="action">Add Service Offered Just a reminder you need to add image support</h3>
@@ -100,7 +108,7 @@ onChange={event => setNewService(event.target.value)}
       </>)
 }
 
-export default AddServices;
+export default AddAvailability;
 
 
 {/* <form>
