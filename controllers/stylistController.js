@@ -186,6 +186,7 @@ export const addAppointment = async (req, res, next) => {
         }
         const newAppointment = {
             stylist: id,
+            stylistName: `${stylist.firstName} ${stylist.lastName}`,
             startDate,
             endDate,
             title,
@@ -215,9 +216,10 @@ export const addAppointment = async (req, res, next) => {
  * rat=<exact rating desired - integer (floored value of stylist avg rating)>
  * services=<services desired - space-seperated string list>
  */
-export const searchStylist = async (req, res) => {
+
+export const searchStylist = async (req, res, next) => {
     try {
-        const { name, within, min, rat, services } = req.query;
+        const { name, within, min, rat, services, long, lat } = req.query;
         let returnedStylists;
 
         // search by name logic
@@ -242,9 +244,12 @@ export const searchStylist = async (req, res) => {
         //-------------------------------------------------------
         if (services) {
             returnedStylists = returnedStylists.filter(stylist => {
+                let stylistServices = stylist.services.map(
+                    service => service.name
+                );
                 let hasServices = true;
                 for (let service of services.split(' ')) {
-                    if (stylist.services.indexOf(service) === -1) {
+                    if (stylistServices.indexOf(service) === -1) {
                         hasServices = false;
                         break;
                     }
@@ -253,12 +258,37 @@ export const searchStylist = async (req, res) => {
             });
         }
 
+        if (rat || min) {
+            if (min) {
+                returnedStylists = returnedStylists.filter(stylist => {
+                    return stylist.average >= min;
+                });
+            } else {
+                returnedStylists = returnedStylists.filter(stylist => {
+                    return stylist.average == rat;
+                });
+            }
+        }
+
+        if (long && lat) {
+            let distances = returnedStylists.map(stylist => {
+                let distance = stylist.getDistance(long, lat);
+                return { ...stylist._doc, distance };
+            });
+
+            let stylists = distances.sort((a, b) =>
+                a.distance > b.distance ? 1 : -1
+            );
+
+            returnedStylists = stylists;
+        }
+
         res.json({
             success: true,
             returnedStylists,
         });
     } catch (err) {
-        res.status(400).json({ msg: err });
+        next(err);
     }
 };
 

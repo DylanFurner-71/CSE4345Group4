@@ -10,6 +10,16 @@ const AppointmentSchema = new Schema({
         required: true,
     },
 
+    stylistName: {
+        type: String,
+        required: true,
+    },
+
+    userName: {
+        type: String,
+        default: null,
+    },
+
     user: {
         type: mongoose.ObjectId,
         default: null,
