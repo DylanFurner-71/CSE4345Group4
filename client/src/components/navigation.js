@@ -17,7 +17,7 @@ const Navigation = () => {
     if (user.role === "stylist"){
         return (       
              <div>
-            <Navbar bg="dark" variant="dark" expand="lg">
+            <Navbar bg="dark" variant="dark" expand="lg" className="p-3">
                 <Navbar.Brand href={`/stylistLanding/stylistId=${user.id}`}></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -36,7 +36,7 @@ const Navigation = () => {
     return (
         <div>
             {/*make nav bar bigger brigher*/}
-            <Navbar bg="light" variant="light" expand="lg" className="border-bottom">
+            <Navbar bg="light" variant="light" expand="lg" className="border-bottom p-3">
                 <Navbar.Brand href="/userLanding">Ultimate Style</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">

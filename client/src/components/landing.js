@@ -16,7 +16,7 @@ const Landing = () => {
                 <h1 className="mx-auto display-2 text-white">
                     <b>REVIEW</b> AND <b>BOOK</b> STYLISTS MADE EASY
                 </h1>
-                <div className="mx-auto d-flex justify-content-center">
+                <div className="mx-auto d-flex justify-content-center mt-lg-5">
 
                     {/*<Link*/}
                     {/*    to="/register"*/}
