@@ -10,7 +10,7 @@ import ReviewBox from "../profile/reviewBox";
 import Rating from "../rating/rating";
 import { useInput } from '../hooks/InputHook';
 import {addService} from "../../actions/stylistActions";
-
+import AppointmentsCard from "./appointmentsCard";
 const appointments2 = [
     {
       title: 'Website Re-Design Plan',
@@ -261,8 +261,8 @@ const appointments2 = [
 const UpcomingApppointments = () => {
   const [stylist, setStylist] = useState({});
   const stylistId = useParams();
-  // const currentDate = new Date().toLocaleString(),
-  const currentDate = new Date(2018, 6, 3, 15, 45);
+  const currentDate = new Date();
+  // const currentDate = new Date(2018, 6, 3, 15, 45);
   const URL = `http://localhost:8000`;  
   const { value:name, bind:bindName, reset:resetName } = useInput('');
   const { value:description, bind:bindDescription, reset:resetDescription } = useInput('');
@@ -286,7 +286,8 @@ const appointments =  appointments2.filter(event => event.startDate >= currentDa
     return (
         <div className='Services text-center'>
         <h5 className='card-title display-4'> Upcoming Apppointments </h5>
-        <div className='card'>
+        <AppointmentsCard appointments={appointments} currentDate={currentDate}/>
+        {/* <div className='card'>
             {appointments.map((appointment, i) => (
                 <div className='m-3' key={i}>
                     <div className='h3'>Appointment {i}</div>
@@ -297,7 +298,7 @@ const appointments =  appointments2.filter(event => event.startDate >= currentDa
                     <p>{currentDate.toLocaleDateString()}</p>
                 </div>
             ))}
-        </div>
+        </div> */}
     </div>
     );
             } else {

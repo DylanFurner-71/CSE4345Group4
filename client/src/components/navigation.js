@@ -17,7 +17,7 @@ const Navigation = () => {
         return (       
              <div>
             <Navbar bg="light" variant="light" expand="lg" className="border-bottom" fixed="top">
-                <Navbar.Brand href={`/stylistLanding/stylistId=${user.user.id}`}>Ultimate Style</Navbar.Brand>
+                <Navbar.Brand href={`/stylists/stylistLanding/stylistId=${user.user.id}`}>Ultimate Style</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
@@ -25,7 +25,7 @@ const Navigation = () => {
                         <Nav.Link href={`/stylists/appointments/past/stylistId=${user.user.id}`}>Past Appointments</Nav.Link>
                         <Nav.Link href={`/services/servicesOffered/stylistId=${user.user.id}`}>Services Offered</Nav.Link>
                         <Nav.Link href={`/stylists/stylistCalendar/stylistId=${user.user.id}`}>Calendar </Nav.Link>
-                        <Nav.Link href="/StylistProfile">My Profile</Nav.Link>
+                        <Nav.Link href="/stylists/StylistProfile">My Profile</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 {user.isAuthenticated ? <button onClick={onLogout} className="btn btn-warning mx-2">Logout</button> : <></>}

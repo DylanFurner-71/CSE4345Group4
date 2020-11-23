@@ -82,6 +82,7 @@ getStylistByID = (id) => {
     const {currentDate, data, addedAppointment, appointmentChanges, editingAppointment,
   } = this.state;
     return (
+      <div className="container">
       <Paper>
         <Scheduler
           data={data}
@@ -126,6 +127,7 @@ getStylistByID = (id) => {
           <AppointmentForm />
         </Scheduler>
       </Paper>
+      </div>
     );
   }
   componentDidMount() {
