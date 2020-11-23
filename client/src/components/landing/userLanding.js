@@ -42,7 +42,7 @@ const UserLanding = () => {
         'https://images.unsplash.com/photo-1599206676335-193c82b13c9e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1251&q=80'
     ]
     return (
-        <div className="h-100 align-items-center m-0">
+        <div className="h-100 w-100 align-items-center m-0">
             {isLoading ? <Loading /> :
                 <div className="justify-content-center align-items-center h-100">
                     <div className="row">
@@ -52,7 +52,7 @@ const UserLanding = () => {
                         </div>
                     </div>
                     <div className="row justify-content-center align-items-start h-100">
-                        <div className="card-deck col-11">
+                        <div className="card-deck col-10">
                             {services.map((service, index) => <ServiceBox
                                 key={index}
                                 imageURL={imageURLs[index]}

@@ -3,9 +3,11 @@ import {Button, Navbar, Nav, NavDropdown, Form, FormControl} from "react-bootstr
 import {useDispatch, useSelector, useStore} from "react-redux";
 import {logoutUser} from "../actions/authActions";
 import {Link} from "react-router-dom";
+import RegisterPopup from "./register/registerPopup";
 
 const Navigation = () => {
     const [name, setName] = useState('');
+
     const searchURL = '/stylists/search/'
     const user = useSelector(state => state.auth)
     const dispatch = useDispatch()
@@ -47,6 +49,7 @@ const Navigation = () => {
                         <Nav.Link href="/userProfile">My Profile</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
+
                 <Form inline>
                     <FormControl
                         onChange={event => setName(event.target.value)}
@@ -56,6 +59,7 @@ const Navigation = () => {
                         className="mr-sm-2"
                     />
                 </Form>
+
                 <a href={`${searchURL}name=${name}&service=&min=`}><Button variant="dark">Search</Button></a>
                 {user.isAuthenticated ? <button onClick={onLogout} className="btn btn-warning mx-2">Logout</button> : <></>}
 
