@@ -36,7 +36,7 @@ const AppointmentSchema = new Schema({
     title: {
         type: String,
         required: false,
-        default: 'Some Title',
+        default: 'Appointment',
     },
     category: {
         type: String,
@@ -50,7 +50,7 @@ const AppointmentSchema = new Schema({
     },
     pending: {
         type: Boolean,
-        default: false,
+        default: true,
     },
     canceled: {
         type: Boolean,
