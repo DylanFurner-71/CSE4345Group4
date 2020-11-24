@@ -248,7 +248,7 @@ export const searchStylist = async (req, res, next) => {
                     service => service.name
                 );
                 let hasServices = true;
-                for (let service of services.split(' ')) {
+                for (let service of services.split(',')) {
                     if (stylistServices.indexOf(service) === -1) {
                         hasServices = false;
                         break;
