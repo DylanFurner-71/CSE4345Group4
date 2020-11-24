@@ -92,6 +92,7 @@ export const AddAvailability = () => {
         stylistName: `${stylist.firstName}` + `  ${stylist.lastName}`,
         startDate: finalDate,
         endDate: finalDate2,
+        location: "Customer's Home",
             };
            const postAppt = async() => {
              console.log("posting appintment", appointment)
@@ -107,7 +108,6 @@ export const AddAvailability = () => {
                 console.log("Error upon errors")
             );   
               };
-console.log( day, times[startTime].startTime, times[startTime].endTime)
 postAppt();
    };
 function handleChangeDay(e) {
@@ -140,7 +140,7 @@ setStartTime(e.target.value);
     fetchAppointments()
   }, [appointments])
     return(<>
-       <form className="container text-info border border-info" style={{width: "50%", height: "50%", marginTop: "3%"}}>
+       <form className="container text-info border border-info rounded" style={{width: "50%", height: "50%", marginTop: "3%"}}>
         <h3 className="action">Add Your Availability for the upcoming week</h3>
           <div class="form-group row">
             <label for="inputState">Day</label>
@@ -178,27 +178,3 @@ setStartTime(e.target.value);
 }
 
 export default AddAvailability;
-
-// const CheckboxExample = () => {
-//   const [checkedItems, setCheckedItems] = useState({}); //plain object as state
-
-//   const handleChange = (event) => {
-//       // updating an object instead of a Map
-//       setCheckedItems({...checkedItems, [event.target.name] : event.target.checked });
-//   }
-
-//   useEffect(() => {
-//     console.log("checkedItems: ", checkedItems);
-//   }, [checkedItems]);  
-
-//   const checkboxes = [
-//       {
-//           name: 'check-box-1',
-//           key: 'checkBox1',
-//           label: 'Check Box 1',
-//       },
-//       {
-//           name: 'check-box-2',
-//           key: 'checkBox2',
-//           label: 'Check Box 2',
-//       }

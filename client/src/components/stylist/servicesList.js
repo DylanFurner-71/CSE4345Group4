@@ -29,12 +29,12 @@ const ServicesList = (props) => {
         <h5 className='card-title display-4'> Services </h5>
         <div className='card'>
             {services.map((service, i) => (
-                <div className='m-3' key={i}>
+                <div className='m-3 border border-info rounded text-left' key={i}>
                     <div className='h3'>Service {i}</div>
-                    <p> {service.name}</p>
-                    <p> {service.description}</p>
-                    <p> {service.category}</p>
-                    <p> {service.price}</p>
+                    <p className="font-weight-bold"> Service Name: {service.name}</p>
+                    <p> Description: {service.description}</p>
+                    <p> Cateogry: {service.category}</p>
+                    <p> ${service.price}</p>
 
                 </div>
             ))}

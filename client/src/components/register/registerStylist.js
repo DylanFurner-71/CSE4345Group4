@@ -20,6 +20,7 @@ class RegisterStylist extends Component {
             businessName: "",
             photo: "",
             address: "",
+            number: "",
         };
     }
     
@@ -48,6 +49,7 @@ class RegisterStylist extends Component {
             businessName: this.state.businessName,
             photo: this.state.photo,
             address: this.state.address,
+            number: this.state.number,
         };
         this.props.registerStylist(newUserStylist, this.props.history);
     };
@@ -80,7 +82,14 @@ class RegisterStylist extends Component {
                                         </div>
                                     </div>
 
-
+                                          <div className="form-label-group">
+                                        <input type="number" onChange={this.onChange} error={error.name}
+                                               value={this.state.number} id="number" className={classnames("form-control", {
+                                            invalid: error.name
+                                        })} placeholder="123456789" required autoFocus />
+                                            <label htmlFor="number">Phone Number</label>
+                                            <span className="red-text">{error.name}</span>
+                                    </div>
                                     <div className="form-label-group">
                                         <input type="email" onChange={this.onChange}
                                                value={this.state.email}

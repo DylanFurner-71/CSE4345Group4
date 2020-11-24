@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom'
 import StylistCalendar from "./stylist/stylistCalendar";
 import AddServices from "./stylist/addServices";
 import AddAvailability from "./stylist/AddAvailability";
+import UpcomingAppointments from "./stylist/upcomingAppointments";
 const appointmentsOrAdd = ({stylist}, {services}, {appointments}) => {
     console.log("servicios, ", services);
     console.log("appuntomentos, ", appointments);
@@ -57,12 +58,13 @@ const StylistLanding = () => {
 <div className="justify-content-center container valign-wrapper">
 <h1> Hello {`${user.firstName}  ${user.lastName}`} welcome to Ultimate Style!
             </h1>
-                <img src={user.photo}/>
                 <div className="container">
-
                 </div>
               {appointmentsOrAdd({stylist: user}, {services: services}, {appointments: appointments})}
-            <div>          
+            <div>
+                <div>
+                <UpcomingAppointments/>
+                </div>          
     <div className="row">
         <div className="col center-align">
                 <Link

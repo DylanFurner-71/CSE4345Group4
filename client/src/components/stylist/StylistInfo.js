@@ -45,6 +45,7 @@ const StylistInfo = () => {
                                         <h2 className="text-center display-4 mb-4">{`${stylist.firstName} ${stylist.lastName}`}</h2>
                                         <h5>Contact Information</h5>
                                         <ul className="list-group list-group-flush">
+                                        <li className="list-group-item">Phone Number: {stylist.number === '' ? 'None' : stylist.number}</li>
                                             <li className="list-group-item">Email: {stylist.email === '' ? 'None' : stylist.email}</li>
                                             <li className="list-group-item">Address: {stylist.address === '' ? 'None' : stylist.address}</li>
                                         </ul>

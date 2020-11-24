@@ -36,7 +36,7 @@ const AppointmentSchema = new Schema({
     title: {
         type: String,
         required: false,
-        default: 'Haircut',
+        default: 'Appointment',
     },
     category: {
         type: String,

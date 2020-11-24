@@ -67,29 +67,26 @@ export const AddServices = () => {
 onChange={event => setNewService(event.target.value)}
 */
     return(<>
-       <form className="container border border-secondary" style={{width: "50%", height: "50%", marginTop: "3%"}}>
+       <form className="container border border-secondary rounded" style={{width: "50%", height: "50%", marginTop: "3%"}}>
       <h3 className="action">Add Services Offered</h3>
-      <div class="form-row">
-      <div className="form-group col-md-6">
+      <div class="form-group row">
+      <div className="form-group col-md-4">
           <label htmlFor="name">Service Name</label>
           <input type="text" {...bindName} />
       </div>
-      <div className="form-group col-md-6">
+      <div className="form-group col-md-4">
                 <label htmlFor="ItemPrice">Price $:</label>
                   <input type="number" {...bindPrice} />
                 </div>
+      </div>
+      <div className="row">
+      <div className="form-group col-md-12">
+                <label htmlFor="ItemPrice">Description:</label>
+                  <input type="text" {...bindDescription} />
                 </div>
-      <div className="form-group">
-          <label htmlFor="description">Item Description</label>
-            <textarea type="text"
-                    id="description"
-                    name="description"
-                    className="form-control"
-                  
-                    bind={ bindDescription } />
-                                   </div>        
-                                   <div class="form-row">
-          <div class="form-group col-md-5">
+      </div>
+                                   <div class="form-group row">
+          <div class="form-group col-md-6">
       <label for="inputState">Category</label>
       <select id="inputState" class="form-control"
       // disabled={loading}
