@@ -80,7 +80,7 @@ getStylistByID = (id) => {
   render() {
     const {currentDate, data, addedAppointment, appointmentChanges, editingAppointment,
   } = this.state;
-  data.filter(event => event.pending === false);
+  data.filter(event => event.pending === true);
     return (
       <div className="container" style={{marginTop: "3%", marginBottom: "3%"}}>
         <h2> Your Calendar </h2>
