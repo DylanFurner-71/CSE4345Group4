@@ -11,12 +11,17 @@ const Services = ({ services, stylistId }) => {
         const getAppointments = async () => {
             await axios.get(URL+stylistId)
                 .then(res => {
+                    const now = new Date()
                     let returnedAppointments = res.data.appointments
-                    returnedAppointments.forEach(appointment => {
+                    const availableAppointments = returnedAppointments.filter(appointment => (appointment.user === null) && (new Date(appointment.endDate) > now))
+                    availableAppointments.sort((app1, app2) => new Date(app1.endDate) - new Date(app2.endDate))
+                    availableAppointments.forEach(appointment => {
                         let startDate = new Date(appointment.startDate)
                         appointment.startDate = startDate.toLocaleString()
+                        let endDate = new Date(appointment.endDate)
+                        appointment.endDate = endDate.toLocaleString()
                     })
-                    const availableAppointments = returnedAppointments.filter(appointment => appointment.user === null)
+                    console.log('Available: ', availableAppointments)
                     setAppointments(availableAppointments)
                 })
                 .catch(err => console.log(err))

@@ -75,6 +75,7 @@ const StylistProfile = () => {
                                     </TabPanel>
                                     <TabPanel>
                                         <ReviewBox
+                                            stylistId={stylistId.id}
                                             stylist={stylist.firstName}
                                             average={stylist.average}
                                             reviews={stylist.reviews}

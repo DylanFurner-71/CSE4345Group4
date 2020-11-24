@@ -25,9 +25,9 @@ const ServicePopup = ({show, onHide, appointments}) => {
                                 <BookingPopup
                                     show={nextModalShow}
                                     onHide={() => setNextModalShow(false)}
-                                    appointmentId={appointment._id}
+                                    appointment={appointment}
                                 />
-                                <button onClick={() => setNextModalShow(true)}>
+                                <button onClick={() => setNextModalShow(true)} className="btn btn-info">
                                     {
                                         appointment.startDate
                                     }

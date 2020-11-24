@@ -4,7 +4,7 @@ import axios from 'axios'
 import {useHistory} from "react-router";
 import {useSelector} from "react-redux";
 
-const BookingPopup = ({show, onHide, appointmentId}) => {
+const BookingPopup = ({show, onHide, appointment}) => {
 
     const history = useHistory()
     const bookURL = 'http://localhost:8000/api/users/appointments/book/'
@@ -12,7 +12,7 @@ const BookingPopup = ({show, onHide, appointmentId}) => {
     const userId = store.user.id
 
     const onBookAppointment = async () => {
-        await axios.put(bookURL+appointmentId, {userId: userId})
+        await axios.put(bookURL+appointment._id, {userId: userId})
             .then(res => {
                 console.log(res)
                 alert('Appointment booked successfully!')
@@ -20,6 +20,7 @@ const BookingPopup = ({show, onHide, appointmentId}) => {
             })
             .catch(err => console.log(err))
     }
+
 
     return (
         <div>
@@ -34,7 +35,9 @@ const BookingPopup = ({show, onHide, appointmentId}) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="mx-auto">
-                    <button className="warning" onClick={onBookAppointment}>Book Appointment!</button>
+                    <p>Stylist {appointment.stylistName}</p>
+                    <p>{appointment.startDate} to {appointment.endDate}</p>
+                    <button className="btn btn-warning" onClick={onBookAppointment}>Book Appointment!</button>
                 </Modal.Body>
             </Modal>
         </div>
