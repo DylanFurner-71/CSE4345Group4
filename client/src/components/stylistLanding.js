@@ -1,37 +1,59 @@
-import React, {Component} from "react";
+import React, {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
+import axios from 'axios';
 import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
 import {logoutUser} from "../actions/authActions";
 import {Link} from 'react-router-dom'
-import  * as StylistCalendar from "./stylist/stylistCalendar";
+import StylistCalendar from "./stylist/stylistCalendar";
 import AddServices from "./stylist/addServices";
 import AddAvailability from "./stylist/AddAvailability";
-const appointmentsOrAdd = ({stylist}) => {
-    if (stylist.appointments === undefined){
+const appointmentsOrAdd = ({stylist}, {services}, {appointments}) => {
+    console.log("servicios, ", services);
+    console.log("appuntomentos, ", appointments);
+    if (appointments.length <= 0){
             return (
                 <div>
             <AddAvailability/>
             </div>);
     }
-    if (stylist.services === undefined) {
+    if (services.length <= 0) {
         return (<div>
             You need to add services that you offer before you are able to have customers book appointments with
-        <AddServices stylist={stylist}/>
+        <AddServices />
         </div>
         );
        } 
-    if ((stylist.appointments != undefined)){
-        return (<StylistCalendar/>);
-    }
 }
 const StylistLanding = () => {
     const {user} = useSelector(state => state.auth);
+    const [appointments, setAppointments] = useState([]);
+    const [services, setServices] = useState([]);
+    useEffect(() => {
+        const fetchStylist = async () => {
+            await axios.get(`http://localhost:8000/api/stylists/${user.id}`)
+                .then(res => {
+                    const stylistData = res.data.stylist
+                    console.log(stylistData)
+                    setServices(stylistData.services)
+                })
+        }
+        fetchStylist()
+    }, [services]);
+
+    useEffect(() => {
+        const fetchAppointments = async () => {
+            await axios.get(`http://localhost:8000/api/stylists/appointments/${user.id}`)
+                .then(res => {
+                    const appts = res.data.appointments;
+                    setAppointments(appts)
+                })
+        }  
+        fetchAppointments()
+      }, [appointments]);
     return (
         <div className="container justify-content-center align-items-center h-100" style={{marginTop: "3%"}}>
             <div className="row">
-                {/* <div className="col-6 mx-auto  align-self-center text-center">
-                    <h1><b>Hello</b>, {user.firstName}</h1>
-                </div> */}
 <div className="justify-content-center container valign-wrapper">
 <h1> Hello {`${user.firstName}  ${user.lastName}`} welcome to Ultimate Style!
             </h1>
@@ -39,28 +61,8 @@ const StylistLanding = () => {
                 <div className="container">
 
                 </div>
-              {appointmentsOrAdd({stylist: user})}
-            <div>
-            {/* <Container fluid="sm">
-                        <Row>
-                        <Col><LoginCard accountType={userTypes.Customer}/></Col>
-                        <Col><Services accountType={userTypes.RestaurantEmployee}/></Col>
-                        </Row>
-                        <Row>
-                        <Col><LoginCard accountType={userTypes.Delivery}/></Col>
-                        <Col><LoginCard accountType={userTypes.WebManager}/></Col>
-                        </Row>
-            </Container> */}
-
-
-
-
-
-
-
-
-
-                
+              {appointmentsOrAdd({stylist: user}, {services: services}, {appointments: appointments})}
+            <div>          
     <div className="row">
         <div className="col center-align">
                 <Link

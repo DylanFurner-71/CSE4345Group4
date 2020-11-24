@@ -33,7 +33,7 @@ const PastAppointments = () => {
   }, [appointments2])
 if (appointments2 && appointments2.length > 0){
     return (
-        <div className='Services text-center border border-primary'>
+        <div className='Services text-center border border-primary' style={{marginTop: "3%"}}>
 
         <h5 className='card-title display-4'> Past Apppointments </h5>
         <AppointmentsCard appointments={appointments2} currentDate={currentDate}/>
@@ -41,8 +41,8 @@ if (appointments2 && appointments2.length > 0){
     );
             } else {
                 return (
-                    <div>
-                        There are no Past appointments. Please add one Below!
+                    <div style={{marginTop: "3%"}}>
+                        You have no previous appointments. Once you do, they will be shown here
                     </div>
                 )
             }

@@ -17,8 +17,7 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import {useParams} from 'react-router-dom'
 import axios from 'axios'
-
-
+import AddAvailability from "./AddAvailability";
 export default class StylistCalendar extends React.PureComponent {
       state = {
     data: [],
@@ -81,8 +80,12 @@ getStylistByID = (id) => {
   render() {
     const {currentDate, data, addedAppointment, appointmentChanges, editingAppointment,
   } = this.state;
+  data.filter(event => event.pending === false);
     return (
-      <div className="container">
+      <div className="container" style={{marginTop: "3%", marginBottom: "3%"}}>
+        <h2> Your Calendar </h2>
+        <div className="row">
+          <div className="col">
       <Paper>
         <Scheduler
           data={data}
@@ -109,13 +112,15 @@ getStylistByID = (id) => {
             endDayHour={18}
           />
           <WeekView
-            startDayHour={10}
+            startDayHour={9}
             endDayHour={19}
           />
              <MonthView
-            startDayHour={10}
+            startDayHour={9}
             endDayHour={19}
           />
+           <Toolbar />
+          <ViewSwitcher />
           <AllDayPanel />
           <EditRecurrenceMenu />
           <ConfirmationDialog />
@@ -127,6 +132,11 @@ getStylistByID = (id) => {
           <AppointmentForm />
         </Scheduler>
       </Paper>
+      </div>
+
+      </div>
+      <AddAvailability/>
+
       </div>
     );
   }

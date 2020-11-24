@@ -10,7 +10,7 @@ import ServicesOffered from "./components/stylist/servicesOffered";
 import UserProfile from "./components/profile/userProfile";
 import UpcomingApppointments from "./components/stylist/upcomingAppointments";
 import PastAppointments from "./components/stylist/pastApointments";
-
+import StylistInfo from "./components/stylist/StylistInfo";
 export const ROUTES = [
     {path: "/editProfile", component: EditProfile},
     {path: "/userProfile", component: UserProfile},
@@ -23,6 +23,8 @@ export const ROUTES = [
     {path: "/services/servicesOffered/stylistId=:id", component: ServicesOffered},
     {path: "/stylists/stylistCalendar/stylistId=:id", component: StylistCalendar},
     {path: "/stylists/appointments/upcoming/stylistId=:id", component: UpcomingApppointments},
-    {path: "/stylists/appointments/past/stylistId=:id", component: PastAppointments}
+    {path: "/stylists/appointments/past/stylistId=:id", component: PastAppointments},
+    {path: "/stylists/stylistId=:id/info", component: StylistInfo},
+
 
 ]

@@ -9,25 +9,23 @@ import {CustomPlaceholder} from "react-placeholder-image";
 import ReviewBox from "../profile/reviewBox";
 import Rating from "../rating/rating"
 const ServicesList = (props) => {
-    const [stylist, setStylist] = useState({});
+    const [services, setServices] = useState({});
     const stylistId = useParams();
     const URL = "http://localhost:8000/api";
-    const services = stylist.services;
     console.log("Services: ", services);
     useEffect(() => {
         const fetchStylist = async () => {
             await axios.get(`${URL}/stylists/${stylistId.id}`)
                 .then(res => {
                     const stylistData = res.data.stylist
-                    console.log(stylistData)
-                    setStylist(stylistData)
+                    setServices(stylistData.services)
                 })
         }
         fetchStylist()
-    }, [stylist])
-    if (stylist && stylist.services && stylist.services.length > 0){
+    }, [services])
+    if (services && services.length > 0){
     return (
-        <div className='Services text-center'>
+        <div className='Services text-center' style={{marginTop: "3%"}}>
         <h5 className='card-title display-4'> Services </h5>
         <div className='card'>
             {services.map((service, i) => (
@@ -35,7 +33,7 @@ const ServicesList = (props) => {
                     <div className='h3'>Service {i}</div>
                     <p> {service.name}</p>
                     <p> {service.description}</p>
-                    <p> {service.cateogry}</p>
+                    <p> {service.category}</p>
                     <p> {service.price}</p>
 
                 </div>

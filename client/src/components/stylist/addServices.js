@@ -32,7 +32,7 @@ export const AddServices = () => {
       }
       const callAxios = async () => {  
         await axios
-      .post(`/stylists/services/${stylistId.id}/add`, service)
+      .post(`${URL}/stylists/services/${stylistId.id}/add`, service)
         .then( res => {
           setStylist(res.data.stylist)})
           .catch(err =>
@@ -46,7 +46,6 @@ export const AddServices = () => {
       resetName();
       resetDescription();
       resetPrice();
-      // resetCategory();
   callAxios();   
 
    }
@@ -68,8 +67,8 @@ export const AddServices = () => {
 onChange={event => setNewService(event.target.value)}
 */
     return(<>
-       <form className="container bg-green text-success border border-primary" style={{width: "50%", height: "50%"}}>
-      <h3 className="action">Add Service Offered Just a reminder you need to add image support</h3>
+       <form className="container border border-secondary" style={{width: "50%", height: "50%", marginTop: "3%"}}>
+      <h3 className="action">Add Services Offered</h3>
       <div class="form-row">
       <div className="form-group col-md-6">
           <label htmlFor="name">Service Name</label>
@@ -83,10 +82,10 @@ onChange={event => setNewService(event.target.value)}
       <div className="form-group">
           <label htmlFor="description">Item Description</label>
             <textarea type="text"
-                    id="email"
-                    name="email"
+                    id="description"
+                    name="description"
                     className="form-control"
-                    value={description}
+                  
                     bind={ bindDescription } />
                                    </div>        
                                    <div class="form-row">

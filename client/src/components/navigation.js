@@ -25,7 +25,7 @@ const Navigation = () => {
                         <Nav.Link href={`/stylists/appointments/past/stylistId=${user.user.id}`}>Past Appointments</Nav.Link>
                         <Nav.Link href={`/services/servicesOffered/stylistId=${user.user.id}`}>Services Offered</Nav.Link>
                         <Nav.Link href={`/stylists/stylistCalendar/stylistId=${user.user.id}`}>Calendar </Nav.Link>
-                        <Nav.Link href="/stylists/StylistProfile">My Profile</Nav.Link>
+                        <Nav.Link href={`/stylists/stylistId=${user.user.id}/info`}>My Profile</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
                 {user.isAuthenticated ? <button onClick={onLogout} className="btn btn-warning mx-2">Logout</button> : <></>}

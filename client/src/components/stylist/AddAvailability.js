@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom'
 import axios from 'axios'
-import 'react-tabs/style/react-tabs.css'
-import { useInput } from '../hooks/InputHook';
 const times = [
   {
   startTime: "9:00 AM",
@@ -60,37 +58,35 @@ const times = [
 ];
 const days = [{day: "Monday"}, {day: "Tuesday"}, {day: "Wednesday"}, {day: "Thursday"}, {day: "Friday"}]
 export const AddAvailability = () => {
+  const currentDate = new Date();
   const [stylist, setStylist] = useState({});
   const [appointments, setAppointments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [checkedItems, setCheckedItems] = useState({}); //plain object as state
   const stylistId = useParams();
   const URL = `http://localhost:8000/api`;  
-  const [day, setDay] = useState(0);
+  const [day, setDay] = useState(1);
   const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
-  //stylistName: `${stylist.firstName} ${stylist.lastName}`,
-  //startDate, end date are date objects selected from a drop down list
     const onSend = () => {
-      const currentDate = new Date();
       console.log("FIRST", currentDate);
       const dOTW = currentDate.getDay();
+      const newDay = Number(day);
+      let newDate = 1;
       if (dOTW > day){
         console.log("DAY OF THE WEEK", dOTW);
         console.log("DAY", day);
-        currentDate.setDate(currentDate.getDate() + (7 - (5 - day)));
-      } else if (dOTW === day){
-        currentDate.setDate(currentDate.getDate() + 7);
+        newDate = (currentDate.getDate() + (7 - (5 - day)));
+        console.log(newDate);
+      } else if (dOTW === parseInt(day)){
+        newDate = (currentDate.getDate() + 7);
+        console.log("DOTW===DAY", currentDate);
+        console.log(newDate);
       } else if (dOTW < day){
-        currentDate.setDate(currentDate.getDate() + day);
-
+        newDate=parseInt(currentDate.getDate()) + parseInt(day) - dOTW;
+        console.log(newDate);
       }
-      const finalDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay(), times[startTime].tS, 0, 0);
-      const finalDate2 = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDay(), times[startTime].tF, 0, 0);
-      console.log("Final date", finalDate);
-      console.log("Final date2", finalDate2);
-      console.log("FML");
-      console.log(currentDate);
+      const finalDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), newDate, times[startTime].tS, 0, 0);
+      const finalDate2 = new Date(currentDate.getFullYear(), currentDate.getMonth(), newDate, times[startTime].tF, 0, 0);
       const appointment = {
         stylist: stylistId.id,
         stylistName: `${stylist.firstName}` + `  ${stylist.lastName}`,
@@ -102,7 +98,7 @@ export const AddAvailability = () => {
               await axios
             .post(`http://localhost:8000/api/stylists/appointments/${stylistId.id}`, appointment)
               .then( res => {
-                setAppointments(res.data.appointment)})
+                setAppointments(res.data.appointments)})
                 .catch(err =>
                 //   dispatch({
                 //     type: GET_ERRORS,
@@ -120,9 +116,7 @@ function handleChangeDay(e) {
 function handleChangeStartTime(e) {
 setStartTime(e.target.value);
 }
-function handleChangeEndTime(e) {
-setEndTime(e.target.value)
-}
+
     useEffect(() => {
       const fetchStylist = async () => {
           await axios.get(`${URL}/stylists/${stylistId.id}`)
@@ -146,31 +140,26 @@ setEndTime(e.target.value)
     fetchAppointments()
   }, [appointments])
     return(<>
-       <form className="container bg-green text-info border border-primary" style={{width: "50%", height: "50%"}}>
-      <h3 className="action">Add Your Availability for the upcoming week</h3>
-      <div class="form-group col-md-5">
-      <label for="inputState">Day</label>
-      <select id="inputState" class="form-control"
-      onChange={handleChangeDay} value={day}>
-        <option selected>Choose the day of the week that you would like to input your availability</option>
-        {days.map((items, i) => (
-        <option
-          key={i}
-          value={i+1}
-        >
+       <form className="container text-info border border-info" style={{width: "50%", height: "50%", marginTop: "3%"}}>
+        <h3 className="action">Add Your Availability for the upcoming week</h3>
+          <div class="form-group row">
+            <label for="inputState">Day</label>
+              <select id="inputState" class="form-control"
+                onChange={handleChangeDay}>
+                  <option selected>Choose the day of the week that you would like to input your availability</option>
+                    {days.map((items, i) => (
+                    <option
+                    key={i}
+                    value={i+1}
+                    >
                     {items.day}
-        </option>
-      ))}      
-      </select>
-      </div>
-      <div class="form-row">
-                <div class="form-group col-md-5">
-      <label for="inputState">Add an apointment time</label>
+                    </option>
+                    ))}      
+                    </select>
+                    <label for="inputState">Add an apointment time</label>
       <select id="inputState" class="form-control"
-      // disabled={loading}
-      // value={startTime}
       onChange={handleChangeStartTime}>
-        <option selected>Book an available slot</option>
+        <option selected>Add an available time</option>
         {times.map((items, i) => (
         <option
           key={i}
@@ -181,8 +170,6 @@ setEndTime(e.target.value)
       ))}      
       </select>
       </div>
-
-                </div>
             <input className="bg-primary" type="button" value="Submit"
                onClick={ () => onSend()} text="helloworldAddServices"/>
   

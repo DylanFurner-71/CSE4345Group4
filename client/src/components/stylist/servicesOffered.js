@@ -29,7 +29,7 @@
                         fetchStylist()
                     }, [stylist])
                         return (
-                            <div className="container-fluid w-75 my-2">
+                            <div className="container-fluid" style={{marginTop: "3%", marginBottom: "3%"}}>
                                 <Link to={`/stylists/stylistLanding/stylistId=${stylistId.id}`}>
                              Back To Your Home Page                                
                              </Link>

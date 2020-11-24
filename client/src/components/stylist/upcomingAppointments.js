@@ -15,10 +15,6 @@ const UpcomingApppointments = () => {
   const [appointments2, setAppointments] = useState([]);
   const stylistId = useParams();
   const currentDate = new Date();
-  const { value:name, bind:bindName, reset:resetName } = useInput('');
-  const { value:description, bind:bindDescription, reset:resetDescription } = useInput('');
-  const { value:price, bind: bindPrice, reset: resetPrice } = useInput('');
-  const { value:category, bind: bindCateogry, reset: resetCategory} = useInput('');
 useEffect(() => {
   const fetchAppointments = async () => {
       await axios.get(`http://localhost:8000/api/stylists/appointments/${stylistId.id}`)
@@ -32,15 +28,15 @@ useEffect(() => {
 }, [appointments2])
 if (appointments2 && appointments2.length > 0){
     return (
-        <div className='Services text-center'>
+        <div className='Services text-center' style={{marginTop: "3%"}}>
         <h5 className='card-title display-4'> Upcoming Apppointments </h5>
         <AppointmentsCard appointments={appointments2} currentDate={currentDate}/>
     </div>
     );
             } else {
                 return (
-                    <div>
-                        There are no upcoming appointments. Please add one Below!
+                    <div style={{marginTop: "3%"}}> 
+                        You have no upcoming appointments. Just wait and that will change!
                     </div>
                 )
             }
