@@ -10,7 +10,7 @@ const ChangePassword = () => {
     const userType = store.getState().auth
     let {id} = useParams();
     const [newPassword, setNewPassword] = useState('');
-    const URL = 'http://localhost:8000/users/resetPassword/'
+    const URL = 'http://localhost:8000/api/users/resetPassword/'
     const onSend = async event => {
         event.preventDefault()
         await axios.put(URL+{id}.id, {

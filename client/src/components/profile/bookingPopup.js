@@ -7,7 +7,7 @@ import {useSelector} from "react-redux";
 const BookingPopup = ({show, onHide, appointmentId}) => {
 
     const history = useHistory()
-    const bookURL = 'http://localhost:8000/users/appointments/book/'
+    const bookURL = 'http://localhost:8000/api/users/appointments/book/'
     const store = useSelector(state => state.auth)
     const userId = store.user.id
 

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 
 const SendPassword = () => {
-    const url = 'http://localhost:8000/users/forgotPassword'
+    const url = 'http://localhost:8000/api/users/forgotPassword'
     const [email, setEmail] = useState('');
 
     const onSend = async event => {

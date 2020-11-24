@@ -22,7 +22,7 @@ const EditProfile = () => {
         }}
     useEffect(() => {
         const fetchUser = async () => {
-            await axios.get("http://localhost:8000/users/me", config)
+            await axios.get("http://localhost:8000/api/users/me", config)
                 .then(res => {
                     const userData = res.data.user
                     setIsLoading(false)
@@ -40,7 +40,7 @@ const EditProfile = () => {
     // Save the profile
     const onSubmit = async event => {
         event.preventDefault()
-        await axios.put(`http://localhost:8000/users/${userId}`, {
+        await axios.put(`http://localhost:8000/api/users/${userId}`, {
             firstName: firstName,
             lastName: lastName,
             address: address,

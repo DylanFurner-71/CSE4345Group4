@@ -12,7 +12,7 @@ const StylistProfile = () => {
     const [stylist, setStylist] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const stylistId = useParams()
-    const URL = "http://localhost:8000/stylists/"
+    const URL = "http://localhost:8000/api/stylists/"
 
     useEffect(() => {
         const fetchStylist = async () => {

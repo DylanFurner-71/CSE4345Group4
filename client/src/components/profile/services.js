@@ -6,7 +6,7 @@ const Services = ({ services, stylistId }) => {
     const [modalShow, setModalShow] = useState(false);
     const [appointments, setAppointments] = useState([]);
 
-    const URL = 'http://localhost:8000/stylists/appointments/'
+    const URL = 'http://localhost:8000/api/stylists/appointments/'
     useEffect(() => {
         const getAppointments = async () => {
             await axios.get(URL+stylistId)

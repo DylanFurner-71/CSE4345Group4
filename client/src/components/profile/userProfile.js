@@ -23,11 +23,11 @@ const UserProfile = () => {
     const store = useSelector(state => state.auth)
     const userId = store.user.id
 
-    const URL = 'http://localhost:8000/users/appointments/'
+    const URL = 'http://localhost:8000/api/users/appointments/'
 
     useEffect(() => {
         const fetchUser = async () => {
-            await axios.get("http://localhost:8000/users/me", {
+            await axios.get("http://localhost:8000/api/users/me", {
                 headers: {
                     Authorization: 'Bearer '+token
                 }

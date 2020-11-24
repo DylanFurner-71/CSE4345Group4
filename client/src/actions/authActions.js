@@ -7,7 +7,7 @@ import {
     USER_LOADING
 } from "./types";
 // Register User
-const api = "http://localhost:8000";
+const api = "http://localhost:8000/api";
 axios.defaults.baseURL = api;
 export const registerUser = (userData, history) => dispatch => {
     axios

@@ -7,7 +7,7 @@ import SearchFilter from './searchFilter';
 import { Map } from './map';
 
 const StylistsList = () => {
-    const URL = 'http://localhost:8000/stylists/search';
+    const URL = 'http://localhost:8000/api/stylists/search';
     const [stylists, setStylists] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 

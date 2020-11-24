@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 
 const ServiceBox = ({imageURL, service}) => {
-    const searchURL = '/stylists/search/services'
+    const searchURL = '/api/stylists/search/services'
     return (
 
         <div className="card m-3">
