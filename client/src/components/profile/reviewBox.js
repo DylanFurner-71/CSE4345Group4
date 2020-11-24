@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Rating from '../rating/rating';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const ReviewBox = props => {
     return (
@@ -11,11 +11,15 @@ const ReviewBox = props => {
                 <h3>
                     <Rating rating={props.average} />
                 </h3>
-                <Link to={`/addReview/stylistId=${props.stylistId}`} className="btn btn-primary m-auto m-2">Add a review</Link>
+                <Link
+                    to={`/addReviews/stylistId=${props.stylistId}`}
+                    className='btn btn-primary m-auto m-2'
+                >
+                    Add a review
+                </Link>
             </div>
 
             <div className='ReviewBox-Reviews'>
-
                 <header className='display-3 text-center'>Reviews</header>
                 {props.reviews.map((review, index) => (
                     <div className='Review-Card card my-2 p-2' key={index}>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import {useHistory, useParams} from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
+import base_url from '../../base_url';
 
 export const ReviewForm = () => {
     // this didn't work on my end...
@@ -9,10 +10,10 @@ export const ReviewForm = () => {
     const [rating, setRating] = useState(0);
     const [reviewNote, setReviewNote] = useState('');
     const stylistId = useParams();
-    let history = useHistory()
+    let history = useHistory();
 
     const submitForm = async event => {
-        event.preventDefault()
+        event.preventDefault();
         if (rating === 0) {
             alert('Must add a rating');
         } else {
@@ -22,19 +23,16 @@ export const ReviewForm = () => {
                 reviewerName: `${user.firstName} ${user.lastName}`,
                 score: rating,
                 notes: reviewNote,
-            }
-            console.log(review)
-            await axios.post(
-                'http://localhost:8000/api/stylists/postReview',
-                review
-            )
+            };
+            console.log(review);
+            await axios
+                .post(`http://${base_url}:8000/api/stylists/postReview`, review)
                 .then(res => {
-                    console.log(res)
-                    alert("Review added!")
-                    history.push(`/stylist/stylistId=${stylistId.id}`)
+                    console.log(res);
+                    alert('Review added!');
+                    history.push(`/stylist/stylistId=${stylistId.id}`);
                 })
-                .catch(err => console.log(err))
-
+                .catch(err => console.log(err));
         }
     };
 
@@ -71,13 +69,12 @@ export const ReviewForm = () => {
                     onChange={e => setReviewNote(e.target.value)}
                     value={reviewNote}
                     className='form-control w-75 mx-auto h-75'
-                > </textarea>
+                >
+                    {' '}
+                </textarea>
             </div>
 
-            <button
-                type="submit"
-                className='btn btn-primary d-block mx-auto'
-            >
+            <button type='submit' className='btn btn-primary d-block mx-auto'>
                 {' '}
                 Add Review{' '}
             </button>
