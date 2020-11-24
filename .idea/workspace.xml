@@ -26,17 +26,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8e476ec-e25f-4be8-b6da-605887600598" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/client/src/actions/authActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/authActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/changePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/changePassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/landing/serviceBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/landing/serviceBox.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/landing/userLanding.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/landing/userLanding.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/profile/reviewForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/profile/bookingPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/bookingPopup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/profile/editProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/editProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/reviewBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/reviewBox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/servicePopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/servicePopup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/profile/services.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/services.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/profile/stylistProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/stylistProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/profile/userProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/userProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/search/stylistsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/search/stylistsList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/sendPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/sendPassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/stylistController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/stylistController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +119,7 @@
       <workItem from="1606143939106" duration="6020000" />
       <workItem from="1606151838565" duration="679000" />
       <workItem from="1606167380188" duration="2056000" />
+      <workItem from="1606244306523" duration="5068000" />
     </task>
     <servers />
   </component>
@@ -156,11 +156,11 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="280" y="102" key="MultipleFileMergeDialog/0.0.1280.680@0.0.1280.680" timestamp="1605902545491" />
-    <state x="1583" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1606193718441">
+    <state x="1583" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1606247689168">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="608" y="155" width="672" height="330" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1605982741317" />
-    <state x="1583" y="320" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1606193718441" />
+    <state x="1583" y="320" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1606247689168" />
     <state x="1583" y="320" width="672" height="678" key="search.everywhere.popup/3840.663.1280.680/0.0.2560.1400@0.0.2560.1400" timestamp="1603413634367" />
   </component>
 </project>

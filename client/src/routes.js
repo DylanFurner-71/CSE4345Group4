@@ -8,6 +8,8 @@ import StylistLanding from "./components/stylistLanding";
 import ServicesOffered from "./components/stylist/servicesOffered";
  import StylistCalendar from "./components/stylist/stylistCalendar";
 import UserProfile from "./components/profile/userProfile";
+import React from "react";
+import {ReviewForm} from "./components/profile/reviewForm";
 
 export const ROUTES = [
     {path: "/editProfile", component: EditProfile},
@@ -20,5 +22,6 @@ export const ROUTES = [
     {path: "/stylists/stylistLanding/stylistId=:id", component: StylistLanding},
     {path: "/services/servicesOffered/stylistId=:id", component: ServicesOffered},
     {path: "/stylists/stylistCalendar/stylistId=:id", component: StylistCalendar},
-    {path: "/stylist/stylistId=:id", component: StylistProfile}
+    {path: "/stylist/stylistId=:id", component: StylistProfile},
+    {path: '/addReview/stylistId=:id', component: ReviewForm}
 ]
