@@ -4,10 +4,12 @@ import ServiceBox from "./serviceBox";
 import axios from 'axios'
 import Loading from "../loading";
 import {Link} from 'react-router-dom'
+import base_url from '../../base_url'
+
 
 const UserLanding = () => {
     const {user} = useSelector(state => state.auth)
-    const URL = 'http://localhost:8000/api/users/appointments/'
+    const URL = `http://${base_url}:8000/api/users/appointments/`
     const userId = user.id
     const [numAppointments, setNumAppointments] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
