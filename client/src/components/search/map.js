@@ -38,7 +38,7 @@ export const LocationPin = ({
                     <hr />
                     <ul>
                         {stylist.services.map((service, i) => {
-                            return <li key={i}>{service}</li>;
+                            return <li key={i}>{service.name}</li>;
                         })}
                     </ul>
                     <hr />
