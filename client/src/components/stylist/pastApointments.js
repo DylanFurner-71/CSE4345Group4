@@ -25,23 +25,13 @@ const PastAppointments = () => {
         await axios.get(`http://localhost:8000/api/stylists/appointments/${stylistId.id}`)
             .then(res => {
                 const appts = res.data.appointments.filter(event => { return Date.parse(event.startDate) <= Date.parse(currentDate)});
-                console.log(appts);
                 setAppointments(appts)
             })
     }
     
     fetchAppointments()
   }, [appointments2])
-  let appointments5;
 if (appointments2 && appointments2.length > 0){
-    appointments5 = appointments2;
-    
-    appointments5.filter(event => {
-        console.log(Date.parse(event.startDate) <= Date.parse(currentDate));
-        return Date.parse(event.startDate) <= Date.parse(currentDate)});
-    console.log("CURR APPOINTMENTS: ", appointments5);
-}
-if (appointments5 && appointments5.length > 0){
     return (
         <div className='Services text-center border border-primary'>
 

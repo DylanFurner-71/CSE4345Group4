@@ -31,13 +31,10 @@ useEffect(() => {
   fetchAppointments()
 }, [appointments2])
 if (appointments2 && appointments2.length > 0){
-let appointments = appointments2;
-appointments.filter(event => event.startDate >= currentDate);
-console.log("upcoming", appointments)
     return (
         <div className='Services text-center'>
         <h5 className='card-title display-4'> Upcoming Apppointments </h5>
-        <AppointmentsCard appointments={appointments} currentDate={currentDate}/>
+        <AppointmentsCard appointments={appointments2} currentDate={currentDate}/>
     </div>
     );
             } else {

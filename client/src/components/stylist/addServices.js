@@ -6,6 +6,9 @@ import { useInput } from '../hooks/InputHook';
 
 // Register User
 // import { MenuItem } from '../temporaryObjects/restaurantModel';
+const categories = [
+  'Men\'s Haircut', 'Women\'s Haircut', 'Braids', 'Color', 'Facial', 'Nails'
+]
 export const AddServices = () => {
   const [stylist, setStylist] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -14,7 +17,11 @@ export const AddServices = () => {
   const { value:name, bind:bindName, reset:resetName } = useInput('');
   const { value:description, bind:bindDescription, reset:resetDescription } = useInput('');
   const { value:price, bind: bindPrice, reset: resetPrice } = useInput(0);
-  const { value:category, bind: bindCateogry, reset: resetCategory} = useInput('');
+  const [category, setCategory] = useState('');
+
+  function handleChangeCategory(e) {
+    setCategory(e.target.value);
+    }
 
     const onSend = () => {
       const service = {
@@ -39,7 +46,7 @@ export const AddServices = () => {
       resetName();
       resetDescription();
       resetPrice();
-      resetCategory();
+      // resetCategory();
   callAxios();   
 
    }
@@ -60,7 +67,6 @@ export const AddServices = () => {
 /*
 onChange={event => setNewService(event.target.value)}
 */
-
     return(<>
        <form className="container bg-green text-success border border-primary" style={{width: "50%", height: "50%"}}>
       <h3 className="action">Add Service Offered Just a reminder you need to add image support</h3>
@@ -82,15 +88,25 @@ onChange={event => setNewService(event.target.value)}
                     className="form-control"
                     value={description}
                     bind={ bindDescription } />
-                                   </div>
-                                  
-                                  
-                                  
+                                   </div>        
                                    <div class="form-row">
-                                   <div className="form-group col">
-          <label htmlFor="category">Category (soon will be a list of eli's enumerated services</label>
-          <span><input type="text" {...bindCateogry} /></span>
-          </div>
+          <div class="form-group col-md-5">
+      <label for="inputState">Category</label>
+      <select id="inputState" class="form-control"
+      // disabled={loading}
+      // value={startTime}
+      onChange={handleChangeCategory}>
+        <option selected>Select the category this service falls under</option>
+        {categories.map((items, i) => (
+        <option
+          key={i}
+          value={items}
+        >
+                    {items}
+        </option>
+      ))}      
+      </select>
+      </div>
       </div>
       
             <input className="bg-primary" type="button" value="Submit"

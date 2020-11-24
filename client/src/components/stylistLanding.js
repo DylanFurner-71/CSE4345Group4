@@ -5,11 +5,13 @@ import {logoutUser} from "../actions/authActions";
 import {Link} from 'react-router-dom'
 import  * as StylistCalendar from "./stylist/stylistCalendar";
 import AddServices from "./stylist/addServices";
+import AddAvailability from "./stylist/AddAvailability";
 const appointmentsOrAdd = ({stylist}) => {
     if (stylist.appointments === undefined){
             return (
                 <div>
-            You have no appointments and we will make functionality soon undefined option</div>);
+            <AddAvailability/>
+            </div>);
     }
     if (stylist.services === undefined) {
         return (<div>
