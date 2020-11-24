@@ -1,40 +1,37 @@
 import React from 'react';
-import {Modal} from "react-bootstrap";
-import axios from 'axios'
-import {useHistory} from "react-router";
-import {useSelector} from "react-redux";
+import { Modal } from 'react-bootstrap';
+import axios from 'axios';
+import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
+import base_url from '../../base_url';
 
-const BookingPopup = ({show, onHide, appointmentId}) => {
-
-    const history = useHistory()
-    const bookURL = 'http://localhost:8000/api/users/appointments/book/'
-    const store = useSelector(state => state.auth)
-    const userId = store.user.id
+const BookingPopup = ({ show, onHide, appointmentId }) => {
+    const history = useHistory();
+    const bookURL = `http://${base_url}:8000/api/users/appointments/book/`;
+    const store = useSelector(state => state.auth);
+    const userId = store.user.id;
 
     const onBookAppointment = async () => {
-        await axios.put(bookURL+appointmentId, {userId: userId})
+        await axios
+            .put(bookURL + appointmentId, { userId: userId })
             .then(res => {
-                console.log(res)
-                alert('Appointment booked successfully!')
-                history.push('/userLanding')
+                console.log(res);
+                alert('Appointment booked successfully!');
+                history.push('/userLanding');
             })
-            .catch(err => console.log(err))
-    }
+            .catch(err => console.log(err));
+    };
 
     return (
         <div>
-            <Modal
-                show={show}
-                onHide={onHide}
-                centered
-            >
+            <Modal show={show} onHide={onHide} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>
-                        Finalize Booking
-                    </Modal.Title>
+                    <Modal.Title>Finalize Booking</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="mx-auto">
-                    <button className="warning" onClick={onBookAppointment}>Book Appointment!</button>
+                <Modal.Body className='mx-auto'>
+                    <button className='warning' onClick={onBookAppointment}>
+                        Book Appointment!
+                    </button>
                 </Modal.Body>
             </Modal>
         </div>
