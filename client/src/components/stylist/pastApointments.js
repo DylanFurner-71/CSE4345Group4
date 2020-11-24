@@ -25,7 +25,7 @@ const PastAppointments = () => {
         await axios.get(`http://localhost:8000/api/stylists/appointments/${stylistId.id}`)
             .then(res => {
                 const appts = res.data.appointments.filter(event => { return Date.parse(event.startDate) <= Date.parse(currentDate)});
-                setAppointments(appts.filter(appt => appt.pending === false))
+                setAppointments(appts.filter(appt => appt.pending === true))
             })
     }
     
