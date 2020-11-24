@@ -51,8 +51,8 @@ const StylistSchema = new Schema(
             default: 'no-photo.jpg',
         },
         services: {
-                type: [
-                    {
+            type: [
+                {
                     name: {
                         type: String,
                         default: 'no-name',
@@ -86,8 +86,8 @@ const StylistSchema = new Schema(
                         ],
                     },
                 },
-                ],
-            },
+            ],
+        },
 
         address: {
             type: String,
@@ -216,6 +216,25 @@ StylistSchema.methods.getSignedJwtToken = function () {
     );
 };
 StylistSchema.methods.geocodeAddress = function (address) {};
+
+StylistSchema.methods.getDistance = function (long, lat) {
+    let d;
+    if (this.location.coordinates) {
+        const R = 6371e3; // metres
+        const φ1 = (lat * Math.PI) / 180; // φ, λ in radians
+        const φ2 = (this.location.coordinates[1] * Math.PI) / 180;
+        const Δφ = ((this.location.coordinates[1] - lat) * Math.PI) / 180;
+        const Δλ = ((this.location.coordinates[0] - long) * Math.PI) / 180;
+
+        const a =
+            Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+            Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        d = R * c; // in metres
+    }
+    return Math.floor(d / 1609.344);
+};
 
 // Match plain pwd and hashed pwd
 
