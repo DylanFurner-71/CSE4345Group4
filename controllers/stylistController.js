@@ -5,7 +5,8 @@ import Appointment from '../models/appointmentModel.js';
 import ErrorResponse from '../utils/errorResponse.js';
 import sendEmail from '../utils/sendEmail.js';
 import crypto from 'crypto';
-
+import {AllTexasIds} from "../utils/AllTexasIds.js";
+import TexasId from "../models/texasIdModel";
 //@desc          Get all stylists from DB
 //@route         GET /stylists
 //@access        Private?
@@ -53,6 +54,12 @@ export const stylistLogin = async (req, res, next) => {
 //@route         POST /stylists/register
 //@access        Public
 export const createStylist = async (req, res, next) => {
+    let texasId = await TexasId.find({LICENSE_NUMBER:req.body.texasId});
+    console.log("texasId body: ", req.body.texasId);
+    if (!texasId) {
+        console.log("No texas id");
+        return next(new ErrorResponse('Your cosmetology license is invalid', 400));
+    }
     let stylist = await Stylist.findOne({ email: req.body.email });
     if (!stylist) {
         stylist = new Stylist(req.body);
@@ -60,6 +67,7 @@ export const createStylist = async (req, res, next) => {
         return next(new ErrorResponse('Stylist already exists', 400));
     }
     try {
+ 
         const newStylist = await stylist.save();
         //create token
         const token = stylist.getSignedJwtToken();
