@@ -7,10 +7,8 @@ Requirements to run product
 Sudo access? Yes
 Cocoapods? Yes
 Yarn? Not Required
-Gem? Maybe
-Jest? Yes
 ESLint? Yes
-MongoDB? Yes, until we deploy full time to azure
+MongoDB? Yes,
 
 
 Jest install
@@ -71,9 +69,7 @@ Npm install app
 Npm run start 
 
 Running the Front End:
-This will likely be in a separate repository
-Colors.css
-https://clrs.cc/
-
+cd client && npm install
+npm start
 
 
