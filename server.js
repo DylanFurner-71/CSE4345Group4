@@ -8,7 +8,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 mongooseConnect();
-
 //routes to our app
 app.get("/", (req, res) => {
   res.send("/ is running just fine");

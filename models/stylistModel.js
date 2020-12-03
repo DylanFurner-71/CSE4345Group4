@@ -50,6 +50,11 @@ const StylistSchema = new Schema(
             type: String,
             default: 'no-photo.jpg',
         },
+        texasId: {
+            type: Number,
+            required: [true, 'Please provide a valid cosmetology license number'],
+            select: false,
+        },
         services: {
             type: [
                 {

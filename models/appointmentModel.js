@@ -50,7 +50,7 @@ const AppointmentSchema = new Schema({
     },
     pending: {
         type: Boolean,
-        default: true,
+        default: false,
     },
     canceled: {
         type: Boolean,
