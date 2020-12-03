@@ -16,7 +16,7 @@ class RegisterStylist extends Component {
             email: "",
             password: "",
             password2: "",
-            error: "",
+            error: {},
             businessName: "",
             photo: "",
             address: "",
@@ -52,6 +52,20 @@ class RegisterStylist extends Component {
             number: this.state.number,
         };
         this.props.registerStylist(newUserStylist, this.props.history);
+        this.setState({
+            firstName: "",
+            lastName: "",
+            texasID: "",
+            email: "",
+            password: "",
+            password2: "",
+            error: {},
+            businessName: "",
+            photo: "",
+            address: "",
+            number: "",
+
+        });
     };
     render() {
         const { error } = this.state;
@@ -132,9 +146,9 @@ class RegisterStylist extends Component {
                                             <span className="red-text">{error.name}</span>
                                     </div>
                                     <div className="form-label-group">
-                                    <input type="number" onChange={this.onChange} error={error.name}
+                                    <input type="number" onChange={this.onChange} error={error.texasID}
                                                value={this.state.texasID} id="texasID" className={classnames("form-control", {
-                                            invalid: error.name
+                                            invalid: error.texasID
                                         })} placeholder="123456789" required autoFocus />
                                             <label htmlFor="texasID">Texas ID Number</label>
                                             <span className="red-text">{error.texasID}</span>

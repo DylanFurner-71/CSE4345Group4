@@ -54,11 +54,11 @@ export const stylistLogin = async (req, res, next) => {
 //@route         POST /stylists/register
 //@access        Public
 export const createStylist = async (req, res, next) => {
-    let texasId = await TexasId.find({LICENSE_NUMBER:req.body.texasId});
-    console.log("texasId body: ", req.body.texasId);
-    if (!texasId) {
+    const texasId = await TexasId.find({LICENSE_NUMBER: req.body.texasId})
+    const License = texasId[0].LICENSE_NUMBER;
+    if (License != req.body.texasId) {
         console.log("No texas id");
-        return next(new ErrorResponse('Your cosmetology license is invalid', 400));
+        return next(new ErrorResponse('Your cosmetology license is invalid', 404));
     }
     let stylist = await Stylist.findOne({ email: req.body.email });
     if (!stylist) {

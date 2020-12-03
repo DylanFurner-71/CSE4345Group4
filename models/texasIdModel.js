@@ -16,13 +16,13 @@ const TexasIdSchema = new Schema({
     },
 
     LICENSE_EXPIRATION_DATE: {
-        type: String,
-        default: false,
+        type: Date,
+        required: false,
     },
 
     COUNTY: {
         type: String,
-        default: false,
+        required: false,
     },
 
     NAME: {
@@ -44,9 +44,9 @@ const TexasIdSchema = new Schema({
         default: 'haircut',
     },
     PHONE_NUMBER: {
-        type: String,
+        type: Number,
         required: false,
-        default: 'Home',
+        default: 0,
     },
     BUSINESS_NAME: {
         type: String,
@@ -66,8 +66,9 @@ const TexasIdSchema = new Schema({
         type: String,
         default: 'false',
     },
+    
     BUSINESS_COUNTY_CODE: {
-        type: String,
+        type: Number,
         default: 'buziness',
         required: false,
     },
@@ -95,8 +96,12 @@ const TexasIdSchema = new Schema({
             type: String,
             required: false,
             default: 'false',
-    }
+    },
 
-});
+},     { collection: 'texasId' }
+);
 
 export default mongoose.model('TexasId', TexasIdSchema);
+{
+
+}
