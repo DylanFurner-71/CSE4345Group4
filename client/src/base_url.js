@@ -1,2 +1,2 @@
-const base_url = '13.58.55.187';
+const base_url = 'localhost';
 export default base_url;

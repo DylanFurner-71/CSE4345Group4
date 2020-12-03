@@ -43,8 +43,8 @@ const PastAppointments = () => {
                         );
                     });
                     setAppointments(
-                        appts.filter(appt => appt.pending === false)
-                    );
+                        setAppointments(appts.filter(appt => appt.pending === true))
+                        );
                 });
         };
 
