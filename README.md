@@ -1,4 +1,13 @@
-# haircutUber
+# Ultimate Style
+
+DISCLAIMER: I do not own all of this code and anything attributed to me before December 3 2020 at 5:20 PM is not necessarrily mine.
+Authorship for code written before that date:
+James HE -> User frontend mechanics, general navigation bar, help with redux connection
+Eli Segovia -> General routes for backend, location services especially
+Corey Ellis -> Customer Reviews, general layout and design of reviews handling
+Dylan Furner -> stylist components, login/register, texasIds, 
+
+
 
 Source
 https://cloud.mongodb.com/v2/5f5ea857e59d5c55a72e081b#clusters
