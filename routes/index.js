@@ -59,6 +59,7 @@ export default app => {
     app.route('/api/stylists/register/').post(stylist.createStylist);
     app.route('/api/stylists/login/').post(stylist.stylistLogin);
     app.route('/api/stylists/services/:id/add').post(stylist.addService);
+    app.route('/api/stylists/postReview').post(stylist.postReview);
     app.route('/api/stylists/appointments/:id')
         .post(stylist.addAppointment)
         .get(stylist.getAppointments);

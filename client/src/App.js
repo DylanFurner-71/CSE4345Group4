@@ -40,8 +40,8 @@ function App() {
     return (
         <Provider store={store}>
             <div className='App'>
-                <Navigation />
                 <Router>
+                    <Navigation />
                     <Route exact path='/' component={Landing} />
                     <Route exact path='/home' component={Landing} />
                     <Route exact path='/login' component={Login} />
@@ -62,7 +62,7 @@ function App() {
                     />
                     <Switch>
                         {ROUTES.map((route, i) => (
-                            <PrivateRoute key={i} {...route} />
+                            <PrivateRoute exact key={i} {...route} />
                         ))}
                     </Switch>
                 </Router>

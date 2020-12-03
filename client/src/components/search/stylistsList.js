@@ -5,26 +5,24 @@ import StylistInfo from './stylistInfo';
 import Loading from '../loading';
 import SearchFilter from './searchFilter';
 import { Map } from './map';
+import base_url from '../../base_url';
 
 const StylistsList = () => {
-    const URL = 'http://localhost:8000/stylists/search';
+    const URL = `http://${base_url}:8000/api/stylists/search`;
     const [stylists, setStylists] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const query = useParams();
-    const types = query.types.split('&');
-    const queries = query.queries.split('&');
-    let params = {};
-    types.forEach((key, index) => (params[key] = queries[index]));
+    const queries = useParams();
 
     useEffect(() => {
         const getStylists = async () => {
             await axios
                 .get(URL, {
-                    params: params,
+                    params: queries,
                 })
                 .then(res => {
-                    setStylists(res.data.stylists);
+                    setStylists(res.data.returnedStylists);
+                    console.log(res.data.returnedStylists);
                     setIsLoading(false);
                     console.log('Stylists data fetched');
                 })
@@ -34,7 +32,7 @@ const StylistsList = () => {
     }, []);
 
     return (
-        <div className='h-100 align-items-center m-0 overflow-hidden'>
+        <div className='h-100 align-items-center m-0'>
             {isLoading ? (
                 <Loading />
             ) : stylists.length === 0 ? (
@@ -43,14 +41,11 @@ const StylistsList = () => {
                 </h1>
             ) : (
                 <div className='row'>
-                    <div className='col-2'>
-                        <SearchFilter
-                            types={query.types}
-                            queries={query.queries}
-                        />
+                    <div className='col-2 overflow-hidden'>
+                        <SearchFilter queries={queries} />
                     </div>
 
-                    <div className='p-0 border-left col-7'>
+                    <div className='p-0 border-left col-7 overflow-auto'>
                         <ul className='p-0 m-0'>
                             {stylists.map((stylist, index) => (
                                 <StylistInfo key={index} stylist={stylist} />
@@ -58,15 +53,17 @@ const StylistsList = () => {
                         </ul>
                     </div>
 
-                    <div className='col-3 p-2'>
+                    <div className='col-3 p-2 overflow-hidden'>
+                        {console.log(stylists)}
                         {stylists.length > 0 && (
                             <Map
-                                stylists={stylists.filter(
-                                    stylist => stylist.location
-                                )}
+                                // Object.keys(stylist.location).length !== 0
+                                stylists={stylists.filter(stylist => {
+                                    return stylist.hasOwnProperty('location');
+                                })}
                                 location={{
-                                    lat: 39.8283,
-                                    lng: -98.5795,
+                                    lat: 32.779167,
+                                    lng: -96.808891,
                                 }}
                             />
                         )}

@@ -213,6 +213,8 @@ export const addAppointment = async (req, res, next) => {
     }
 };
 
+
+
 //@desc          Search STylist by name
 //@route         GET /stylists/search?xxx
 //@access        Private
@@ -371,16 +373,16 @@ export const resetPassword = async (req, res, next) => {
     }
 };
 
-export const postReviews = async (req, res) => {
-    const stylistEmail = req.body.email;
+export const postReview = async (req, res) => {
+    let stylistId = req.body.id;
     let rev = {
         reviewerName: req.body.reviewerName,
         score: req.body.score,
         notes: req.body.notes,
     };
     try {
-        const currStylist = await Stylist.findOneAndUpdate(
-            { email: stylistEmail },
+        await Stylist.findOneAndUpdate(
+            { _id: stylistId },
             {
                 $push: {
                     reviews: {
@@ -393,15 +395,18 @@ export const postReviews = async (req, res) => {
                 $inc: { numReviews: 1 },
             }
         );
+        const currStylist = await Stylist.findById(stylistId);
+        console.log(currStylist);
 
-        var a = currStylist.reviewScores.reduce(function (a, b) {
+        var c = currStylist.reviewScores.reduce(function (a, b) {
             return a + b;
         }, 0);
 
-        a = a / currStylist.numReviews;
+        c = c / currStylist.reviewScores.length;
+        console.log(c);
         await Stylist.findOneAndUpdate(
-            { email: stylistEmail },
-            { $set: { average: Math.round(a) } }
+            { _id: stylistId },
+            { $set: { average: Math.round(c) } }
         );
 
         res.status(200).send('review posted');

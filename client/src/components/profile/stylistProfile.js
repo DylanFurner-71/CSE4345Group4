@@ -69,11 +69,13 @@ const StylistProfile = () => {
 
                                     <TabPanel>
                                         <Services
+                                            stylistId={stylistId.id}
                                             services={stylist.services}
                                         />
                                     </TabPanel>
                                     <TabPanel>
                                         <ReviewBox
+                                            stylistId={stylistId.id}
                                             stylist={stylist.firstName}
                                             average={stylist.average}
                                             reviews={stylist.reviews}

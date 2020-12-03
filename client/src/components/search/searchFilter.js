@@ -1,13 +1,13 @@
 import React from 'react';
 import RatingFilter from "../rating/ratingFilter";
 
-const SearchFilter = ({types, queries}) => {
+const SearchFilter = ({queries}) => {
     return (
         <div>
             <hr/>
             <div>
                 <h6 className="text-center">Avg. Customer Review</h6>
-                <RatingFilter types={types} queries={queries}/>
+                <RatingFilter queries={queries}/>
             </div>
         </div>
     );

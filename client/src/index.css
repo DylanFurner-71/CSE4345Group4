@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /*overflow: hidden;*/
 }
 
 code {
@@ -14,5 +15,4 @@ code {
 
 html, body, #root, .App {
   height: 100%;
-  margin-top: 1.5rem;
 }

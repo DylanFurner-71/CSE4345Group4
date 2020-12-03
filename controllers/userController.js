@@ -22,6 +22,8 @@ export const createUser = async (req, res, next) => {
         return next(new ErrorResponse('User already exists', 400));
     }
     try {
+	console.log("we are in the instance");
+	console.log(req);
         const newUser = await user.save();
         //create token
         const token = user.getSignedJwtToken();
@@ -86,6 +88,7 @@ export const userLogin = async (req, res, next) => {
         );
     }
     try {
+	console.log("Hello there.");
         const currUser = await User.findOne({ email }).select('+password');
         if (!currUser) {
             return next(new ErrorResponse('Invalid Credentials', 401));

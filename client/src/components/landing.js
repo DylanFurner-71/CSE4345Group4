@@ -1,25 +1,23 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import RegisterPopup from "./register/registerPopup";
+import {Button, Form, FormControl, Navbar} from "react-bootstrap";
 
 const Landing = () => {
     const [modalShow, setModalShow] = useState(false);
 
     return (
-        <div style={{ height: "75vh" }} className="container">
-            <div className="d-flex justify-content-center flex-column">
-                <img className="mx-auto" style={{ width: "100px", height: "100px"}} src={require("../UltimateStyle.png" )}/>
-                <h1 className="mx-auto">
-                    <b>Welcome</b> to Ultimate Style
+        <div className="h-100 text-center justify-content-center align-items-center landing">
+            <div className="">
+                <img className="mx-auto" style={{ width: "350px", height: "225px"}} src={require("../UltimateStyle.png" )}/>
+                {/*<h1 className="mx-auto">*/}
+                {/*    <b>Welcome</b> to Ultimate Style*/}
+                {/*</h1>*/}
+                <h1 className="mx-auto display-2 text-white">
+                    <b>REVIEW</b> AND <b>BOOK</b> STYLISTS MADE EASY
                 </h1>
-                <p className="mx-auto text-secondary">
-                    Review and book stylist made easy
-                </p>
-                <div className="mx-auto d-flex justify-content-center">
-                    <Link
-                        to="/login"
-                        className="btn btn-primary m-2"
-                    >Log In</Link>
+                <div className="mx-auto d-flex justify-content-center mt-lg-5">
+
                     {/*<Link*/}
                     {/*    to="/register"*/}
                     {/*    style={{*/}
@@ -30,7 +28,12 @@ const Landing = () => {
                     {/*    }}*/}
                     {/*    className="btn btn-large btn-flat waves-effect blue black-text m-2"*/}
                     {/*>Register</Link>*/}
-                    <button onClick={() => setModalShow(true)} className="btn btn-primary m-2">
+
+                    <Link
+                        to="/login"
+                        className="btn btn-light m-2"
+                    >Log In</Link>
+                    <button onClick={() => setModalShow(true)} className="btn btn-light m-2">
                         Register
                     </button>
                     <RegisterPopup
