@@ -26,8 +26,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8e476ec-e25f-4be8-b6da-605887600598" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/client/src/components/profile/reviewForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/navigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/navigation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/bookingPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/bookingPopup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/reviewBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/reviewBox.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/servicePopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/servicePopup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/services.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/services.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/profile/stylistProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/profile/stylistProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/stylistController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/stylistController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +109,17 @@
       <workItem from="1605060623820" duration="8196000" />
       <workItem from="1605109554789" duration="2536000" />
       <workItem from="1605139228700" duration="15657000" />
-      <workItem from="1605241324995" duration="5565000" />
+      <workItem from="1605241324995" duration="5901000" />
+      <workItem from="1605729494266" duration="32000" />
+      <workItem from="1605809850803" duration="8416000" />
+      <workItem from="1605823071916" duration="860000" />
+      <workItem from="1605901446793" duration="5073000" />
+      <workItem from="1605909741757" duration="15000" />
+      <workItem from="1605981866224" duration="9853000" />
+      <workItem from="1606143939106" duration="6020000" />
+      <workItem from="1606151838565" duration="679000" />
+      <workItem from="1606167380188" duration="2056000" />
+      <workItem from="1606244306523" duration="5068000" />
     </task>
     <servers />
   </component>
@@ -128,16 +146,21 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="370" y="450" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1604373999489" />
-    <state x="1062" y="391" key="FileChooserDialogImpl" timestamp="1605112091817">
+    <state x="1062" y="391" key="FileChooserDialogImpl" timestamp="1606080246729">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="531" y="190" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1604503563512" />
-    <state x="1061" y="455" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1603652520300" />
-    <state x="1062" y="391" key="FileChooserDialogImpl/3840.663.1280.680/0.0.2560.1400@0.0.2560.1400" timestamp="1605112091817" />
-    <state x="1583" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1604449626982">
+    <state x="531" y="190" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1605909754584" />
+    <state x="1061" y="455" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1605825212570" />
+    <state x="1062" y="391" key="FileChooserDialogImpl/3840.663.1280.680/0.0.2560.1400@0.0.2560.1400" timestamp="1606080246729" />
+    <state x="280" y="102" key="MultipleFileMergeDialog" timestamp="1605902545491">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="280" y="102" key="MultipleFileMergeDialog/0.0.1280.680@0.0.1280.680" timestamp="1605902545491" />
+    <state x="1583" y="320" width="672" height="678" key="search.everywhere.popup" timestamp="1606247689168">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1583" y="320" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1604449626982" />
+    <state x="608" y="155" width="672" height="330" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1605982741317" />
+    <state x="1583" y="320" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1606247689168" />
     <state x="1583" y="320" width="672" height="678" key="search.everywhere.popup/3840.663.1280.680/0.0.2560.1400@0.0.2560.1400" timestamp="1603413634367" />
   </component>
 </project>

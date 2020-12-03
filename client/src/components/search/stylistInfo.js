@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 const StylistInfo = ({stylist}) => {
 
     return (
-        <div className="container-fluid w-75 my-2">
+        <div className="container-fluid my-2">
             <Link to={`/stylist/stylistId=${stylist._id}`} style={{textDecoration: 'none'}}>
                 <hr/>
                 <div className="row">
